@@ -17,12 +17,20 @@ namespace OatMilk.Backend.Api.Controllers
 
         }
 
+        /// <summary>
+        /// Basic test endpoint.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("")]
         public ActionResult<bool> Ping()
         {
             return true;
         }
 
+        /// <summary>
+        /// Basic test endpoint. Requires user to be authenticated.
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpGet("auth")]
         public ActionResult<bool> PingAuth()

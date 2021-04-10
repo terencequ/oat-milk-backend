@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using OatMilk.Backend.Api.Configuration;
 using OatMilk.Backend.Api.Data;
+using OatMilk.Backend.Api.Data.AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,10 @@ namespace OatMilk.Backend.Api
             // Context
             var connectionString = Configuration.GetSection(ConnectionStringsOptions.ConnectionStrings).Get<ConnectionStringsOptions>().MainDatabase;
             services.AddDbContext<Context>(opt => opt.UseSqlServer(connectionString));
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            // AutoMapper
+            services.AddAutoMapper(typeof(UserProfile));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

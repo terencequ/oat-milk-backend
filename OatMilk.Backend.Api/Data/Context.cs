@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OatMilk.Backend.Api.Data.Entities;
+using OatMilk.Backend.Api.Data.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
