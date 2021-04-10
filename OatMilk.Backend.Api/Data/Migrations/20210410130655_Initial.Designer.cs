@@ -10,7 +10,7 @@ using OatMilk.Backend.Api.Data;
 namespace OatMilk.Backend.Api.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210410060628_Initial")]
+    [Migration("20210410130655_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,16 +21,16 @@ namespace OatMilk.Backend.Api.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.User", b =>
+            modelBuilder.Entity("OatMilk.Backend.Api.Data.Models.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedUtc")
+                    b.Property<DateTime?>("CreatedUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedUtc")
+                    b.Property<DateTime?>("DeletedUtc")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DisplayName")

@@ -69,7 +69,7 @@ namespace OatMilk.Backend.Api.Repositories
 
         public AuthTokenResponse Login(UserLoginRequest request)
         {
-            var user = _context.User.FirstOrDefault(user => request.Email == user.Email);
+            var user = _context.User.FirstOrDefault(user => request.Email.ToLower() == user.Email.ToLower());
             
             if(user == null) // Email check
             {
@@ -90,13 +90,15 @@ namespace OatMilk.Backend.Api.Repositories
 
         public AuthTokenResponse Register(UserRegisterRequest request)
         {
-            if(_context.User.Any(user => request.Email == user.Email))
+            if(_context.User.Any(user => request.Email.ToLower() == user.Email.ToLower()))
             {
                 throw new ArgumentException("User already exists.", nameof(request.Email));
             }
 
             // Create user
             var user = _mapper.Map<UserRegisterRequest, User>(request);
+            user.Email = user.Email.ToLower();
+            user.Password = SecurePasswordHasher.Hash(user.Password);
             user.CreatedUtc = DateTime.UtcNow;
 
             // Add user to database

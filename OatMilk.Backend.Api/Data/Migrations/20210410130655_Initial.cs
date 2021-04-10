@@ -15,8 +15,8 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedUtc = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
