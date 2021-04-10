@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OatMilk.Backend.Api.Controllers
+namespace OatMilk.Backend.Api.Controllers.Helpers
 {
     public class ExceptionHelper
     {

@@ -76,7 +76,7 @@ namespace OatMilk.Backend.Api.Repositories
                 throw new ArgumentException("User could not be found.", nameof(request.Email));
             }
 
-            if (SecurePasswordHasher.Verify(request.Password, user.Password)) // Password check
+            if (!SecurePasswordHasher.Verify(request.Password, user.Password)) // Password check
             {
                 throw new ArgumentException("User password is incorrect.", nameof(request.Password));
             }

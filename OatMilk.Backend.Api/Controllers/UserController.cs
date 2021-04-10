@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OatMilk.Backend.Api.Controllers.Helpers;
 using OatMilk.Backend.Api.Data.Models.Requests;
 using OatMilk.Backend.Api.Data.Models.Responses;
 using OatMilk.Backend.Api.Data.Models.Responses.Errors;
