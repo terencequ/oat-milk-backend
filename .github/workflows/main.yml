@@ -34,5 +34,5 @@ jobs:
             registry-username: ${{ secrets.REGISTRY_USERNAME }}
             registry-password: ${{ secrets.REGISTRY_PASSWORD }}
             name: oat-milk-backend
-            secure-environment-variables: ConnectionStrings__MainDatabase=${{ secrets.MAIN_DATABASE_CONNECTION_STRING }} Auth__UserTokenSecret=${{ secrets.USER_TOKEN_SECRET_AUTH }}
+            secure-environment-variables: ConnectionStrings__MainDatabase="${{ secrets.MAIN_DATABASE_CONNECTION_STRING }}" Auth__UserTokenSecret="${{ secrets.USER_TOKEN_SECRET_AUTH }}"
             location: 'australiaeast'
