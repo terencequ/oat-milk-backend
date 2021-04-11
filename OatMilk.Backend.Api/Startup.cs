@@ -1,15 +1,26 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OatMilk.Backend.Api.Configuration;
+using OatMilk.Backend.Api.Data;
+using OatMilk.Backend.Api.Data.AutoMapper;
+using OatMilk.Backend.Api.Repositories;
+using OatMilk.Backend.Api.Security;
+using OatMilk.Backend.Api.Security.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace OatMilk.Backend.Api
@@ -26,8 +37,51 @@ namespace OatMilk.Backend.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // AutoMapper
+            services.AddAutoMapper(typeof(UserProfile));
 
+            // Config
+            services.Configure<ConnectionStringsOptions>(Configuration.GetSection(ConnectionStringsOptions.ConnectionStrings));
+            services.Configure<AuthOptions>(Configuration.GetSection(AuthOptions.Auth));
+
+            // Context
+            var connectionString = Configuration.GetSection(ConnectionStringsOptions.ConnectionStrings).Get<ConnectionStringsOptions>().MainDatabase;
+            services.AddDbContext<Context>(opt => opt.UseSqlServer(connectionString));
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            // Repositories
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            // Auth
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = JWTHelper.GetTokenValidationParameters(Configuration);
+            });
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                    .RequireClaim(JWTClaimTypes.UserId)
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
+            services.AddTransient<IAuthorizationHandler, UserAuthorizationHandler>();
+
+            // CORS
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    });
+            });
+
+            // Controllers
             services.AddControllers();
+              
+            // Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OatMilk.Backend.Api", Version = "v1" });
@@ -48,6 +102,9 @@ namespace OatMilk.Backend.Api
 
             app.UseRouting();
 
+            app.UseCors();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
