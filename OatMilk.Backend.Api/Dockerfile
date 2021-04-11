@@ -8,8 +8,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["OatMilk.Backend.Api/OatMilk.Backend.Api.csproj", "OatMilk.Backend.Api/"]
-RUN dotnet restore "OatMilk.Backend.Api/OatMilk.Backend.Api.csproj"
-COPY . .
+# RUN dotnet restore "OatMilk.Backend.Api.csproj"
+COPY . . 
 WORKDIR "/src/OatMilk.Backend.Api"
 RUN dotnet build "OatMilk.Backend.Api.csproj" -c Release -o /app/build
 
