@@ -6,8 +6,8 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+      
 name: Linux_Container_Workflow
-
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
