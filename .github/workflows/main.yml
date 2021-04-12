@@ -1,5 +1,11 @@
-on: [push]
-name: Linux_Container_Workflow
+name: Azure Static Web Apps CI/CD
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
     build-and-deploy:
