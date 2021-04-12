@@ -39,6 +39,7 @@ jobs:
             registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
             registry-username: ${{ secrets.REGISTRY_USERNAME }}
             registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+            memory: 0.8
             name: oat-milk-backend
             secure-environment-variables: ConnectionStrings__MainDatabase="${{ secrets.MAIN_DATABASE_CONNECTION_STRING }}" Auth__UserTokenSecret="${{ secrets.USER_TOKEN_SECRET_AUTH }}"
             location: 'australiaeast'
