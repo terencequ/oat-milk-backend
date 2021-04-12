@@ -1,3 +1,4 @@
+name: Azure Container Instances CI/CD
 on:
   push:
     branches:
@@ -5,8 +6,7 @@ on:
   pull_request:
     branches:
       - main
-      
-name: Linux_Container_Workflow
+
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
