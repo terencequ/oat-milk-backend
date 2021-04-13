@@ -1,4 +1,4 @@
-name: Azure Container Instances CI/CD
+name: Docker Hub build and deploy
 on:
   push:
     branches:
