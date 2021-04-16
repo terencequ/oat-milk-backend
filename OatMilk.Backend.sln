@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OatMilk.Backend.Api", "OatMilk.Backend.Api\OatMilk.Backend.Api.csproj", "{B318DDF5-CBDB-4A59-848A-6C454710F180}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OatMilk.Backend.Api", "OatMilk.Backend.Api\OatMilk.Backend.Api.csproj", "{B318DDF5-CBDB-4A59-848A-6C454710F180}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OatMilk.Backend.Api.Tests", "OatMilk.Backend.Api.Tests\OatMilk.Backend.Api.Tests.csproj", "{ED55FECF-791F-4E51-B98B-94FC170AE322}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B318DDF5-CBDB-4A59-848A-6C454710F180}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B318DDF5-CBDB-4A59-848A-6C454710F180}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B318DDF5-CBDB-4A59-848A-6C454710F180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED55FECF-791F-4E51-B98B-94FC170AE322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED55FECF-791F-4E51-B98B-94FC170AE322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED55FECF-791F-4E51-B98B-94FC170AE322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED55FECF-791F-4E51-B98B-94FC170AE322}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
