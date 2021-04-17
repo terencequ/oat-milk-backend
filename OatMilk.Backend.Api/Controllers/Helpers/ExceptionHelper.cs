@@ -1,20 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OatMilk.Backend.Api.Data.Models.Enums;
-using OatMilk.Backend.Api.Data.Models.Responses.Errors;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using OatMilk.Backend.Api.Data.Models.Responses;
 
 namespace OatMilk.Backend.Api.Controllers.Helpers
 {
-    public class ExceptionHelper
+    public static class ExceptionHelper
     {
         public static ActionResult ConvertExceptionToResult(Exception exception)
         {
-            if (exception is ArgumentException)
+            if (exception is ArgumentException argumentException)
             {
-                var argumentException = (ArgumentException)exception;
                 return new BadRequestObjectResult(new ArgumentErrorResponse()
                 {
                     ErrorType = ErrorType.ArgumentError,

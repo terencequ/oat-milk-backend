@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using OatMilk.Backend.Api.Controllers.Helpers;
 using OatMilk.Backend.Api.Data.Models.Requests;
 using OatMilk.Backend.Api.Data.Models.Responses;
-using OatMilk.Backend.Api.Data.Models.Responses.Errors;
 using OatMilk.Backend.Api.Repositories;
 using OatMilk.Backend.Api.Security;
 using System;

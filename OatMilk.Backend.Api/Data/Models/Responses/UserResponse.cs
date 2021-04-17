@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace OatMilk.Backend.Api.Data.Models.Responses
 {
+    /// <summary>
+    /// User DTO.
+    /// Passed as a response when a user's details are requested.
+    /// </summary>
     public class UserResponse
     {
         public Guid Id { get; set; }
