@@ -38,11 +38,11 @@ namespace OatMilk.Backend.Api.Controllers
             try
             {
                 return _userRepository.Login(request);
-            } catch (ArgumentException exception)
+            }
+            catch (ArgumentException exception)
             {
                 return ExceptionHelper.ConvertExceptionToResult(exception);
             }
-            
         }
 
         /// <summary>

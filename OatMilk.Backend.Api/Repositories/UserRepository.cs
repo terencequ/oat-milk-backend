@@ -3,9 +3,7 @@ using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Data.Models.Requests;
 using OatMilk.Backend.Api.Data.Models.Responses;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using OatMilk.Backend.Api.Security;
 using Microsoft.Extensions.Configuration;
 using OatMilk.Backend.Api.Data.Models.Entities;
@@ -58,7 +56,7 @@ namespace OatMilk.Backend.Api.Repositories
 
         public UserResponse GetUser(Guid userId)
         {
-            var user = _context.User.FirstOrDefault(user => userId == user.Id);
+            var user = _context.User.FirstOrDefault(u => userId == u.Id);
             if (user == null) // Email check
             {
                 throw new ArgumentException("User could not be found.", nameof(userId));
@@ -69,7 +67,7 @@ namespace OatMilk.Backend.Api.Repositories
 
         public AuthTokenResponse Login(UserLoginRequest request)
         {
-            var user = _context.User.FirstOrDefault(user => request.Email.ToLower() == user.Email.ToLower());
+            var user = _context.User.FirstOrDefault(u => String.Equals(request.Email, u.Email, StringComparison.CurrentCultureIgnoreCase));
             
             if(user == null) // Email check
             {
@@ -90,7 +88,7 @@ namespace OatMilk.Backend.Api.Repositories
 
         public AuthTokenResponse Register(UserRegisterRequest request)
         {
-            if(_context.User.Any(user => request.Email.ToLower() == user.Email.ToLower()))
+            if(_context.User.Any(u => string.Equals(request.Email, u.Email, StringComparison.CurrentCultureIgnoreCase)))
             {
                 throw new ArgumentException("User already exists.", nameof(request.Email));
             }
