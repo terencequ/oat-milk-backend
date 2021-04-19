@@ -73,8 +73,8 @@ namespace OatMilk.Backend.Api.Tests.Repositories
         [Test]
         public void Login_Valid_ShouldReturnJWT()
         {
-            var expectedEmail = "test@test.com";
-            var expectedPassword = "Password12";
+            const string expectedEmail = "test@test.com";
+            const string expectedPassword = "Password12";
             
             var sut = new Fixture(
                     new User()
@@ -116,7 +116,7 @@ namespace OatMilk.Backend.Api.Tests.Repositories
         [Test]
         public void Login_InvalidPassword_ShouldThrowArgumentExceptionWithPasswordParamName()
         {
-            var expectedEmail = "test@test.com";
+            const string expectedEmail = "test@test.com";
             var sut = new Fixture(new User(){ Id=Guid.NewGuid(), Email = expectedEmail, Password = SecurePasswordHasher.Hash("wrong")})
                 .GetSut();
             var exception = Assert.Throws<ArgumentException>(()=> sut.Login(
@@ -126,6 +126,61 @@ namespace OatMilk.Backend.Api.Tests.Repositories
                     Password = SecurePasswordHasher.Hash("wrongpassword")
                 }));
             Assert.AreEqual("Password", exception.ParamName);
+        }
+        
+        [Test]
+        public void Register_Valid_ShouldReturnJWT()
+        {
+            const string expectedDisplayName = "test123";
+            const string expectedEmail = "test@test.com";
+            const string expectedPassword = "Password12";
+            
+            var sut = new Fixture().GetSut();
+            var result = sut.Register(
+                new UserRegisterRequest()
+                {
+                    DisplayName = expectedDisplayName,
+                    Email = expectedEmail, 
+                    Password = expectedPassword
+                });
+            Assert.NotNull(result.AuthToken);
+        }
+        
+        [Test]
+        public void Register_EmailAlreadyExists_ShouldThrowArgumentExceptionWithEmailParamName()
+        {
+            const string expectedDisplayName = "test123";
+            const string expectedEmail = "test@test.com";
+            const string expectedPassword = "Password12";
+            
+            var sut = new Fixture(new User(){Id = Guid.NewGuid(), Email = expectedEmail, Password = "test123456778"}).GetSut();
+
+            var exception = Assert.Throws<ArgumentException>(() => sut.Register(
+                new UserRegisterRequest()
+                {
+                    DisplayName = expectedDisplayName,
+                    Email = expectedEmail, 
+                    Password = expectedPassword
+                }));
+            
+            Assert.AreEqual("Email", exception.ParamName);
+        }
+
+        [Test]
+        public void UserExistsById_UserExists_ShouldReturnTrue()
+        {
+            var expectedId = Guid.NewGuid();
+            var sut = new Fixture(new User(){Id = expectedId}).GetSut();
+            var result = sut.UserExistsById(expectedId);
+            Assert.IsTrue(result);
+        }
+        
+        [Test]
+        public void UserExistsById_UserDoesntExists_ShouldReturnFalse()
+        {
+            var sut = new Fixture(new User(){Id = Guid.NewGuid()}).GetSut();
+            var result = sut.UserExistsById(Guid.NewGuid());
+            Assert.IsFalse(result);
         }
     }
 }
