@@ -18,7 +18,7 @@ namespace OatMilk.Backend.Api.Tests.Repositories
     [TestFixture]
     public class UserRepositoryTests
     {
-        private class Fixture : IFixture<UserRepository>
+        private class Fixture
         {
             private readonly IConfiguration _configuration;
             private readonly IMapper _mapper;
@@ -51,6 +51,8 @@ namespace OatMilk.Backend.Api.Tests.Repositories
             }
         }
         
+        #region GetUser
+
         [Test]
         public void GetUser_ValidId_ShouldReturnUserProfile()
         {
@@ -69,6 +71,10 @@ namespace OatMilk.Backend.Api.Tests.Repositories
                 .GetSut();
             Assert.Throws<ArgumentException>(()=> sut.GetUser(Guid.NewGuid()));
         }
+
+        #endregion
+
+        #region Login
 
         [Test]
         public void Login_Valid_ShouldReturnJWT()
@@ -128,6 +134,10 @@ namespace OatMilk.Backend.Api.Tests.Repositories
             Assert.AreEqual("Password", exception.ParamName);
         }
         
+        #endregion
+
+        #region Register
+
         [Test]
         public void Register_Valid_ShouldReturnJWT()
         {
@@ -166,6 +176,10 @@ namespace OatMilk.Backend.Api.Tests.Repositories
             Assert.AreEqual("Email", exception.ParamName);
         }
 
+        #endregion
+
+        #region UserExistsById
+
         [Test]
         public void UserExistsById_UserExists_ShouldReturnTrue()
         {
@@ -182,5 +196,7 @@ namespace OatMilk.Backend.Api.Tests.Repositories
             var result = sut.UserExistsById(Guid.NewGuid());
             Assert.IsFalse(result);
         }
+        
+        #endregion
     }
 }
