@@ -4,11 +4,13 @@ using OatMilk.Backend.Api.Data.Models.Requests;
 using OatMilk.Backend.Api.Data.Models.Responses;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using OatMilk.Backend.Api.Security;
 using Microsoft.Extensions.Configuration;
 using OatMilk.Backend.Api.Data.Models.Entities;
+using OatMilk.Backend.Api.Repositories;
 
-namespace OatMilk.Backend.Api.Repositories
+namespace OatMilk.Backend.Api.Services
 {
     public interface IUserRepository
     {
@@ -31,7 +33,7 @@ namespace OatMilk.Backend.Api.Repositories
         /// </summary>
         /// <param name="request"></param>
         /// <returns>Auth JWT to use for other endpoints.</returns>
-        AuthTokenResponse Register(UserRegisterRequest request);
+        Task<AuthTokenResponse> Register(UserRegisterRequest request);
 
         /// <summary>
         /// Check if a user of id <paramref name="userId"/> exists.
@@ -44,19 +46,19 @@ namespace OatMilk.Backend.Api.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly IConfiguration _configuration;
-        private readonly Context _context;
+        private readonly IRepository<User> _repository;
         private readonly IMapper _mapper;
 
-        public UserRepository(IConfiguration configuration, Context context, IMapper mapper)
+        public UserRepository(IConfiguration configuration, IRepository<User> repository, IMapper mapper)
         {
             _configuration = configuration;
-            _context = context;
+            _repository = repository;
             _mapper = mapper;
         }
 
         public UserResponse GetUser(Guid userId)
         {
-            var user = _context.User.FirstOrDefault(u => userId == u.Id);
+            var user = _repository.Get().FirstOrDefault(u => userId == u.Id);
             if (user == null) // Email check
             {
                 throw new ArgumentException("User could not be found.", nameof(userId));
@@ -67,7 +69,7 @@ namespace OatMilk.Backend.Api.Repositories
 
         public AuthTokenResponse Login(UserLoginRequest request)
         {
-            var user = _context.User.FirstOrDefault(u => String.Equals(request.Email, u.Email, StringComparison.CurrentCultureIgnoreCase));
+            var user = _repository.Get().FirstOrDefault(u => String.Equals(request.Email, u.Email, StringComparison.CurrentCultureIgnoreCase));
             
             if(user == null) // Email check
             {
@@ -86,9 +88,9 @@ namespace OatMilk.Backend.Api.Repositories
             };
         }
 
-        public AuthTokenResponse Register(UserRegisterRequest request)
+        public async Task<AuthTokenResponse> Register(UserRegisterRequest request)
         {
-            if(_context.User.Any(u => string.Equals(request.Email, u.Email, StringComparison.CurrentCultureIgnoreCase)))
+            if(_repository.Get().Any(u => string.Equals(request.Email, u.Email, StringComparison.CurrentCultureIgnoreCase)))
             {
                 throw new ArgumentException("User already exists.", nameof(request.Email));
             }
@@ -100,8 +102,8 @@ namespace OatMilk.Backend.Api.Repositories
             user.CreatedUtc = DateTime.UtcNow;
 
             // Add user to database
-            _context.Add(user);
-            _context.SaveChanges();
+            _repository.Add(user);
+            await _repository.SaveAsync();
 
             // Create token for user
             return new AuthTokenResponse()
@@ -112,7 +114,7 @@ namespace OatMilk.Backend.Api.Repositories
 
         public bool UserExistsById(Guid userId)
         {
-            return _context.User.Any(user => user.Id == userId);
+            return _repository.Get().Any(user => user.Id == userId);
         }
     }
 }

@@ -14,7 +14,7 @@ using Microsoft.OpenApi.Models;
 using OatMilk.Backend.Api.Configuration;
 using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Data.AutoMapper;
-using OatMilk.Backend.Api.Repositories;
+using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Security;
 using OatMilk.Backend.Api.Security.Handlers;
 using System;

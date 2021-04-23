@@ -5,10 +5,11 @@ using Microsoft.Extensions.Logging;
 using OatMilk.Backend.Api.Controllers.Helpers;
 using OatMilk.Backend.Api.Data.Models.Requests;
 using OatMilk.Backend.Api.Data.Models.Responses;
-using OatMilk.Backend.Api.Repositories;
+using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Security;
 using System;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace OatMilk.Backend.Api.Controllers
 {
@@ -54,11 +55,11 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpPost("register")]
         [ProducesResponseType(typeof(AuthTokenResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ArgumentErrorResponse), StatusCodes.Status400BadRequest)]
-        public ActionResult<AuthTokenResponse> Register([FromBody] UserRegisterRequest request)
+        public async Task<ActionResult<AuthTokenResponse>> Register([FromBody] UserRegisterRequest request)
         {
             try
             {
-                return _userRepository.Register(request);
+                return await _userRepository.Register(request);
             }
             catch (Exception exception)
             {

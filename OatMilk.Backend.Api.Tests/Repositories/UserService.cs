@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +10,7 @@ using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Data.AutoMapper;
 using OatMilk.Backend.Api.Data.Models.Entities;
 using OatMilk.Backend.Api.Data.Models.Requests;
-using OatMilk.Backend.Api.Repositories;
+using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Security;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
 
@@ -18,36 +19,13 @@ namespace OatMilk.Backend.Api.Tests.Repositories
     [TestFixture]
     public class UserRepositoryTests
     {
-        private class Fixture
+        private class Fixture : RepositoryFixture<User>
         {
-            private readonly IConfiguration _configuration;
-            private readonly IMapper _mapper;
-            private readonly Mock<Context> _mockContext;
-            
-            public Fixture(params User[] users)
-            {
-                _configuration = new ConfigurationBuilder().AddInMemoryCollection(new[]
-                {
-                    new KeyValuePair<string, string>("Auth:UserTokenSecret", "this is a test secret key")
-                }).Build();
-                
-                _mockContext = new Mock<Context>();
-                _mockContext
-                    .Setup(c => c.User)
-                    .ReturnsDbSet(users);
-
-                _mapper = new MapperConfiguration(config => config.AddProfile<UserProfile>())
-                    .CreateMapper();
-            }
+            public Fixture(params User[] users) : base(users) { }
             
             public UserRepository GetSut()
             {
-                return new UserRepository(_configuration, _mockContext.Object, _mapper);
-            }
-
-            public Mock<Context> GetMockContext()
-            {
-                return _mockContext;
+                return new(Configuration, MockRepository.Object, Mapper);
             }
         }
         
@@ -139,14 +117,14 @@ namespace OatMilk.Backend.Api.Tests.Repositories
         #region Register
 
         [Test]
-        public void Register_Valid_ShouldReturnJWT()
+        public async Task Register_Valid_ShouldReturnJWT()
         {
             const string expectedDisplayName = "test123";
             const string expectedEmail = "test@test.com";
             const string expectedPassword = "Password12";
             
             var sut = new Fixture().GetSut();
-            var result = sut.Register(
+            var result = await sut.Register(
                 new UserRegisterRequest()
                 {
                     DisplayName = expectedDisplayName,
@@ -165,7 +143,7 @@ namespace OatMilk.Backend.Api.Tests.Repositories
             
             var sut = new Fixture(new User(){Id = Guid.NewGuid(), Email = expectedEmail, Password = "test123456778"}).GetSut();
 
-            var exception = Assert.Throws<ArgumentException>(() => sut.Register(
+            var exception = Assert.ThrowsAsync<ArgumentException>(async () => await sut.Register(
                 new UserRegisterRequest()
                 {
                     DisplayName = expectedDisplayName,

@@ -43,7 +43,7 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers
             this IReturns<TContext, DbSet<TEntity>> setup,
             TEntity[] entities)
             where TEntity : class
-            where TContext : DbContext
+            where TContext : class
         {
             var mockSet = CreateMockSet(entities.AsQueryable());
             return setup.Returns(mockSet.Object);
@@ -61,7 +61,7 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers
             this IReturns<TContext, DbSet<TEntity>> setup,
             IQueryable<TEntity> entities)
             where TEntity : class
-            where TContext : DbContext
+            where TContext : class
         {
             var mockSet = CreateMockSet(entities);
             return setup.Returns(mockSet.Object);
@@ -79,7 +79,7 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers
             this IReturns<TContext, DbSet<TEntity>> setup,
             IEnumerable<TEntity> entities)
             where TEntity : class
-            where TContext : DbContext
+            where TContext : class
         {
             var mockSet = CreateMockSet(entities.AsQueryable());
             return setup.Returns(mockSet.Object);
