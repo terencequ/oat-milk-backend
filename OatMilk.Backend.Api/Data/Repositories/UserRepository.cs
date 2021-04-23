@@ -1,32 +1,19 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Data.Models.Entities;
 
-namespace OatMilk.Backend.Api.Repositories
+namespace OatMilk.Backend.Api.Data.Repositories
 {
-    public interface IRepository<TEntity> where TEntity :class
-    {
-        Task<TEntity> FindAsync(params object[] keyValues);
-        
-        IQueryable<TEntity> Get();
-
-        void Add(TEntity entity);
-        
-        Task SaveAsync();
-    }
-
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class UserRepository : IRepository<User>
     {
         private readonly Context _context;
-        private readonly DbSet<TEntity> _dbSet;
-        
-        public Repository(Context context)
+        private readonly DbSet<User> _dbSet;
+
+        public UserRepository(Context context)
         {
             _context = context;
-            _dbSet = context.GetDbSet<TEntity>();
+            _dbSet = context.GetDbSet<User>();
         }
 
         /// <summary>
@@ -35,17 +22,17 @@ namespace OatMilk.Backend.Api.Repositories
         /// </summary>
         /// <param name="keyValues"></param>
         /// <returns></returns>
-        public async Task<TEntity> FindAsync(params object[] keyValues)
+        public async Task<User> FindAsync(params object[] keyValues)
         {
             return await _dbSet.FindAsync(keyValues);
         }
-        
+
         /// <summary>
         /// Retrieve values as a queryable.
         /// Calls DbSet AsQueryable.
         /// </summary>
         /// <returns></returns>
-        public IQueryable<TEntity> Get()
+        public IQueryable<User> Get()
         {
             return _dbSet.AsQueryable();
         }
@@ -55,11 +42,11 @@ namespace OatMilk.Backend.Api.Repositories
         /// Calls DbSet Add.
         /// </summary>
         /// <param name="entity"></param>
-        public void Add(TEntity entity)
+        public void Add(User entity)
         {
             _dbSet.Add(entity);
         }
-        
+
         /// <summary>
         /// Save changes made to the context.
         /// Calls DbContext SaveChangesAsync.

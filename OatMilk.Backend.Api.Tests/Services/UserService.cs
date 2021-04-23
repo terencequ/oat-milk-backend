@@ -23,7 +23,7 @@ namespace OatMilk.Backend.Api.Tests.Repositories
         {
             public Fixture(params User[] users) : base(users) { }
             
-            public UserRepository GetSut()
+            public UserService GetSut()
             {
                 return new(Configuration, MockRepository.Object, Mapper);
             }

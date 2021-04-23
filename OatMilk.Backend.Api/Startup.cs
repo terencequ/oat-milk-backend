@@ -22,6 +22,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OatMilk.Backend.Api.Data.Models.Entities;
+using OatMilk.Backend.Api.Data.Repositories;
 
 namespace OatMilk.Backend.Api
 {
@@ -50,8 +52,11 @@ namespace OatMilk.Backend.Api
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             // Repositories
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRepository<User>, UserRepository>();
 
+            // Services
+            services.AddScoped<IUserService, UserService>();
+            
             // Auth
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

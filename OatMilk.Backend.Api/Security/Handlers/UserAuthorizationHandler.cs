@@ -9,18 +9,18 @@ namespace OatMilk.Backend.Api.Security.Handlers
 {
     public class UserAuthorizationHandler : AuthorizationHandler<UserAuthorizationRequirement>
     {
-        private IUserRepository _userRepository;
+        private IUserService _userService;
 
-        public UserAuthorizationHandler(IUserRepository userRepository)
+        public UserAuthorizationHandler(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, UserAuthorizationRequirement requirement)
         {
             bool ValidUserIdPredicate(Claim c)
             {
-                return c.Type == JWTClaimTypes.UserId && _userRepository.UserExistsById(Guid.Parse(c.Value));
+                return c.Type == JWTClaimTypes.UserId && _userService.UserExistsById(Guid.Parse(c.Value));
             }
 
             if (context.User.HasClaim(ValidUserIdPredicate))

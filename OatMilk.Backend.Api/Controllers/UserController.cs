@@ -18,11 +18,11 @@ namespace OatMilk.Backend.Api.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace OatMilk.Backend.Api.Controllers
         {
             try
             {
-                return _userRepository.Login(request);
+                return _userService.Login(request);
             }
             catch (ArgumentException exception)
             {
@@ -59,7 +59,7 @@ namespace OatMilk.Backend.Api.Controllers
         {
             try
             {
-                return await _userRepository.Register(request);
+                return await _userService.Register(request);
             }
             catch (Exception exception)
             {
@@ -80,7 +80,7 @@ namespace OatMilk.Backend.Api.Controllers
             try
             {
                 var identity = HttpContext.User.Identity as ClaimsIdentity;
-                return _userRepository.GetUser(identity.GetUserId());
+                return _userService.GetUser(identity.GetUserId());
             }
             catch (Exception exception)
             {
@@ -101,7 +101,7 @@ namespace OatMilk.Backend.Api.Controllers
         {
             try
             {
-                return _userRepository.UserExistsById(userId);
+                return _userService.UserExistsById(userId);
             }
             catch (Exception exception)
             {

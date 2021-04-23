@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using OatMilk.Backend.Api.Security;
 using Microsoft.Extensions.Configuration;
 using OatMilk.Backend.Api.Data.Models.Entities;
-using OatMilk.Backend.Api.Repositories;
+using OatMilk.Backend.Api.Data.Repositories;
 
 namespace OatMilk.Backend.Api.Services
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         /// <summary>
         /// Get user profile.
@@ -43,13 +43,13 @@ namespace OatMilk.Backend.Api.Services
         bool UserExistsById(Guid userId);
     }
 
-    public class UserRepository : IUserRepository
+    public class UserService : IUserService
     {
         private readonly IConfiguration _configuration;
         private readonly IRepository<User> _repository;
         private readonly IMapper _mapper;
 
-        public UserRepository(IConfiguration configuration, IRepository<User> repository, IMapper mapper)
+        public UserService(IConfiguration configuration, IRepository<User> repository, IMapper mapper)
         {
             _configuration = configuration;
             _repository = repository;
@@ -69,7 +69,7 @@ namespace OatMilk.Backend.Api.Services
 
         public AuthTokenResponse Login(UserLoginRequest request)
         {
-            var user = _repository.Get().FirstOrDefault(u => String.Equals(request.Email, u.Email, StringComparison.CurrentCultureIgnoreCase));
+            var user = _repository.Get().FirstOrDefault(u => request.Email.ToLower() == u.Email.ToLower());
             
             if(user == null) // Email check
             {
@@ -90,7 +90,7 @@ namespace OatMilk.Backend.Api.Services
 
         public async Task<AuthTokenResponse> Register(UserRegisterRequest request)
         {
-            if(_repository.Get().Any(u => string.Equals(request.Email, u.Email, StringComparison.CurrentCultureIgnoreCase)))
+            if(_repository.Get().Any(u => request.Email.ToLower() == u.Email.ToLower()))
             {
                 throw new ArgumentException("User already exists.", nameof(request.Email));
             }
