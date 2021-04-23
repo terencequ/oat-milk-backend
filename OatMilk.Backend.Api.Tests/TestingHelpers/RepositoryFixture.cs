@@ -6,6 +6,7 @@ using MockQueryable.Moq;
 using Moq;
 using OatMilk.Backend.Api.Data.AutoMapper;
 using OatMilk.Backend.Api.Data.Repositories;
+using OatMilk.Backend.Api.Data.Repositories.Abstraction;
 
 namespace OatMilk.Backend.Api.Tests.TestingHelpers
 {

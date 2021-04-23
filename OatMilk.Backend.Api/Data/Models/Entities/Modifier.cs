@@ -1,14 +1,17 @@
-﻿using OatMilk.Backend.Api.Data.Models.Enums;
+﻿using System;
+using OatMilk.Backend.Api.Data.Models.Enums;
 
 namespace OatMilk.Backend.Api.Data.Models.Entities
 {
     public class Modifier
     {
+        public Guid Id { get; set; }
+        
         /// <summary>
         /// Parent effect of this Modifier.
         /// </summary>
         public Effect Effect { get; set; }
-        
+
         /// <summary>
         /// Path that points to an attribute (i.e. Hit points).
         /// </summary>

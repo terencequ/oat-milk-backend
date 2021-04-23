@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using OatMilk.Backend.Api.Data.Models.Enums;
 
 namespace OatMilk.Backend.Api.Data.Models.Entities
 {
     public class Effect
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public User User { get; set; }
         public int Duration { get; set; }

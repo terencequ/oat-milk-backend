@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Moq;
 using NUnit.Framework;
-using OatMilk.Backend.Api.Data;
-using OatMilk.Backend.Api.Data.AutoMapper;
 using OatMilk.Backend.Api.Data.Models.Entities;
 using OatMilk.Backend.Api.Data.Models.Requests;
-using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Security;
+using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
 
-namespace OatMilk.Backend.Api.Tests.Repositories
+namespace OatMilk.Backend.Api.Tests.Services
 {
     [TestFixture]
     public class UserRepositoryTests

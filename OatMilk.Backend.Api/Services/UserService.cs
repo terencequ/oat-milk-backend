@@ -9,6 +9,7 @@ using OatMilk.Backend.Api.Security;
 using Microsoft.Extensions.Configuration;
 using OatMilk.Backend.Api.Data.Models.Entities;
 using OatMilk.Backend.Api.Data.Repositories;
+using OatMilk.Backend.Api.Data.Repositories.Abstraction;
 
 namespace OatMilk.Backend.Api.Services
 {
