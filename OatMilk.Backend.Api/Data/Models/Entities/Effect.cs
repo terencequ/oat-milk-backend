@@ -29,7 +29,7 @@ namespace OatMilk.Backend.Api.Data.Models.Entities
         /// <summary>
         /// Abilities associated with this effect.
         /// </summary>
-        public IEnumerable<Ability> Abilities { get; set; }
+        public IEnumerable<AbilityEffect> AbilityEffects { get; set; }
 
         /// <summary>
         /// Return duration type.
