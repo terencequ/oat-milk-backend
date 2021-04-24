@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Data.Entities
 {
-    public class Ability : AbstractUserEntity
+    public class Ability : UserEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

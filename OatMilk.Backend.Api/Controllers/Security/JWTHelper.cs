@@ -66,15 +66,16 @@ namespace OatMilk.Backend.Api.Controllers.Security
         /// </summary>
         /// <param name="identity">ClaimsIdentity from a JWT.</param>
         /// <returns></returns>
-        public static Guid GetUserId(this ClaimsIdentity identity)
+        public static Guid? GetUserIdOrDefault(this ClaimsIdentity identity)
         {
             if (identity != null)
             {
                 if(Guid.TryParse(identity.FindFirst(JWTClaimTypes.UserId)?.Value, out var userId))
                 {
                     return userId;
-                } else {
-                    throw new ArgumentException(nameof(identity), $"Identity is invalid, User Id is either null or cannot be parsed as Guid.");
+                } else
+                {
+                    return null;
                 }
             }
             else

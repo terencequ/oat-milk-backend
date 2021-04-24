@@ -6,6 +6,6 @@ namespace OatMilk.Backend.Api.Services.Abstraction
 {
     public interface IAbilityService
     {
-        Task<Guid> CreateAbilityForUser(AbilityRequest request);
+        Task<Guid> CreateAbility(AbilityRequest request);
     }
 }

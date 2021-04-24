@@ -27,7 +27,7 @@ namespace OatMilk.Backend.Api.Controllers
         {
             try
             {
-                return await _service.CreateAbilityForUser(request);
+                return await _service.CreateAbility(request);
             }
             catch (ArgumentException exception)
             {

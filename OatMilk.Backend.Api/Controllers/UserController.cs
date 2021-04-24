@@ -81,7 +81,7 @@ namespace OatMilk.Backend.Api.Controllers
             try
             {
                 var identity = HttpContext.User.Identity as ClaimsIdentity;
-                return _userService.GetUser(identity.GetUserId());
+                return _userService.GetUser(identity.GetUserIdOrDefault().GetValueOrDefault());
             }
             catch (Exception exception)
             {

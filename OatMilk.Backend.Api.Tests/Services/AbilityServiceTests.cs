@@ -21,13 +21,13 @@ namespace OatMilk.Backend.Api.Tests.Services
             }
         }
         
-        #region CreateAbilityForUser
+        #region CraeteAbility
 
         [Test]
         public async Task CreateAbilityForUser_ValidParameters_ShouldReturnGuid()
         {
             var service = new Fixture().GetSut();
-            var result = await service.CreateAbilityForUser(new AbilityRequest()
+            var result = await service.CreateAbility(new AbilityRequest()
             {
                 Name = "test name"
             });
@@ -42,7 +42,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             var service = new Fixture(new Ability(){ Name = duplicateName }).GetSut();
             Assert.ThrowsAsync<ArgumentException>(async () =>
             {
-                await service.CreateAbilityForUser(new AbilityRequest()
+                await service.CreateAbility(new AbilityRequest()
                 {
                     Name = duplicateName
                 });

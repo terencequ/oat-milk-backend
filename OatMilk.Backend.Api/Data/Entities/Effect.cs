@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using OatMilk.Backend.Api.Data.Entities.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Enums;
 
 namespace OatMilk.Backend.Api.Data.Entities
 {
-    public class Effect : AbstractUserEntity
+    public class Effect : UserEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

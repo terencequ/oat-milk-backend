@@ -2,11 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;
+using OatMilk.Backend.Api.Services.Models.Responses;
 
 namespace OatMilk.Backend.Api.Services
 {
@@ -24,12 +26,12 @@ namespace OatMilk.Backend.Api.Services
         }
         
         /// <summary>
-        /// Create ability for user.
+        /// Create ability for current user.
         /// </summary>
         /// <param name="request"></param>
-        /// <returns></returns>
+        /// <returns>Guid of newly created ability.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public async Task<Guid> CreateAbilityForUser(AbilityRequest request)
+        public async Task<Guid> CreateAbility(AbilityRequest request)
         {
             // Check for duplicate name
             if(_repository.Get().Any(a => a.Name == request.Name))
@@ -43,6 +45,16 @@ namespace OatMilk.Backend.Api.Services
             await _repository.SaveAsync();
             
             return entity.Id;
+        }
+
+        /// <summary>
+        /// Get single ability for current user.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public async Task<AbilityResponse> GetAbility([FromRoute] string name)
+        {
+            return new AbilityResponse();
         }
     }
 }

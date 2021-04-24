@@ -5,9 +5,9 @@ using OatMilk.Backend.Api.Repositories.Abstraction;
 
 namespace OatMilk.Backend.Api.Repositories
 {
-    public class UserRepository : BasicRepository<User>
+    public class UserRepository : EntityRepository<User>
     {
-        public UserRepository(Context context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+        public UserRepository(Context context) : base(context)
         {
         }
     }

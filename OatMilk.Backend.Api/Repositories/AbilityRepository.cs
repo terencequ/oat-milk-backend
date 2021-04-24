@@ -5,7 +5,7 @@ using OatMilk.Backend.Api.Repositories.Abstraction;
 
 namespace OatMilk.Backend.Api.Repositories
 {
-    public class AbilityRepository: BasicRepository<Ability>
+    public class AbilityRepository: UserEntityRepository<Ability>
     {
         public AbilityRepository(Context context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
         {
