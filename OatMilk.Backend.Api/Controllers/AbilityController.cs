@@ -1,11 +1,19 @@
-﻿using OatMilk.Backend.Api.Data.Entities;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Services.Abstraction;
+using OatMilk.Backend.Api.Services.Models.Requests;
 
 namespace OatMilk.Backend.Api.Controllers
 {
-    public class AbilityController
+    [Authorize]
+    [ApiController]
+    [Route("[controller]")]
+    public class AbilityController : Controller
     {
         private readonly IAbilityService _service;
         
@@ -13,6 +21,18 @@ namespace OatMilk.Backend.Api.Controllers
         {
             _service = service;
         }
-        
+
+        [HttpPost("")]
+        public async Task<ActionResult<Guid>> CreateAbilityForUser(AbilityRequest request)
+        {
+            try
+            {
+                return await _service.CreateAbilityForUser(request);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }

@@ -4,11 +4,10 @@ using OatMilk.Backend.Api.Services.Models.Enums;
 
 namespace OatMilk.Backend.Api.Data.Entities
 {
-    public class Effect
+    public class Effect : AbstractUserEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public User User { get; set; }
         public int Duration { get; set; }
         public int Period { get; set; }
         

@@ -53,6 +53,9 @@ namespace OatMilk.Backend.Api
             services.AddDbContext<Context>(opt => opt.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            // HttpAccessor
+            services.AddHttpContextAccessor();
+            
             // Repositories
             services.AddScoped<IRepository<User>, UserRepository>();
 
