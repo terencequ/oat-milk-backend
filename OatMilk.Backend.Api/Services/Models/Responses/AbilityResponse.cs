@@ -2,6 +2,6 @@
 {
     public class AbilityResponse
     {
-        
+        public string Name { get; set; }
     }
 }

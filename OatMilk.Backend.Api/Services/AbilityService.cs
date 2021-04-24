@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Repositories.Abstraction;
@@ -54,7 +55,13 @@ namespace OatMilk.Backend.Api.Services
         /// <returns></returns>
         public async Task<AbilityResponse> GetAbility([FromRoute] string name)
         {
-            return new AbilityResponse();
+            var ability = await _repository.Get().FirstOrDefaultAsync(a => a.Name == name);
+            if (ability == null)
+            {
+                throw new ArgumentException("Ability with name '{name}' not found.", nameof(name));
+            }
+
+            return _mapper.Map<AbilityResponse>(ability);
         }
     }
 }
