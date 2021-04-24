@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using OatMilk.Backend.Api.Data.Models.Entities;
-using OatMilk.Backend.Api.Data.Models.Enums;
+using OatMilk.Backend.Api.Data.Entities;
+using OatMilk.Backend.Api.Services.Models.Enums;
 
 namespace OatMilk.Backend.Api.Tests.Data.Models
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OatMilk.Backend.Api.Data.Models.Enums;
 using System;
-using OatMilk.Backend.Api.Data.Models.Responses;
+using OatMilk.Backend.Api.Services.Models.Enums;
+using OatMilk.Backend.Api.Services.Models.Responses;
 
 namespace OatMilk.Backend.Api.Controllers.Helpers
 {

@@ -4,9 +4,8 @@ using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using MockQueryable.Moq;
 using Moq;
-using OatMilk.Backend.Api.Data.AutoMapper;
-using OatMilk.Backend.Api.Data.Repositories;
-using OatMilk.Backend.Api.Data.Repositories.Abstraction;
+using OatMilk.Backend.Api.Repositories.Abstraction;
+using OatMilk.Backend.Api.Services.AutoMapper;
 
 namespace OatMilk.Backend.Api.Tests.TestingHelpers
 {
