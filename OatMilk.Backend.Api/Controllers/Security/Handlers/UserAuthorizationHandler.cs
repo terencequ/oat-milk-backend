@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using OatMilk.Backend.Api.Services;
-using OatMilk.Backend.Api.Security.Requirements;
-using System;
+﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using OatMilk.Backend.Api.Controllers.Security.Requirements;
+using OatMilk.Backend.Api.Services.Abstraction;
 
-namespace OatMilk.Backend.Api.Security.Handlers
+namespace OatMilk.Backend.Api.Controllers.Security.Handlers
 {
     public class UserAuthorizationHandler : AuthorizationHandler<UserAuthorizationRequirement>
     {

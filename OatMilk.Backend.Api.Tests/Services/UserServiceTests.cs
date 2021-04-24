@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using OatMilk.Backend.Api.Data.Models.Entities;
-using OatMilk.Backend.Api.Data.Models.Requests;
-using OatMilk.Backend.Api.Security;
+using OatMilk.Backend.Api.Controllers.Security;
+using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Services;
+using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
 
 namespace OatMilk.Backend.Api.Tests.Services

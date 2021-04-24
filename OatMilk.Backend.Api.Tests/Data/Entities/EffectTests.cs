@@ -2,7 +2,7 @@
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Services.Models.Enums;
 
-namespace OatMilk.Backend.Api.Tests.Data.Models
+namespace OatMilk.Backend.Api.Tests.Data.Entities
 {
     [TestFixture]
     public class EffectTests

@@ -13,18 +13,19 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OatMilk.Backend.Api.Configuration;
 using OatMilk.Backend.Api.Data;
-using OatMilk.Backend.Api.Data.AutoMapper;
 using OatMilk.Backend.Api.Services;
-using OatMilk.Backend.Api.Security;
-using OatMilk.Backend.Api.Security.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OatMilk.Backend.Api.Data.Models.Entities;
-using OatMilk.Backend.Api.Data.Repositories;
-using OatMilk.Backend.Api.Data.Repositories.Abstraction;
+using OatMilk.Backend.Api.Controllers.Security;
+using OatMilk.Backend.Api.Controllers.Security.Handlers;
+using OatMilk.Backend.Api.Data.Entities;
+using OatMilk.Backend.Api.Repositories;
+using OatMilk.Backend.Api.Repositories.Abstraction;
+using OatMilk.Backend.Api.Services.Abstraction;
+using OatMilk.Backend.Api.Services.AutoMapper;
 
 namespace OatMilk.Backend.Api
 {

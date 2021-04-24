@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OatMilk.Backend.Api.Data.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Options;
+using OatMilk.Backend.Api.Data.Entities;
 
 namespace OatMilk.Backend.Api.Data
 {

@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using OatMilk.Backend.Api.Data;
-using OatMilk.Backend.Api.Data.Models.Requests;
-using OatMilk.Backend.Api.Data.Models.Responses;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using OatMilk.Backend.Api.Security;
 using Microsoft.Extensions.Configuration;
-using OatMilk.Backend.Api.Data.Models.Entities;
-using OatMilk.Backend.Api.Data.Repositories;
-using OatMilk.Backend.Api.Data.Repositories.Abstraction;
+using OatMilk.Backend.Api.Controllers.Security;
+using OatMilk.Backend.Api.Data.Entities;
+using OatMilk.Backend.Api.Repositories.Abstraction;
+using OatMilk.Backend.Api.Services.Abstraction;
+using OatMilk.Backend.Api.Services.Models.Requests;
+using OatMilk.Backend.Api.Services.Models.Responses;
 
 namespace OatMilk.Backend.Api.Services
 {

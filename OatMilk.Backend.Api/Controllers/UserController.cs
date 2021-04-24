@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OatMilk.Backend.Api.Controllers.Helpers;
-using OatMilk.Backend.Api.Data.Models.Requests;
-using OatMilk.Backend.Api.Data.Models.Responses;
 using OatMilk.Backend.Api.Services;
-using OatMilk.Backend.Api.Security;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using OatMilk.Backend.Api.Controllers.Security;
+using OatMilk.Backend.Api.Services.Abstraction;
+using OatMilk.Backend.Api.Services.Models.Requests;
+using OatMilk.Backend.Api.Services.Models.Responses;
 
 namespace OatMilk.Backend.Api.Controllers
 {
