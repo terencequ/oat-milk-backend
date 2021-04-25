@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using OatMilk.Backend.Api.Controllers.Helpers;
-using OatMilk.Backend.Api.Services;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;

@@ -2,9 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OatMilk.Backend.Api.Data.Entities;
-using OatMilk.Backend.Api.Repositories.Abstraction;
-using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;
 
