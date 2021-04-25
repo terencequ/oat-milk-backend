@@ -50,27 +50,85 @@ namespace OatMilk.Backend.Api.Tests.Services
 
         #endregion
 
-        #region GetAbility
+        #region GetAbilityByName
 
         [Test]
-        public async Task GetAbility_AbilityExists_ShouldReturnAbilityResponse()
+        public async Task GetAbilityByName_AbilityExists_ShouldReturnAbilityResponse()
         {
             const string expectedName = "test";
 
             var service = new Fixture(new Ability(){ Name = expectedName }).GetSut();
-            var result = await service.GetAbility(expectedName);
+            var result = await service.GetAbilityByName(expectedName);
             Assert.AreEqual(expectedName, result.Name);
         }
         
         [Test]
-        public void GetAbility_AbilityDoesntExist_ShouldThrowArgumentException()
+        public void GetAbilityByName_AbilityDoesntExist_ShouldThrowArgumentException()
         {
             const string expectedName = "test";
 
             var service = new Fixture().GetSut();
-            Assert.ThrowsAsync<ArgumentException>(async () => await service.GetAbility(expectedName));
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.GetAbilityByName(expectedName));
         }
 
+        #endregion
+        
+        #region UpdateAbility
+
+        [Test]
+        public async Task UpdateAbility_AbilityExists_ShouldReturnAbilityResponse()
+        {
+            var expectedId = Guid.NewGuid();
+            const string expectedName = "new name";
+            
+            var service = new Fixture(new Ability()
+            {
+                Id = expectedId,
+                Name = "name"
+            }).GetSut();
+            var result = await service.UpdateAbility(expectedId, new AbilityRequest()
+            {
+                Name = expectedName
+            });
+            
+            Assert.AreEqual(expectedName, result.Name);
+        }
+        
+        [Test]
+        public void UpdateAbility_AbilityDoesntExist_ShouldThrowArgumentException()
+        {
+            const string expectedName = "new name";
+            var service = new Fixture().GetSut();
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.UpdateAbility(Guid.NewGuid(), new AbilityRequest()
+            {
+                Name = expectedName
+            }));
+        }
+        
+        #endregion
+
+        #region DeleteAbility
+
+        [Test]
+        public void DeleteAbility_AbilityExists_Returns()
+        {
+            var expectedGuid = Guid.NewGuid();
+            var service = new Fixture(new Ability()
+            {
+                Id = expectedGuid
+            }).GetSut();
+
+            Assert.DoesNotThrowAsync(async () => await service.DeleteAbility(expectedGuid));
+        }
+        
+        [Test]
+        public void DeleteAbility_AbilityDoesntExist_ThrowsArgumentException()
+        {
+            var service = new Fixture().GetSut();
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.DeleteAbility(Guid.NewGuid()));
+        }
+        
         #endregion
     }
 }

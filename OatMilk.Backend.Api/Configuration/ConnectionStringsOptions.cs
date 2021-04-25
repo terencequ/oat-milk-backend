@@ -7,7 +7,7 @@ namespace OatMilk.Backend.Api.Configuration
 {
     public class ConnectionStringsOptions
     {
-        public static readonly string ConnectionStrings = "ConnectionStrings";
+        public const string ConnectionStrings = "ConnectionStrings";
         public string MainDatabase { get; set; }
     }
 }

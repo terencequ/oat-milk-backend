@@ -9,7 +9,8 @@ namespace OatMilk.Backend.Api.Services.AutoMapper
     {
         public AbilityProfile() : base()
         {
-            CreateMap<AbilityRequest, Ability>();
+            CreateMap<AbilityRequest, Ability>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Ability, AbilityResponse>();
         }
     }

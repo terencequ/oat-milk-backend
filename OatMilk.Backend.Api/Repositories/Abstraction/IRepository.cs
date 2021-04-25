@@ -10,5 +10,7 @@ namespace OatMilk.Backend.Api.Repositories.Abstraction
         void Add(TEntity entity);
         
         Task SaveAsync();
+
+        void Remove(TEntity entity);
     }
 }

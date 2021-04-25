@@ -49,5 +49,15 @@ namespace OatMilk.Backend.Api.Repositories.Abstraction
         {
             await _context.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// Mark an entity for removal, which will take effect upon invoking <see cref="SaveAsync"/>.
+        /// Calls DbContext Remove.
+        /// </summary>
+        /// <param name="entity"></param>
+        public void Remove(TEntity entity)
+        {
+            _context.Remove(entity);
+        }
     }
 }

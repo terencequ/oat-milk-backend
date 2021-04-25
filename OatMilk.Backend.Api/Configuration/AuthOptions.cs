@@ -7,7 +7,7 @@ namespace OatMilk.Backend.Api.Configuration
 {
     public class AuthOptions
     {
-        public readonly static string Auth = "Auth";
+        public const string Auth = "Auth";
 
         public string UserTokenSecret { get; set; }
     }
