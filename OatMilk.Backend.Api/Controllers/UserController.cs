@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OatMilk.Backend.Api.Controllers.Helpers;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -32,16 +31,16 @@ namespace OatMilk.Backend.Api.Controllers
         [AllowAnonymous]
         [HttpPost("login")]
         [ProducesResponseType(typeof(AuthTokenResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ArgumentErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public ActionResult<AuthTokenResponse> Login([FromBody] UserLoginRequest request)
         {
             try
             {
                 return _userService.Login(request);
             }
-            catch (ArgumentException exception)
+            catch (Exception exception)
             {
-                return ExceptionHelper.ConvertExceptionToResult(exception);
+                return BadRequest(exception.Message);
             }
         }
 
@@ -53,7 +52,7 @@ namespace OatMilk.Backend.Api.Controllers
         [AllowAnonymous]
         [HttpPost("register")]
         [ProducesResponseType(typeof(AuthTokenResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ArgumentErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AuthTokenResponse>> Register([FromBody] UserRegisterRequest request)
         {
             try
@@ -62,7 +61,7 @@ namespace OatMilk.Backend.Api.Controllers
             }
             catch (Exception exception)
             {
-                return ExceptionHelper.ConvertExceptionToResult(exception);
+                return BadRequest(exception.Message);
             }
         }
 
@@ -73,7 +72,7 @@ namespace OatMilk.Backend.Api.Controllers
         [AllowAnonymous]
         [HttpGet("profile")]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ArgumentErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public ActionResult<UserResponse> GetProfile()
         {
             try
@@ -83,7 +82,7 @@ namespace OatMilk.Backend.Api.Controllers
             }
             catch (Exception exception)
             {
-                return ExceptionHelper.ConvertExceptionToResult(exception);
+                return BadRequest(exception.Message);
             }
         }
 
@@ -95,7 +94,7 @@ namespace OatMilk.Backend.Api.Controllers
         [AllowAnonymous]
         [HttpGet("exists")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ArgumentErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public ActionResult<bool> UserExistsById([FromRoute] Guid userId)
         {
             try
@@ -104,7 +103,7 @@ namespace OatMilk.Backend.Api.Controllers
             }
             catch (Exception exception)
             {
-                return ExceptionHelper.ConvertExceptionToResult(exception);
+                return BadRequest(exception.Message);
             }
         }
     }
