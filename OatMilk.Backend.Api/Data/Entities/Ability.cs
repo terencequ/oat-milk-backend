@@ -26,6 +26,6 @@ namespace OatMilk.Backend.Api.Data.Entities
         /// <summary>
         /// The list of effects which will be applied to the target.
         /// </summary>
-        public IEnumerable<AbilityEffect> AbilityEffects { get; set; }
+        public ICollection<AbilityEffect> AbilityEffects { get; set; }
     }
 }

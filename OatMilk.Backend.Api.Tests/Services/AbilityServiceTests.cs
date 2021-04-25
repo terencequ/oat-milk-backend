@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using MockQueryable.Moq;
+using Moq;
 using NUnit.Framework;
 using OatMilk.Backend.Api.Data.Entities;
+using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
@@ -13,11 +17,19 @@ namespace OatMilk.Backend.Api.Tests.Services
     {
         private class Fixture : RepositoryFixture<Ability>
         {
-            public Fixture(params Ability[] abilities) : base(abilities) { }
+            private readonly Mock<IRepository<Effect>> _mockEffectRepository;
+            
+            public Fixture(params Ability[] abilities) : base(abilities){}
+            
+            public Fixture(Effect[] effects, Ability[] abilities) : base(abilities)
+            {
+                _mockEffectRepository = new Mock<IRepository<Effect>>();
+                _mockEffectRepository.Setup(m => m.Get()).Returns(effects.AsQueryable().BuildMock().Object);
+            }
             
             public AbilityService GetSut()
             {
-                return new(Configuration, MockRepository.Object, Mapper);
+                return new(Configuration, MockRepository.Object, _mockEffectRepository.Object, Mapper);
             }
         }
         
@@ -129,6 +141,15 @@ namespace OatMilk.Backend.Api.Tests.Services
             Assert.ThrowsAsync<ArgumentException>(async () => await service.DeleteAbility(Guid.NewGuid()));
         }
         
+        #endregion
+
+        #region CreateEffectForAbility
+
+        [Test]
+        public void CreateEffectForAbility_ExistingAbility_ShouldReturnGuid()
+        {
+        }
+
         #endregion
     }
 }

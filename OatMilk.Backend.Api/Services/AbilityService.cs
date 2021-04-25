@@ -16,13 +16,15 @@ namespace OatMilk.Backend.Api.Services
     public class AbilityService : IAbilityService
     {
         private readonly IConfiguration _configuration;
-        private readonly IRepository<Ability> _repository;
+        private readonly IRepository<Ability> _abilityRepository;
+        private readonly IRepository<Effect> _effectRepository;
         private readonly IMapper _mapper;
 
-        public AbilityService(IConfiguration configuration, IRepository<Ability> repository, IMapper mapper)
+        public AbilityService(IConfiguration configuration, IRepository<Ability> abilityRepository, IRepository<Effect> effectRepository, IMapper mapper)
         {
             _configuration = configuration;
-            _repository = repository;
+            _abilityRepository = abilityRepository;
+            _effectRepository = effectRepository;
             _mapper = mapper;
         }
 
@@ -35,15 +37,15 @@ namespace OatMilk.Backend.Api.Services
         public async Task<Guid> CreateAbility(AbilityRequest request)
         {
             // Check for duplicate name
-            if (_repository.Get().Any(a => a.Name == request.Name))
+            if (_abilityRepository.Get().Any(a => a.Name == request.Name))
             {
                 throw new ArgumentException($"Ability of name '{request.Name}' already exists!", nameof(request.Name));
             }
 
             // Create ability and add it to database
             var entity = _mapper.Map<Ability>(request);
-            _repository.Add(entity);
-            await _repository.SaveAsync();
+            _abilityRepository.Add(entity);
+            await _abilityRepository.SaveAsync();
 
             return entity.Id;
         }
@@ -66,7 +68,7 @@ namespace OatMilk.Backend.Api.Services
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public async Task<AbilityResponse> UpdateAbility(Guid id, [FromRoute] AbilityRequest request)
+        public async Task<AbilityResponse> UpdateAbility(Guid id, AbilityRequest request)
         {
             var ability = await FindAbilityByIdAsync(id);
             _mapper.Map(request, ability);
@@ -83,15 +85,26 @@ namespace OatMilk.Backend.Api.Services
         {
             var ability = await FindAbilityByIdAsync(id);
 
-            _repository.Remove(ability);
-            await _repository.SaveAsync();
+            _abilityRepository.Remove(ability);
+            await _abilityRepository.SaveAsync();
         }
 
+        /// <summary>
+        /// Create effect for existing ability.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task AssignEffectToAbility(Guid abilityId, Guid effectId)
+        {
+            
+        }
+        
         #region Helpers
 
         private async Task<Ability> FindAbilityByNameAsync(string name)
         {
-            var ability = await _repository.Get().FirstOrDefaultAsync(a => a.Name == name);
+            var ability = await _abilityRepository.Get().FirstOrDefaultAsync(a => a.Name == name);
             if (ability == null)
             {
                 throw new ArgumentException($"Ability with name '{name}' not found.", nameof(name));
@@ -102,7 +115,7 @@ namespace OatMilk.Backend.Api.Services
         
         private async Task<Ability> FindAbilityByIdAsync(Guid id)
         {
-            var ability = await _repository.Get().FirstOrDefaultAsync(a => a.Id == id);
+            var ability = await _abilityRepository.Get().FirstOrDefaultAsync(a => a.Id == id);
             if (ability == null)
             {
                 throw new ArgumentException($"Ability with id '{id}' not found.", nameof(id));

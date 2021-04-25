@@ -21,12 +21,12 @@ namespace OatMilk.Backend.Api.Data.Entities
         /// List of modifiers for this effect.
         /// When this effect is resolved, these modifiers will be aggregated to a single value.
         /// </summary>
-        public IEnumerable<Modifier> Modifiers { get; set; }
+        public ICollection<Modifier> Modifiers { get; set; }
         
         /// <summary>
         /// Abilities associated with this effect.
         /// </summary>
-        public IEnumerable<AbilityEffect> AbilityEffects { get; set; }
+        public ICollection<AbilityEffect> AbilityEffects { get; set; }
 
         /// <summary>
         /// Return duration type.
