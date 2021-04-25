@@ -97,7 +97,11 @@ namespace OatMilk.Backend.Api.Services
         /// <returns></returns>
         public async Task AssignEffectToAbility(Guid abilityId, Guid effectId)
         {
+            var ability = await FindAbilityByIdAsync(abilityId);
+            var effect = await FindEffectByIdAsync(effectId);
             
+            ability.AbilityEffects.Add(new AbilityEffect(){Ability = ability, Effect = effect});
+            await _abilityRepository.SaveAsync();
         }
         
         #region Helpers
@@ -122,6 +126,17 @@ namespace OatMilk.Backend.Api.Services
             }
 
             return ability;
+        }
+        
+        private async Task<Effect> FindEffectByIdAsync(Guid id)
+        {
+            var effect = await _effectRepository.Get().FirstOrDefaultAsync(a => a.Id == id);
+            if (effect == null)
+            {
+                throw new ArgumentException($"Ability with id '{id}' not found.", nameof(id));
+            }
+
+            return effect;
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MockQueryable.Moq;
@@ -29,7 +30,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             
             public AbilityService GetSut()
             {
-                return new(Configuration, MockRepository.Object, _mockEffectRepository.Object, Mapper);
+                return new(Configuration, MockRepository.Object, _mockEffectRepository?.Object, Mapper);
             }
         }
         
@@ -143,12 +144,62 @@ namespace OatMilk.Backend.Api.Tests.Services
         
         #endregion
 
-        #region CreateEffectForAbility
+        #region AssignEffectToAbility
 
         [Test]
-        public void CreateEffectForAbility_ExistingAbility_ShouldReturnGuid()
+        public async Task AssignEffectToAbility_BothExisting_ShouldCreateNewAbilityEffect()
         {
+            var expectedAbilityId = Guid.NewGuid();
+            var abilities = new Ability[]
+            {
+                new Ability() { Id = expectedAbilityId, AbilityEffects = new List<AbilityEffect>() }
+            };
+
+            var expectedEffectId = Guid.NewGuid();
+            var effects = new Effect[]
+            {
+                new Effect() { Id = expectedEffectId }
+            };
+
+            var service = new Fixture(effects, abilities).GetSut();
+            await service.AssignEffectToAbility(expectedAbilityId, expectedEffectId);
+            var abilityEffect = abilities.First().AbilityEffects.First();
+            
+            Assert.AreEqual(expectedEffectId, abilityEffect.Effect.Id);
+            Assert.AreEqual(expectedAbilityId, abilityEffect.Ability.Id);
         }
+        
+        [Test]
+        public void AssignEffectToAbility_AbilityDoesntExist_ShouldThrowArgumentException()
+        {
+            var abilities = new Ability[] { };
+
+            var expectedEffectId = Guid.NewGuid();
+            var effects = new Effect[]
+            {
+                new Effect() { Id = expectedEffectId }
+            };
+            
+            var service = new Fixture(effects, abilities).GetSut();
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.AssignEffectToAbility(Guid.NewGuid(), expectedEffectId));
+        }
+        
+        [Test]
+        public void AssignEffectToAbility_EffectDoesntExist_ShouldThrowArgumentException()
+        {
+            var expectedAbilityId = Guid.NewGuid();
+            var abilities = new Ability[]
+            {
+                new Ability() { Id = expectedAbilityId, AbilityEffects = new List<AbilityEffect>() }
+            };
+            
+            var effects = new Effect[] { };
+
+            var service = new Fixture(effects, abilities).GetSut();
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.AssignEffectToAbility(expectedAbilityId, Guid.NewGuid()));
+        }
+
 
         #endregion
     }
