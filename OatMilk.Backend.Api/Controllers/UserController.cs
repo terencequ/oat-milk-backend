@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using OatMilk.Backend.Api.Controllers.Security;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;

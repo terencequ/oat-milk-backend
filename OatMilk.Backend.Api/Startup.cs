@@ -53,6 +53,19 @@ namespace OatMilk.Backend.Api
             // Services
             services.AddScoped<IUserService, UserService>();
             
+            // CORS
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowCredentials()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+            
             // Auth
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -66,18 +79,6 @@ namespace OatMilk.Backend.Api
                     .Build();
             });
             services.AddTransient<IAuthorizationHandler, UserAuthorizationHandler>();
-
-            // CORS
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:4200")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                    });
-            });
 
             // Controllers
             services.AddControllers();
@@ -98,8 +99,6 @@ namespace OatMilk.Backend.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OatMilk.Backend.Api v1"));
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
