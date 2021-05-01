@@ -8,11 +8,11 @@ namespace OatMilk.Backend.Api.Services.Abstraction
 {
     public interface IEffectService
     {
-        Task<Guid> CreateEffect(AbilityRequest request);
+        Task<EffectResponse> CreateEffect(EffectRequest request);
                 
-        Task<AbilityResponse> GetEffectFromName(string name);
+        Task<EffectResponse> GetEffectFromName(string name);
 
-        Task<AbilityResponse> UpdateEffect(Guid id, AbilityRequest request);
+        Task<EffectResponse> UpdateEffect(Guid id, EffectRequest request);
 
         Task DeleteEffect(Guid id);
     }

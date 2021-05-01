@@ -34,7 +34,7 @@ namespace OatMilk.Backend.Api.Services
         /// <param name="request"></param>
         /// <returns>Guid of newly created ability.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public async Task<Guid> CreateAbility(AbilityRequest request)
+        public async Task<AbilityResponse> CreateAbility(AbilityRequest request)
         {
             // Check for duplicate name
             if (_abilityRepository.Get().Any(a => a.Name == request.Name))
@@ -47,7 +47,7 @@ namespace OatMilk.Backend.Api.Services
             _abilityRepository.Add(entity);
             await _abilityRepository.SaveAsync();
 
-            return entity.Id;
+            return _mapper.Map<AbilityResponse>(entity);
         }
 
         /// <summary>

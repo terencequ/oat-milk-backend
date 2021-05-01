@@ -27,9 +27,9 @@ namespace OatMilk.Backend.Api.Controllers
         /// <param name="request">Parameters for new ability.</param>
         /// <returns>Id of newly created ability.</returns>
         [HttpPost("")]
-        [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Guid>> CreateAbility([FromBody] AbilityRequest request)
+        public async Task<ActionResult<AbilityResponse>> CreateAbility([FromBody] AbilityRequest request)
         {
             try
             {

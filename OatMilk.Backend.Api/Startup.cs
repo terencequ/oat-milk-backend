@@ -33,7 +33,7 @@ namespace OatMilk.Backend.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // AutoMapper
-            services.AddAutoMapper(typeof(UserProfile));
+            services.AddAutoMapper(AutoMapperHelper.GetAutoMapperTypes());
 
             // Config
             services.Configure<ConnectionStringsOptions>(Configuration.GetSection(ConnectionStringsOptions.ConnectionStrings));
@@ -49,6 +49,8 @@ namespace OatMilk.Backend.Api
             
             // Repositories
             services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IRepository<Ability>, AbilityRepository>();
+            services.AddScoped<IRepository<Effect>, EffectRepository>();
 
             // Services
             services.AddScoped<IUserService, UserService>();

@@ -2,6 +2,6 @@
 {
     public class EffectRequest
     {
-        
+        public string Name { get; set; }
     }
 }

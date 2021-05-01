@@ -28,11 +28,7 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers
             {
                 new KeyValuePair<string, string>("Auth:UserTokenSecret", "this is a test secret")
             }).Build();
-            Mapper = new MapperConfiguration(config =>
-            {
-                config.AddProfile(typeof(UserProfile));
-                config.AddProfile(typeof(AbilityProfile));
-            }).CreateMapper();
+            Mapper = AutoMapperHelper.GetAutoMapper();
             MockRepository = new Mock<IRepository<TEntity>>();
             MockRepository.Setup(m => m.Get()).Returns(entities.AsQueryable().BuildMock().Object);
         }

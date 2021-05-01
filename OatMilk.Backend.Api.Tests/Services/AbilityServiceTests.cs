@@ -37,18 +37,19 @@ namespace OatMilk.Backend.Api.Tests.Services
         #region CreateAbility
 
         [Test]
-        public async Task CreateAbilityForUser_ValidParameters_ShouldReturnGuid()
+        public async Task CreateAbility_ValidParameters_ShouldReturnAbilityResponse()
         {
+            var expectedName = "test name";
             var service = new Fixture().GetSut();
             var result = await service.CreateAbility(new AbilityRequest()
             {
-                Name = "test name"
+                Name = expectedName
             });
-            Assert.IsInstanceOf<Guid>(result);
+            Assert.AreEqual(expectedName, result.Name);
         }
 
         [Test]
-        public void CreateAbilityForUser_NameAlreadyExists_ShouldThrowArgumentException()
+        public void CreateAbility_NameAlreadyExists_ShouldThrowArgumentException()
         {
             const string duplicateName = "test";
             var service = new Fixture(new Ability(){ Name = duplicateName }).GetSut();
@@ -72,7 +73,7 @@ namespace OatMilk.Backend.Api.Tests.Services
 
             var service = new Fixture(new Ability(){ Id = expectedId }).GetSut();
             var result = await service.GetAbilityById(expectedId);
-            Assert.AreEqual(expectedId, result.Name);
+            Assert.AreEqual(expectedId, result.Id);
         }
         
         [Test]
