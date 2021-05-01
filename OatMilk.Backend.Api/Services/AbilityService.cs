@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +11,7 @@ using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
+using OatMilk.Backend.Api.Services.Pagination;
 
 namespace OatMilk.Backend.Api.Services
 {
@@ -48,6 +50,20 @@ namespace OatMilk.Backend.Api.Services
             await _abilityRepository.SaveAsync();
 
             return _mapper.Map<AbilityResponse>(entity);
+        }
+
+        /// <summary>
+        /// Get abilities as paginated results.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<PageResponse<AbilityResponse>> GetAbilities(PageFilter filter)
+        {
+            return await _abilityRepository
+                .Get()
+                .ProjectTo<AbilityResponse>(_mapper.ConfigurationProvider)
+                .GetPageResponseAsync(filter);
         }
 
         /// <summary>

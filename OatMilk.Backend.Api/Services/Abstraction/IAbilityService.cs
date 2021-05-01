@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
+using OatMilk.Backend.Api.Services.Pagination;
 
 namespace OatMilk.Backend.Api.Services.Abstraction
 {
@@ -11,6 +12,8 @@ namespace OatMilk.Backend.Api.Services.Abstraction
     {
         Task<AbilityResponse> CreateAbility(AbilityRequest request);
 
+        Task<PageResponse<AbilityResponse>> GetAbilities(PageFilter filter);
+        
         Task<AbilityResponse> GetAbilityById(Guid id);
         
         Task<AbilityResponse> GetAbilityByName(string name);
