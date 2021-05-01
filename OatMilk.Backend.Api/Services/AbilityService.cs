@@ -51,11 +51,22 @@ namespace OatMilk.Backend.Api.Services
         }
 
         /// <summary>
-        /// Get single ability for current user.
+        /// Get single ability for current user by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<AbilityResponse> GetAbilityById(Guid id)
+        {
+            var ability = await FindAbilityByIdAsync(id);
+            return _mapper.Map<AbilityResponse>(ability);
+        }
+        
+        /// <summary>
+        /// Get single ability for current user by name.
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async Task<AbilityResponse> GetAbilityByName([FromRoute] string name)
+        public async Task<AbilityResponse> GetAbilityByName(string name)
         {
             var ability = await FindAbilityByNameAsync(name);
             return _mapper.Map<AbilityResponse>(ability);

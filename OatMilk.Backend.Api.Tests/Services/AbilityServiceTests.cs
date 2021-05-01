@@ -63,6 +63,29 @@ namespace OatMilk.Backend.Api.Tests.Services
 
         #endregion
 
+        #region GetAbilityById
+
+        [Test]
+        public async Task GetAbilityById_AbilityExists_ShouldReturnAbilityResponse()
+        {
+            var expectedId = Guid.NewGuid();
+
+            var service = new Fixture(new Ability(){ Id = expectedId }).GetSut();
+            var result = await service.GetAbilityById(expectedId);
+            Assert.AreEqual(expectedId, result.Name);
+        }
+        
+        [Test]
+        public void GetAbilityById_AbilityDoesntExist_ShouldThrowArgumentException()
+        {
+            var expectedId = Guid.NewGuid();
+
+            var service = new Fixture().GetSut();
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.GetAbilityById(expectedId));
+        }
+
+        #endregion
+        
         #region GetAbilityByName
 
         [Test]

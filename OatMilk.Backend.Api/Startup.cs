@@ -52,7 +52,9 @@ namespace OatMilk.Backend.Api
 
             // Services
             services.AddScoped<IUserService, UserService>();
-            
+            services.AddScoped<IAbilityService, AbilityService>();
+            services.AddScoped<IEffectService, EffectService>();
+
             // CORS
             services.AddCors(options =>
             {

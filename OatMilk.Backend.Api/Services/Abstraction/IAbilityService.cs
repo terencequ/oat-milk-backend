@@ -10,8 +10,10 @@ namespace OatMilk.Backend.Api.Services.Abstraction
     public interface IAbilityService
     {
         Task<Guid> CreateAbility(AbilityRequest request);
-                
-        Task<AbilityResponse> GetAbilityByName([FromRoute] string name);
+
+        Task<AbilityResponse> GetAbilityById(Guid id);
+        
+        Task<AbilityResponse> GetAbilityByName(string name);
 
         Task<AbilityResponse> UpdateAbility(Guid id, AbilityRequest request);
 
