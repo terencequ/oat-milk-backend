@@ -55,7 +55,7 @@ namespace OatMilk.Backend.Api.Tests.Services
         
         #endregion
         
-        #region GetEffectFromName
+        #region GetEffectByName
 
         
         #endregion

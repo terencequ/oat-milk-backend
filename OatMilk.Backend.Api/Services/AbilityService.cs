@@ -98,7 +98,8 @@ namespace OatMilk.Backend.Api.Services
         {
             var ability = await FindAbilityByIdAsync(id);
             _mapper.Map(request, ability);
-
+            await _abilityRepository.SaveAsync();
+            
             return _mapper.Map<Ability, AbilityResponse>(ability);
         }
         
