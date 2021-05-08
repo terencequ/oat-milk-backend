@@ -7,7 +7,7 @@ namespace OatMilk.Backend.Api.Repositories
 {
     public class AbilityRepository: UserEntityRepository<Ability>
     {
-        public AbilityRepository(Context context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+        public AbilityRepository(OatMilkContext oatMilkContext, IHttpContextAccessor httpContextAccessor) : base(oatMilkContext, httpContextAccessor)
         {
         }
     }

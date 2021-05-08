@@ -4,11 +4,11 @@ using OatMilk.Backend.Api.Data.Entities;
 
 namespace OatMilk.Backend.Api.Data
 {
-    public class Context : DbContext
+    public class OatMilkContext : DbContext
     {
-        public Context() : base(new DbContextOptions<DbContext>()) { }
+        public OatMilkContext() : base(new DbContextOptions<DbContext>()) { }
         
-        public Context(DbContextOptions options): base(options) { }
+        public OatMilkContext(DbContextOptions options): base(options) { }
 
         public DbSet<User> User { get; set; }
         public DbSet<Ability> Ability { get; set; }

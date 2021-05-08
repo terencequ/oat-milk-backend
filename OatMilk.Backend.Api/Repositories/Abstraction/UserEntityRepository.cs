@@ -15,10 +15,10 @@ namespace OatMilk.Backend.Api.Repositories.Abstraction
         private readonly DbSet<User> _userDbSet;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserEntityRepository(Context context, IHttpContextAccessor httpContextAccessor) : base(context)
+        public UserEntityRepository(OatMilkContext oatMilkContext, IHttpContextAccessor httpContextAccessor) : base(oatMilkContext)
         {
             _httpContextAccessor = httpContextAccessor;
-            _userDbSet = context.GetDbSet<User>();
+            _userDbSet = oatMilkContext.GetDbSet<User>();
         }
 
         /// <summary>

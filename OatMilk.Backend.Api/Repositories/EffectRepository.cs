@@ -7,7 +7,7 @@ namespace OatMilk.Backend.Api.Repositories
 {
     public class EffectRepository: UserEntityRepository<Effect>
     {
-        public EffectRepository(Context context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+        public EffectRepository(OatMilkContext oatMilkContext, IHttpContextAccessor httpContextAccessor) : base(oatMilkContext, httpContextAccessor)
         {
         }
     }

@@ -6,18 +6,18 @@ using Microsoft.Extensions.Configuration;
 namespace OatMilk.Backend.Api.Data
 {
     /// <summary>
-    ///     Only used during DB migration scaffolding
+    /// Only used during DB migration scaffolding
     /// </summary>
-    public class ContextFactory : IDesignTimeDbContextFactory<Context>
+    public class OatMilkContextFactory : IDesignTimeDbContextFactory<OatMilkContext>
     {
-        public Context CreateDbContext(string[] args)
+        public OatMilkContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<Context>();
+            var optionsBuilder = new DbContextOptionsBuilder<OatMilkContext>();
             var connectionString = GetConfig()["ConnectionStrings:MainDatabase"];
 
             optionsBuilder.UseSqlServer(connectionString,
                 opt => opt.CommandTimeout((int)TimeSpan.FromMinutes(5).TotalSeconds));
-            return new Context(optionsBuilder.Options);
+            return new OatMilkContext(optionsBuilder.Options);
         }
 
         private IConfiguration GetConfig()

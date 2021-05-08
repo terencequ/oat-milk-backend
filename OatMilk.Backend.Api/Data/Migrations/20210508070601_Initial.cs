@@ -3,20 +3,38 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OatMilk.Backend.Api.Data.Migrations
 {
-    public partial class AddAbilitiesEffectsModifiersUsers : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Effect",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Duration = table.Column<int>(type: "int", nullable: false),
                     Period = table.Column<int>(type: "int", nullable: false),
-                    ChanceToApplyToTarget = table.Column<float>(type: "real", nullable: false)
+                    ChanceToApplyToTarget = table.Column<float>(type: "real", nullable: false),
+                    CreatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -35,9 +53,11 @@ namespace OatMilk.Backend.Api.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CostEffectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CooldownEffectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    CooldownEffectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -151,6 +171,9 @@ namespace OatMilk.Backend.Api.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Effect");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

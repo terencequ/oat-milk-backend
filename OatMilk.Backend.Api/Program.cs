@@ -10,7 +10,7 @@ namespace OatMilk.Backend.Api
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDbContext<Context>()
+                .MigrateDbContext<OatMilkContext>()
                 .Run();
         }
 

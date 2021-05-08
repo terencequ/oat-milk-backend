@@ -39,9 +39,9 @@ namespace OatMilk.Backend.Api
             services.Configure<ConnectionStringsOptions>(Configuration.GetSection(ConnectionStringsOptions.ConnectionStrings));
             services.Configure<AuthOptions>(Configuration.GetSection(AuthOptions.Auth));
 
-            // Context
+            // OatMilkContext
             var connectionString = Configuration.GetSection(ConnectionStringsOptions.ConnectionStrings).Get<ConnectionStringsOptions>().MainDatabase;
-            services.AddDbContext<Context>(opt => opt.UseSqlServer(connectionString));
+            services.AddDbContext<OatMilkContext>(opt => opt.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             // HttpAccessor

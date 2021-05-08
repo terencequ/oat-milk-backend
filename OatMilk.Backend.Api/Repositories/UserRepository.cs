@@ -6,7 +6,7 @@ namespace OatMilk.Backend.Api.Repositories
 {
     public class UserRepository : EntityRepository<User>
     {
-        public UserRepository(Context context) : base(context)
+        public UserRepository(OatMilkContext oatMilkContext) : base(oatMilkContext)
         {
         }
     }
