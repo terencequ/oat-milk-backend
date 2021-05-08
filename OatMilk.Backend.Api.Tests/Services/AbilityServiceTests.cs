@@ -9,6 +9,7 @@ using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Services.Models.Requests;
+using OatMilk.Backend.Api.Services.Pagination;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
 
 namespace OatMilk.Backend.Api.Tests.Services
@@ -106,6 +107,165 @@ namespace OatMilk.Backend.Api.Tests.Services
 
             var service = new Fixture().GetSut();
             Assert.ThrowsAsync<ArgumentException>(async () => await service.GetAbilityByName(expectedName));
+        }
+
+        #endregion
+
+        #region GetAbilities
+
+        [Test]
+        public async Task GetAbilities_FilterNameAscending_ShouldReturnInAscendingNameOrder()
+        {
+            var expectedName1 = "test1";
+            var expectedName2 = "test2";
+            var expectedName3 = "atest";
+            var service = new Fixture(
+                new Ability() { Name = expectedName1 },
+                new Ability() { Name = expectedName2 },
+                new Ability() { Name = expectedName3 })
+                .GetSut();
+            var result = await service.GetAbilities(new SortedPageFilter() {SortColumnName = "name", SortAscending = true});
+            Assert.AreEqual(expectedName3, result.Items.ElementAt(0).Name);
+            Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
+            Assert.AreEqual(expectedName2, result.Items.ElementAt(2).Name);
+        }
+        
+        [Test]
+        public async Task GetAbilities_FilterNameDescending_ShouldReturnInDescendingNameOrder()
+        {
+            var expectedName1 = "test1";
+            var expectedName2 = "test2";
+            var expectedName3 = "atest";
+            var service = new Fixture(
+                    new Ability() { Name = expectedName1 },
+                    new Ability() { Name = expectedName2 },
+                    new Ability() { Name = expectedName3 })
+                .GetSut();
+            var result = await service.GetAbilities(new SortedPageFilter() {SortColumnName = "name", SortAscending = false});
+            Assert.AreEqual(expectedName2, result.Items.ElementAt(0).Name);
+            Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
+            Assert.AreEqual(expectedName3, result.Items.ElementAt(2).Name);
+        }
+        
+        [Test]
+        public async Task GetAbilities_FilterCreatedDateTimeUtcAscending_ShouldReturnAscendingCreatedDateTimeUtc()
+        {
+            var expectedName1 = "test1";
+            var expectedName2 = "test2";
+            var service = new Fixture(
+                new Ability()
+                {
+                    Name = expectedName1,
+                    CreatedDateTimeUtc = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new Ability()
+                {
+                    Name = expectedName2,
+                    CreatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                }).GetSut();
+            var result = await service.GetAbilities(new SortedPageFilter()
+            {
+                SortColumnName = "createddatetimeutc",
+                SortAscending = true
+            });
+            Assert.AreEqual(expectedName1, result.Items.ElementAt(0).Name);
+            Assert.AreEqual(expectedName2, result.Items.ElementAt(1).Name);
+        }
+        
+        [Test]
+        public async Task GetAbilities_FilterCreatedDateTimeUtcDescending_ShouldReturnDescendingCreatedDateTimeUtc()
+        {
+            var expectedName1 = "test1";
+            var expectedName2 = "test2";
+            var service = new Fixture(
+                new Ability()
+                {
+                    Name = expectedName1,
+                    CreatedDateTimeUtc = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new Ability()
+                {
+                    Name = expectedName2,
+                    CreatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                }).GetSut();
+            var result = await service.GetAbilities(new SortedPageFilter()
+            {
+                SortColumnName = "createddatetimeutc",
+                SortAscending = false
+            });
+            Assert.AreEqual(expectedName2, result.Items.ElementAt(0).Name);
+            Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
+        }
+        
+                [Test]
+        public async Task GetAbilities_FilterUpdatedDateTimeUtcAscending_ShouldReturnAscendingCreatedDateTimeUtc()
+        {
+            var expectedName1 = "test1";
+            var expectedName2 = "test2";
+            var service = new Fixture(
+                new Ability()
+                {
+                    Name = expectedName1,
+                    UpdatedDateTimeUtc = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new Ability()
+                {
+                    Name = expectedName2,
+                    UpdatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                }).GetSut();
+            var result = await service.GetAbilities(new SortedPageFilter()
+            {
+                SortColumnName = "updateddatetimeutc",
+                SortAscending = true
+            });
+            Assert.AreEqual(expectedName1, result.Items.ElementAt(0).Name);
+            Assert.AreEqual(expectedName2, result.Items.ElementAt(1).Name);
+        }
+        
+        [Test]
+        public async Task GetAbilities_FilterUpdatedDateTimeUtcDescending_ShouldReturnDescendingCreatedDateTimeUtc()
+        {
+            var expectedName1 = "test1";
+            var expectedName2 = "test2";
+            var service = new Fixture(
+                new Ability()
+                {
+                    Name = expectedName1,
+                    UpdatedDateTimeUtc = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new Ability()
+                {
+                    Name = expectedName2,
+                    UpdatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                }).GetSut();
+            var result = await service.GetAbilities(new SortedPageFilter()
+            {
+                SortColumnName = "updateddatetimeutc",
+                SortAscending = false
+            });
+            Assert.AreEqual(expectedName2, result.Items.ElementAt(0).Name);
+            Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
+        }
+        
+        [Test]
+        public async Task GetAbilities_DefaultFilter_ShouldReturnInDescendingCreationDateOrder()
+        {
+            var expectedName1 = "test1";
+            var expectedName2 = "test2";
+            var service = new Fixture(
+                new Ability()
+                {
+                    Name = expectedName1,
+                    CreatedDateTimeUtc = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new Ability()
+                {
+                    Name = expectedName2,
+                    CreatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                }).GetSut();
+            var result = await service.GetAbilities(new SortedPageFilter());
+            Assert.AreEqual(expectedName2, result.Items.ElementAt(0).Name);
+            Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
         }
 
         #endregion

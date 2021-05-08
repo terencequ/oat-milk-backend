@@ -41,16 +41,11 @@ namespace OatMilk.Backend.Api.Controllers
                 return BadRequest(exception.Message);
             }
         }
-
-        /// <summary>
-        /// Get existing ability by name.
-        /// </summary>
-        /// <param name="name">Name of existing ability.</param>
-        /// <returns>Existing ability.</returns>
+        
         [HttpGet("")]
         [ProducesResponseType(typeof(PageResponse<AbilityResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PageResponse<AbilityResponse>>> GetAbilities([FromQuery] PageFilter filter)
+        public async Task<ActionResult<PageResponse<AbilityResponse>>> GetAbilities([FromQuery] SortedPageFilter filter)
         {
             try
             {
@@ -62,11 +57,6 @@ namespace OatMilk.Backend.Api.Controllers
             }
         }
         
-        /// <summary>
-        /// Get existing ability by name.
-        /// </summary>
-        /// <param name="name">Name of existing ability.</param>
-        /// <returns>Existing ability.</returns>
         [HttpGet("{name}")]
         [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -82,13 +72,7 @@ namespace OatMilk.Backend.Api.Controllers
             }
         }
         
-        /// <summary>
-        /// Update an existing ability.
-        /// </summary>
-        /// <param name="id">Id of existing ability.</param>
-        /// <param name="request">Updated ability parameters.</param>
-        /// <returns>Updated ability.</returns>
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AbilityResponse>> UpdateAbility([FromRoute] Guid id, [FromBody] AbilityRequest request)

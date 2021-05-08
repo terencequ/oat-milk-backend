@@ -29,13 +29,7 @@ namespace OatMilk.Backend.Api.Services
             _effectRepository = effectRepository;
             _mapper = mapper;
         }
-
-        /// <summary>
-        /// Create ability for current user.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns>Guid of newly created ability.</returns>
-        /// <exception cref="ArgumentException"></exception>
+        
         public async Task<AbilityResponse> CreateAbility(AbilityRequest request)
         {
             // Check for duplicate name
@@ -51,50 +45,55 @@ namespace OatMilk.Backend.Api.Services
 
             return _mapper.Map<AbilityResponse>(entity);
         }
-
-        /// <summary>
-        /// Get abilities as paginated results.
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task<PageResponse<AbilityResponse>> GetAbilities(PageFilter filter)
+        
+        public async Task<PageResponse<AbilityResponse>> GetAbilities(SortedPageFilter filter)
         {
-            return await _abilityRepository
-                .Get()
+            var query = _abilityRepository
+                .Get();
+            
+            // Sorting
+            var sortAscending = filter.SortAscending ?? false; // By default, should sort by descending order
+            switch (filter.SortColumnName?.ToLower())
+            {
+                case "name":
+                    query = sortAscending
+                        ? query.OrderBy(ability => ability.Name)
+                        : query.OrderByDescending(ability => ability.Name);
+                    break;
+                case null: // No filter means sort it by createddatetime
+                case "createddatetimeutc":
+                    query = sortAscending
+                        ? query.OrderBy(ability => ability.CreatedDateTimeUtc)
+                        : query.OrderByDescending(ability => ability.CreatedDateTimeUtc);
+                    break;
+                case "updateddatetimeutc":
+                    query = sortAscending
+                        ? query.OrderBy(ability => ability.UpdatedDateTimeUtc)
+                        : query.OrderByDescending(ability => ability.UpdatedDateTimeUtc);
+                    break;
+                default:
+                    throw new ArgumentException(
+                        $"Cannot sort by {filter.SortColumnName}, because the column doesn't exist!",
+                        nameof(filter.SortColumnName));
+            }
+            
+            return await query
                 .ProjectTo<AbilityResponse>(_mapper.ConfigurationProvider)
                 .GetPageResponseAsync(filter);
         }
-
-        /// <summary>
-        /// Get single ability for current user by ID.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        
         public async Task<AbilityResponse> GetAbilityById(Guid id)
         {
             var ability = await FindAbilityByIdAsync(id);
             return _mapper.Map<AbilityResponse>(ability);
         }
         
-        /// <summary>
-        /// Get single ability for current user by name.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
         public async Task<AbilityResponse> GetAbilityByName(string name)
         {
             var ability = await FindAbilityByNameAsync(name);
             return _mapper.Map<AbilityResponse>(ability);
         }
-
-        /// <summary>
-        /// Update an existing ability.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
+        
         public async Task<AbilityResponse> UpdateAbility(Guid id, AbilityRequest request)
         {
             var ability = await FindAbilityByIdAsync(id);
@@ -102,12 +101,7 @@ namespace OatMilk.Backend.Api.Services
 
             return _mapper.Map<Ability, AbilityResponse>(ability);
         }
-
-        /// <summary>
-        /// Delete an existing ability.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <exception cref="ArgumentException"></exception>
+        
         public async Task DeleteAbility(Guid id)
         {
             var ability = await FindAbilityByIdAsync(id);
@@ -115,13 +109,7 @@ namespace OatMilk.Backend.Api.Services
             _abilityRepository.Remove(ability);
             await _abilityRepository.SaveAsync();
         }
-
-        /// <summary>
-        /// Create effect for existing ability.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        
         public async Task AssignEffectToAbility(Guid abilityId, Guid effectId)
         {
             var ability = await FindAbilityByIdAsync(abilityId);
