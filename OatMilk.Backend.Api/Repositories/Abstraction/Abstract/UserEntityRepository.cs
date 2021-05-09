@@ -8,7 +8,7 @@ using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
-namespace OatMilk.Backend.Api.Repositories.Abstraction
+namespace OatMilk.Backend.Api.Repositories.Abstraction.Abstract
 {
     public abstract class UserEntityRepository<TEntity> : EntityRepository<TEntity> where TEntity : UserEntity
     {

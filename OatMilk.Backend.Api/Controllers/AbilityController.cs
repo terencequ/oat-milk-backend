@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OatMilk.Backend.Api.Services.Abstraction;
+using OatMilk.Backend.Api.Services.Abstraction.Interface;
 using OatMilk.Backend.Api.Services.Models.Filters;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;

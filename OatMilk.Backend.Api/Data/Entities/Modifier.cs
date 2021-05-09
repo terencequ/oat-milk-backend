@@ -1,12 +1,11 @@
 ﻿using System;
+using OatMilk.Backend.Api.Data.Entities.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Enums;
 
 namespace OatMilk.Backend.Api.Data.Entities
 {
-    public class Modifier
+    public class Modifier : Entity
     {
-        public Guid Id { get; set; }
-        
         /// <summary>
         /// Parent effect of this Modifier.
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 
-namespace OatMilk.Backend.Api.Repositories.Abstraction
+namespace OatMilk.Backend.Api.Repositories.Abstraction.Interface
 {
     public interface IRepository<TEntity> where TEntity :class
     {

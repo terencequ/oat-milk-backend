@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using MockQueryable.Moq;
 using Moq;
 using OatMilk.Backend.Api.Repositories.Abstraction;
+using OatMilk.Backend.Api.Repositories.Abstraction.Interface;
 using OatMilk.Backend.Api.Services.AutoMapper;
+using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.AutoMapper;
 
 namespace OatMilk.Backend.Api.Tests.TestingHelpers
 {
@@ -28,7 +30,7 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers
             {
                 new KeyValuePair<string, string>("Auth:UserTokenSecret", "this is a test secret")
             }).Build();
-            Mapper = AutoMapperHelper.GetAutoMapper();
+            Mapper = TestAutoMapperHelper.GetAutoMapper();
             MockRepository = new Mock<IRepository<TEntity>>();
             MockRepository.Setup(m => m.Get()).Returns(entities.AsQueryable().BuildMock().Object);
         }

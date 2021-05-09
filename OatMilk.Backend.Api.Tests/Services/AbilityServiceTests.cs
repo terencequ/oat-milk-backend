@@ -7,6 +7,7 @@ using Moq;
 using NUnit.Framework;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Repositories.Abstraction;
+using OatMilk.Backend.Api.Repositories.Abstraction.Interface;
 using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Services.Models.Filters;
 using OatMilk.Backend.Api.Services.Models.Requests;

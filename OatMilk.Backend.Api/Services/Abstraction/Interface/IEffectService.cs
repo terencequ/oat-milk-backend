@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
 
-namespace OatMilk.Backend.Api.Services.Abstraction
+namespace OatMilk.Backend.Api.Services.Abstraction.Interface
 {
     public interface IEffectService
     {

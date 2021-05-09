@@ -7,7 +7,6 @@ namespace OatMilk.Backend.Api.Data.Entities
 {
     public class Effect : UserEntity
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public int Duration { get; set; }
         public int Period { get; set; }

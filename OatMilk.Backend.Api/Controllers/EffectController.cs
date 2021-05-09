@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OatMilk.Backend.Api.Services.Abstraction;
+using OatMilk.Backend.Api.Services.Abstraction.Interface;
+using OatMilk.Backend.Api.Services.Models.Filters;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
+using OatMilk.Backend.Api.Services.Pagination;
 
 namespace OatMilk.Backend.Api.Controllers
 {
@@ -14,11 +17,11 @@ namespace OatMilk.Backend.Api.Controllers
     [Route("[controller]")]
     public class EffectController : ControllerBase
     {
-        private readonly IEffectService _effectService;
+        private readonly IEffectService _service;
 
-        public EffectController(IEffectService effectService)
+        public EffectController(IEffectService service)
         {
-            _effectService = effectService;
+            _service = service;
         }
         
         [HttpPost("")]
@@ -28,7 +31,75 @@ namespace OatMilk.Backend.Api.Controllers
         {
             try
             {
-                return await _effectService.CreateEffect(request);
+                return await _service.CreateEffect(request);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+        
+        /**
+        [HttpGet("")]
+        [ProducesResponseType(typeof(PageResponse<EffectResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<PageResponse<EffectResponse>>> GetEffects([FromQuery] EffectFilter filter)
+        {
+            try
+            {
+                return await _service.GetEffects(filter);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+        */
+        
+        [HttpGet("{name}")]
+        [ProducesResponseType(typeof(EffectResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<EffectResponse>> GetEffectByName([FromRoute] string name)
+        {
+            try
+            {
+                return await _service.GetEffectByName(name);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+        
+        [HttpPut("{id:guid}")]
+        [ProducesResponseType(typeof(EffectResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<EffectResponse>> UpdateEffect([FromRoute] Guid id, [FromBody] EffectRequest request)
+        {
+            try
+            {
+                return await _service.UpdateEffect(id, request);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+        
+        /// <summary>
+        /// Delete an existing ability.
+        /// </summary>
+        /// <param name="id">Id of existing ability.</param>
+        /// <returns></returns>
+        [HttpGet("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> DeleteEffect([FromRoute] Guid id)
+        {
+            try
+            {
+                await _service.DeleteEffect(id);
+                return Ok();
             }
             catch (ArgumentException exception)
             {

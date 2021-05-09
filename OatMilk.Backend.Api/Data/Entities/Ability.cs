@@ -7,7 +7,6 @@ namespace OatMilk.Backend.Api.Data.Entities
 {
     public class Ability : UserEntity
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
 
         /// <summary>
