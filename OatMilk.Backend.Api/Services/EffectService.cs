@@ -16,8 +16,11 @@ namespace OatMilk.Backend.Api.Services
 {
     public class EffectService : UserEntityService<EffectRequest, Effect, EffectResponse>, IEffectService
     {
-        public EffectService(IRepository<Effect> repository, IMapper mapper) : base(repository, mapper)
+        private IRepository<Modifier> _modifierRepository;
+        
+        public EffectService(IRepository<Effect> repository, IRepository<Modifier> modifierRepository, IMapper mapper) : base(repository, mapper)
         {
+            _modifierRepository = modifierRepository;
         }
 
         public async Task<ModifierResponse> CreateAndAssignModifier(Guid id, ModifierRequest request)
@@ -31,14 +34,16 @@ namespace OatMilk.Backend.Api.Services
             return Mapper.Map<ModifierResponse>(modifier);
         }
 
-        public async Task DeleteModifer(Guid id)
+        public async Task DeleteModifer(Guid id, Guid modifierId)
         {
-            var modifier = await FindByIdAsync();
+            var modifier = await FindModifierById(id, modifierId);
+            _modifierRepository.Remove(modifier);
+            await Repository.SaveAsync();
         }
 
         #region Helpers
 
-        protected async Task<Modifier> FindModifierById(Guid parentId, Guid modifierId)
+        private async Task<Modifier> FindModifierById(Guid parentId, Guid modifierId)
         {
             var effect = await Repository.Get()
                 .Where(a => a.Id == parentId)
@@ -48,8 +53,13 @@ namespace OatMilk.Backend.Api.Services
             {
                 throw new ArgumentException($"Ability with id '{parentId}' not found.", nameof(parentId));
             }
-
+            
             var result = effect.Modifiers.FirstOrDefault(modifier => modifier.Id == modifierId);
+            if (result == null)
+            {
+                throw new ArgumentException($"Effect with id '{modifierId}' not found.", nameof(modifierId));
+            }
+            
             return result;
         }
 

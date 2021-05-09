@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using MockQueryable.Moq;
 using Moq;
+using OatMilk.Backend.Api.Data.Entities.Abstraction;
 using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.AutoMapper;
 using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.AutoMapper;
@@ -17,7 +18,7 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers
     /// - MockRepository
     /// </summary>
     /// <typeparam name="TEntity">Entity stored in the repository.</typeparam>
-    public abstract class RepositoryFixture<TEntity> where TEntity : class
+    public abstract class RepositoryFixture<TEntity> where TEntity : Entity
     {
         protected readonly IConfiguration Configuration;
         protected readonly IMapper Mapper;

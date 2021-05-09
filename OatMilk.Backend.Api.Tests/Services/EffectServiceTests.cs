@@ -17,11 +17,19 @@ namespace OatMilk.Backend.Api.Tests.Services
     {
         private class Fixture : RepositoryFixture<Effect>
         {
-            public Fixture(params Effect[] effects) : base(effects){}
+            private readonly Mock<IRepository<Modifier>> _mockModifierRepository;
+
+            public Fixture(params Effect[] effects) : base(effects) { }
+            
+            public Fixture(Modifier[] modifiers, Effect[] effects) : base(effects)
+            {
+                _mockModifierRepository = new Mock<IRepository<Modifier>>();
+                _mockModifierRepository.Setup(m => m.Get()).Returns(modifiers.AsQueryable().BuildMock().Object);
+            }
 
             public EffectService GetSut()
             {
-                return new(MockRepository.Object, Mapper);
+                return new(MockRepository.Object, _mockModifierRepository.Object, Mapper);
             }
         }
     }
