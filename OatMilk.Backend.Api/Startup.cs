@@ -51,6 +51,7 @@ namespace OatMilk.Backend.Api
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IRepository<Ability>, AbilityRepository>();
             services.AddScoped<IRepository<Effect>, EffectRepository>();
+            services.AddScoped<IRepository<Modifier>, ModifierRepository>();
 
             // Services
             services.AddScoped<IUserService, UserService>();

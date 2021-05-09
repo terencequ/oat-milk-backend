@@ -16,7 +16,7 @@ namespace OatMilk.Backend.Api.Services
 {
     public class EffectService : UserEntityService<EffectRequest, Effect, EffectResponse>, IEffectService
     {
-        private IRepository<Modifier> _modifierRepository;
+        private readonly IRepository<Modifier> _modifierRepository;
         
         public EffectService(IRepository<Effect> repository, IRepository<Modifier> modifierRepository, IMapper mapper) : base(repository, mapper)
         {
