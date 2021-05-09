@@ -32,5 +32,13 @@ namespace OatMilk.Backend.Api.Tests.Services
                 return new(MockRepository.Object, _mockModifierRepository.Object, Mapper);
             }
         }
+
+        #region CreateAndAssignModifier
+        
+        #endregion
+        
+        #region DeleteModifier
+        
+        #endregion
     }
 }
