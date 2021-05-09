@@ -3,10 +3,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
-using OatMilk.Backend.Api.Repositories.Abstraction.Interface;
-using OatMilk.Backend.Api.Services.Abstraction.Interface;
+using OatMilk.Backend.Api.Repositories.Abstraction;
 
-namespace OatMilk.Backend.Api.Services.Abstraction.Abstract
+namespace OatMilk.Backend.Api.Services.Abstraction
 {
     public abstract class EntityService<TRequest, TEntity, TResponse> : IEntityService<TRequest, TResponse>
         where TEntity : Entity
@@ -55,7 +54,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction.Abstract
         
         #region Helpers
 
-        private async Task<TEntity> FindByIdAsync(Guid id)
+        protected async Task<TEntity> FindByIdAsync(Guid id)
         {
             var effect = await Repository.Get().FirstOrDefaultAsync(a => a.Id == id);
             if (effect == null)

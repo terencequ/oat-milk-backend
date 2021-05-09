@@ -1,6 +1,6 @@
 ﻿using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
-namespace OatMilk.Backend.Api.Tests.TestingHelpers.Models
+namespace OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Models
 {
     public class TestEntity : Entity
     {

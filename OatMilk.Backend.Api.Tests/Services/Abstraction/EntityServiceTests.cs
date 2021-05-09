@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
-using MockQueryable.Moq;
-using Moq;
 using NUnit.Framework;
-using OatMilk.Backend.Api.Data.Entities;
-using OatMilk.Backend.Api.Repositories.Abstraction.Interface;
-using OatMilk.Backend.Api.Services;
-using OatMilk.Backend.Api.Services.Abstraction.Abstract;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
 using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services;
-using OatMilk.Backend.Api.Tests.TestingHelpers.Models;
+using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Models;
 
-namespace OatMilk.Backend.Api.Tests.Services.Abstraction.Abstract
+namespace OatMilk.Backend.Api.Tests.Services.Abstraction
 {
     [TestFixture]
     public class EntityServiceTests

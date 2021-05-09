@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OatMilk.Backend.Api.Services.Abstraction;
-using OatMilk.Backend.Api.Services.Abstraction.Interface;
-using OatMilk.Backend.Api.Services.Models.Filters;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
 using OatMilk.Backend.Api.Services.Pagination;
@@ -36,7 +34,7 @@ namespace OatMilk.Backend.Api.Controllers
         {
             try
             {
-                return await _service.CreateAbility(request);
+                return await _service.Create(request);
             }
             catch (ArgumentException exception)
             {
@@ -47,11 +45,11 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpGet("")]
         [ProducesResponseType(typeof(PageResponse<AbilityResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PageResponse<AbilityResponse>>> GetAbilities([FromQuery] AbilityFilter filter)
+        public async Task<ActionResult<PageResponse<AbilityResponse>>> GetAbilities([FromQuery] SearchableSortedPageFilter filter)
         {
             try
             {
-                return await _service.GetAbilities(filter);
+                return await _service.GetMultiple(filter);
             }
             catch (ArgumentException exception)
             {
@@ -66,7 +64,7 @@ namespace OatMilk.Backend.Api.Controllers
         {
             try
             {
-                return await _service.GetAbilityByName(name);
+                return await _service.GetByName(name);
             }
             catch (ArgumentException exception)
             {
@@ -81,7 +79,7 @@ namespace OatMilk.Backend.Api.Controllers
         {
             try
             {
-                return await _service.UpdateAbility(id, request);
+                return await _service.Update(id, request);
             }
             catch (ArgumentException exception)
             {
@@ -101,7 +99,7 @@ namespace OatMilk.Backend.Api.Controllers
         {
             try
             {
-                await _service.DeleteAbility(id);
+                await _service.Delete(id);
                 return Ok();
             }
             catch (ArgumentException exception)

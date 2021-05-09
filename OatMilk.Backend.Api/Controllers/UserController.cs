@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using OatMilk.Backend.Api.Controllers.Security;
 using OatMilk.Backend.Api.Services.Abstraction;
-using OatMilk.Backend.Api.Services.Abstraction.Interface;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
 

@@ -1,7 +1,8 @@
-﻿namespace OatMilk.Backend.Api.Services.Models.Requests
+﻿using OatMilk.Backend.Api.Services.Models.Abstraction;
+
+namespace OatMilk.Backend.Api.Services.Models.Requests
 {
-    public class AbilityRequest
+    public class AbilityRequest : NamedRequest
     {
-        public string Name { get; set; }
     }
 }

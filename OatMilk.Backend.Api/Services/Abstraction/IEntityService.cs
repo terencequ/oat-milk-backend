@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace OatMilk.Backend.Api.Services.Abstraction.Interface
+namespace OatMilk.Backend.Api.Services.Abstraction
 {
     public interface IEntityService<in TRequest, TResponse>
     {

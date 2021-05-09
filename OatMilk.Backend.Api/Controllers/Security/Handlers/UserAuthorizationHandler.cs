@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using OatMilk.Backend.Api.Controllers.Security.Requirements;
 using OatMilk.Backend.Api.Services.Abstraction;
-using OatMilk.Backend.Api.Services.Abstraction.Interface;
 
 namespace OatMilk.Backend.Api.Controllers.Security.Handlers
 {

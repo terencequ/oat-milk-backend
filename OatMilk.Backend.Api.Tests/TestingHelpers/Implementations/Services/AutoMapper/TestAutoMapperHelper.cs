@@ -17,7 +17,8 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Auto
                     var testAutoMapperTypes = autoMapperTypes.ToList();
                     testAutoMapperTypes.AddRange(new Type[]
                     {
-                        typeof(TestProfile)
+                        typeof(TestEntityProfile),
+                        typeof(TestUserEntityProfile)
                     });
                     return testAutoMapperTypes.ToArray();
                 }

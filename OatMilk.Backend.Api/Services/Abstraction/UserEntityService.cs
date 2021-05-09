@@ -3,38 +3,44 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using OatMilk.Backend.Api.Data.Entities;
+using OatMilk.Backend.Api.Data.Entities.Abstraction;
 using OatMilk.Backend.Api.Repositories.Abstraction;
-using OatMilk.Backend.Api.Services.Abstraction;
-using OatMilk.Backend.Api.Services.Models.Requests;
+using OatMilk.Backend.Api.Services.Models.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Responses;
 using OatMilk.Backend.Api.Services.Pagination;
 
-namespace OatMilk.Backend.Api.Services
+namespace OatMilk.Backend.Api.Services.Abstraction
 {
-    public class AbilityService : UserEntityService<AbilityRequest, Ability, AbilityResponse>, IAbilityService
+    public abstract class UserEntityService<TRequest, TEntity, TResponse> : EntityService<TRequest, TEntity, TResponse>, IUserEntityService<TRequest, TResponse>
+        where TRequest : NamedRequest
+        where TEntity : UserEntity
     {
-        private readonly IRepository<Effect> _effectRepository;
-
-        public AbilityService(IRepository<Ability> repository, IRepository<Effect> effectRepository, IMapper mapper) : base(repository, mapper)
+        protected UserEntityService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
         {
-            _effectRepository = effectRepository;
+        }
+        
+        public new async Task<TResponse> Create(TRequest request)
+        {
+            // Check for duplicate name
+            if (Repository.Get().Any(a => a.Name == request.Name))
+            {
+                throw new ArgumentException($"Ability of name '{request.Name}' already exists!", nameof(request.Name));
+            }
+            return await base.Create(request);
         }
 
-        public async Task<PageResponse<AbilityResponse>> GetMultiple(SearchableSortedPageFilter filter)
+        public async Task<PageResponse<TResponse>> GetMultiple(SearchableSortedPageFilter filter)
         {
             var query = Repository
                 .Get();
-            
+
             // Search by name
             if (filter.SearchByName != null)
             {
                 query = query.Where(ability => ability.Name.Contains(filter.SearchByName));
             }
-            
+
             // Sorting
             var sortAscending = filter.SortAscending ?? false; // By default, should sort by descending order
             switch (filter.SortColumnName?.ToLower())
@@ -62,32 +68,29 @@ namespace OatMilk.Backend.Api.Services
             }
             
             return await query
-                .ProjectTo<AbilityResponse>(Mapper.ConfigurationProvider)
+                .ProjectTo<TResponse>(Mapper.ConfigurationProvider)
                 .GetPageResponseAsync(filter);
         }
 
-        public async Task AssignEffect(Guid abilityId, Guid effectId)
+        public async Task<TResponse> GetByName(string name)
         {
-            var ability = await FindByIdAsync(abilityId);
-            var effect = await FindEffectByIdAsync(effectId);
-            
-            ability.AbilityEffects.Add(new AbilityEffect(){Ability = ability, Effect = effect});
-            await Repository.SaveAsync();
+            var effect = await FindByNameAsync(name);
+            return Mapper.Map<TResponse>(effect);
         }
         
         #region Helpers
 
-        private async Task<Effect> FindEffectByIdAsync(Guid id)
+        protected async Task<TEntity> FindByNameAsync(string name)
         {
-            var effect = await _effectRepository.Get().FirstOrDefaultAsync(a => a.Id == id);
-            if (effect == null)
+            var entity = await Repository.Get().FirstOrDefaultAsync(a => a.Name == name);
+            if (entity == null)
             {
-                throw new ArgumentException($"Ability with id '{id}' not found.", nameof(id));
+                throw new ArgumentException($"Ability with name '{name}' not found.", nameof(name));
             }
 
-            return effect;
+            return entity;
         }
-
+        
         #endregion
     }
 }

@@ -5,9 +5,9 @@ using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Models;
 
 namespace OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services
 {
-    public class TestEntityService : EntityService<TestEntityRequest, TestEntity, TestEntityResponse>
+    public class TestUserEntityService : UserEntityService<TestUserEntityRequest, TestUserEntity, TestUserEntityResponse>
     {
-        public TestEntityService(IRepository<TestEntity> repository, IMapper mapper) : base(repository, mapper)
+        public TestUserEntityService(IRepository<TestUserEntity> repository, IMapper mapper) : base(repository, mapper)
         {
         }
     }
