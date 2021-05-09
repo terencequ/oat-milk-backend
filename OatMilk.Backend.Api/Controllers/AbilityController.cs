@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OatMilk.Backend.Api.Services.Abstraction;
+using OatMilk.Backend.Api.Services.Models.Filters;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
 using OatMilk.Backend.Api.Services.Pagination;
@@ -45,7 +46,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpGet("")]
         [ProducesResponseType(typeof(PageResponse<AbilityResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PageResponse<AbilityResponse>>> GetAbilities([FromQuery] SortedPageFilter filter)
+        public async Task<ActionResult<PageResponse<AbilityResponse>>> GetAbilities([FromQuery] AbilityFilter filter)
         {
             try
             {

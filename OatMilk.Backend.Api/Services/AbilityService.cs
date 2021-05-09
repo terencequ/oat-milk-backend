@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Abstraction;
+using OatMilk.Backend.Api.Services.Models.Filters;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
 using OatMilk.Backend.Api.Services.Pagination;
@@ -46,10 +47,16 @@ namespace OatMilk.Backend.Api.Services
             return _mapper.Map<AbilityResponse>(entity);
         }
         
-        public async Task<PageResponse<AbilityResponse>> GetAbilities(SortedPageFilter filter)
+        public async Task<PageResponse<AbilityResponse>> GetAbilities(AbilityFilter filter)
         {
             var query = _abilityRepository
                 .Get();
+            
+            // Search by name
+            if (filter.SearchByName != null)
+            {
+                query = query.Where(ability => ability.Name.Contains(filter.SearchByName));
+            }
             
             // Sorting
             var sortAscending = filter.SortAscending ?? false; // By default, should sort by descending order

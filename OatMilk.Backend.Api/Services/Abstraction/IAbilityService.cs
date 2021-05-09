@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OatMilk.Backend.Api.Data.Entities;
+using OatMilk.Backend.Api.Services.Models.Filters;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
 using OatMilk.Backend.Api.Services.Pagination;
@@ -23,7 +24,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         /// </summary>
         /// <param name="filter">Filter which determines what page to view, and what to sort by.</param>
         /// <returns>Existing ability.</returns>
-        Task<PageResponse<AbilityResponse>> GetAbilities(SortedPageFilter filter);
+        Task<PageResponse<AbilityResponse>> GetAbilities(AbilityFilter filter);
         
         /// <summary>
         /// Get single ability for current user by ID.

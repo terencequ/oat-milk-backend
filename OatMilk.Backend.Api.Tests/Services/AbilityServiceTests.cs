@@ -8,6 +8,7 @@ using NUnit.Framework;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services;
+using OatMilk.Backend.Api.Services.Models.Filters;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Pagination;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
@@ -114,6 +115,23 @@ namespace OatMilk.Backend.Api.Tests.Services
         #region GetAbilities
 
         [Test]
+        public async Task GetAbilities_SearchByName_ShouldOnlyReturnNamesContainingSearch()
+        {
+            var expectedName1 = "test1";
+            var expectedName2 = "test2";
+            var expectedName3 = "ates";
+            var service = new Fixture(
+                    new Ability() { Name = expectedName1 },
+                    new Ability() { Name = expectedName2 },
+                    new Ability() { Name = expectedName3 })
+                .GetSut();
+            var result = await service.GetAbilities(new AbilityFilter() {SearchByName = "test"});
+            Assert.IsTrue(result.Items.Any(ability => ability.Name == expectedName1));
+            Assert.IsTrue(result.Items.Any(ability => ability.Name == expectedName2));
+            Assert.IsFalse(result.Items.Any(ability => ability.Name == expectedName3));
+        }
+        
+        [Test]
         public async Task GetAbilities_FilterNameAscending_ShouldReturnInAscendingNameOrder()
         {
             var expectedName1 = "test1";
@@ -124,7 +142,7 @@ namespace OatMilk.Backend.Api.Tests.Services
                 new Ability() { Name = expectedName2 },
                 new Ability() { Name = expectedName3 })
                 .GetSut();
-            var result = await service.GetAbilities(new SortedPageFilter() {SortColumnName = "name", SortAscending = true});
+            var result = await service.GetAbilities(new AbilityFilter() {SortColumnName = "name", SortAscending = true});
             Assert.AreEqual(expectedName3, result.Items.ElementAt(0).Name);
             Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
             Assert.AreEqual(expectedName2, result.Items.ElementAt(2).Name);
@@ -141,7 +159,7 @@ namespace OatMilk.Backend.Api.Tests.Services
                     new Ability() { Name = expectedName2 },
                     new Ability() { Name = expectedName3 })
                 .GetSut();
-            var result = await service.GetAbilities(new SortedPageFilter() {SortColumnName = "name", SortAscending = false});
+            var result = await service.GetAbilities(new AbilityFilter() {SortColumnName = "name", SortAscending = false});
             Assert.AreEqual(expectedName2, result.Items.ElementAt(0).Name);
             Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
             Assert.AreEqual(expectedName3, result.Items.ElementAt(2).Name);
@@ -163,7 +181,7 @@ namespace OatMilk.Backend.Api.Tests.Services
                     Name = expectedName2,
                     CreatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }).GetSut();
-            var result = await service.GetAbilities(new SortedPageFilter()
+            var result = await service.GetAbilities(new AbilityFilter()
             {
                 SortColumnName = "createddatetimeutc",
                 SortAscending = true
@@ -188,7 +206,7 @@ namespace OatMilk.Backend.Api.Tests.Services
                     Name = expectedName2,
                     CreatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }).GetSut();
-            var result = await service.GetAbilities(new SortedPageFilter()
+            var result = await service.GetAbilities(new AbilityFilter()
             {
                 SortColumnName = "createddatetimeutc",
                 SortAscending = false
@@ -213,7 +231,7 @@ namespace OatMilk.Backend.Api.Tests.Services
                     Name = expectedName2,
                     UpdatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }).GetSut();
-            var result = await service.GetAbilities(new SortedPageFilter()
+            var result = await service.GetAbilities(new AbilityFilter()
             {
                 SortColumnName = "updateddatetimeutc",
                 SortAscending = true
@@ -238,7 +256,7 @@ namespace OatMilk.Backend.Api.Tests.Services
                     Name = expectedName2,
                     UpdatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }).GetSut();
-            var result = await service.GetAbilities(new SortedPageFilter()
+            var result = await service.GetAbilities(new AbilityFilter()
             {
                 SortColumnName = "updateddatetimeutc",
                 SortAscending = false
@@ -263,7 +281,7 @@ namespace OatMilk.Backend.Api.Tests.Services
                     Name = expectedName2,
                     CreatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }).GetSut();
-            var result = await service.GetAbilities(new SortedPageFilter());
+            var result = await service.GetAbilities(new AbilityFilter());
             Assert.AreEqual(expectedName2, result.Items.ElementAt(0).Name);
             Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
         }
