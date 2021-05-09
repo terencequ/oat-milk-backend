@@ -24,48 +24,6 @@ namespace OatMilk.Backend.Api.Services
             _effectRepository = effectRepository;
         }
 
-        public async Task<PageResponse<AbilityResponse>> GetMultiple(SearchableSortedPageFilter filter)
-        {
-            var query = Repository
-                .Get();
-            
-            // Search by name
-            if (filter.SearchByName != null)
-            {
-                query = query.Where(ability => ability.Name.Contains(filter.SearchByName));
-            }
-            
-            // Sorting
-            var sortAscending = filter.SortAscending ?? false; // By default, should sort by descending order
-            switch (filter.SortColumnName?.ToLower())
-            {
-                case "name":
-                    query = sortAscending
-                        ? query.OrderBy(ability => ability.Name)
-                        : query.OrderByDescending(ability => ability.Name);
-                    break;
-                case null: // No filter means sort it by createddatetime
-                case "createddatetimeutc":
-                    query = sortAscending
-                        ? query.OrderBy(ability => ability.CreatedDateTimeUtc)
-                        : query.OrderByDescending(ability => ability.CreatedDateTimeUtc);
-                    break;
-                case "updateddatetimeutc":
-                    query = sortAscending
-                        ? query.OrderBy(ability => ability.UpdatedDateTimeUtc)
-                        : query.OrderByDescending(ability => ability.UpdatedDateTimeUtc);
-                    break;
-                default:
-                    throw new ArgumentException(
-                        $"Cannot sort by {filter.SortColumnName}, because the column doesn't exist!",
-                        nameof(filter.SortColumnName));
-            }
-            
-            return await query
-                .ProjectTo<AbilityResponse>(Mapper.ConfigurationProvider)
-                .GetPageResponseAsync(filter);
-        }
-
         public async Task AssignEffect(Guid abilityId, Guid effectId)
         {
             var ability = await FindByIdAsync(abilityId);
