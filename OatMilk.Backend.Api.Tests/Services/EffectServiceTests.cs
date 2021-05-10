@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Threading.Tasks;
 using MockQueryable.Moq;
@@ -34,6 +35,17 @@ namespace OatMilk.Backend.Api.Tests.Services
         }
 
         #region CreateAndAssignModifier
+
+        [Test]
+        public async Task CreateAndAssignModifier_ValidParameters_ReturnsModifier()
+        {
+            var expectedId = Guid.NewGuid();
+            var expectedAttribute = "test";
+            var sut = new Fixture(new Effect(){Id = expectedId}).GetSut();
+            var result = await sut.CreateAndAssignModifier(expectedId, new ModifierRequest(){ Attribute = expectedAttribute });
+            
+            Assert.AreEqual(expectedAttribute, result.Attribute);
+        }
         
         #endregion
         
