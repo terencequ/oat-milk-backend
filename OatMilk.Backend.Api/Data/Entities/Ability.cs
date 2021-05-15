@@ -7,8 +7,6 @@ namespace OatMilk.Backend.Api.Data.Entities
 {
     public class Ability : UserEntity
     {
-        public string Name { get; set; }
-
         /// <summary>
         /// Determines the cost of this ability. Will be applied to the user of the ability.
         /// If the user cannot pay the cost, the ability will not be committed.

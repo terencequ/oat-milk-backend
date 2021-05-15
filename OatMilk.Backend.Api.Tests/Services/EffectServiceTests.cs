@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace OatMilk.Backend.Api.Tests.Services
 
             public EffectService GetSut()
             {
-                return new(MockRepository.Object, _mockModifierRepository.Object, Mapper);
+                return new(MockRepository.Object, _mockModifierRepository?.Object, Mapper);
             }
         }
 
@@ -41,7 +42,7 @@ namespace OatMilk.Backend.Api.Tests.Services
         {
             var expectedId = Guid.NewGuid();
             var expectedAttribute = "test";
-            var sut = new Fixture(new Effect(){Id = expectedId}).GetSut();
+            var sut = new Fixture(new Effect(){Id = expectedId, Modifiers = new List<Modifier>()}).GetSut();
             var result = await sut.CreateAndAssignModifier(expectedId, new ModifierRequest(){ Attribute = expectedAttribute });
             
             Assert.AreEqual(expectedAttribute, result.Attribute);

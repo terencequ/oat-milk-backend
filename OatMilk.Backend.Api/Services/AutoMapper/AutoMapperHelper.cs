@@ -15,7 +15,8 @@ namespace OatMilk.Backend.Api.Services.AutoMapper
             {
                 typeof(UserProfile),
                 typeof(AbilityProfile),
-                typeof(EffectProfile)
+                typeof(EffectProfile),
+                typeof(ModifierProfile)
             };
         }
 
