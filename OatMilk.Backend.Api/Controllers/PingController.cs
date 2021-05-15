@@ -7,10 +7,7 @@ namespace OatMilk.Backend.Api.Controllers
     [Route("[controller]")]
     public class PingController : ControllerBase
     {
-        public PingController()
-        {
-
-        }
+        public PingController() { }
 
         /// <summary>
         /// Basic test endpoint.

@@ -9,6 +9,5 @@ namespace OatMilk.Backend.Api.Data.Entities
         public int ExperienceRequirement { get; set; }
         public int ProficiencyBonus { get; set; }
         // public ICollection<Features> Features { get; set; }
-        // public 
     }
 }

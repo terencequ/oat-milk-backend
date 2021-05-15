@@ -1,40 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Immutable;
+using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Data.Entities
 {
-    public static class CharacterConstants
+    public class Character : UserEntity // TODO: convert attributes to attribute sets
     {
-        public static readonly ImmutableArray<int> ExperienceRequirements = new()
-        {
-            0, 300, 900, 2700, // Lvl 1 to 4
-            6500, 14000, 23000, 24000, // Lvl 5 - 8
-            48000, 64000, 85000, 100000, // Lvl 9 to 12
-            120000, 140000, 165000, 196000, // Lvl 13 to 16
-            225000, 265000, 305000, 355000 // Lvl 17 to 20
-        };
+        #region Experience
 
-        public static readonly ImmutableArray<int> ProficiencyBonus = new()
-        {
-            2, 2, 2, 2,
-            3, 3, 3, 3,
-            4, 4, 4, 4,
-            5, 5, 5, 5,
-            6, 6, 6, 6
-        };
-    }
-    
-    public class Character
-    {
         public int Experience { get; set; }
-        public int Level => 1;
-        public int Proficiency { get; set; }
-        public int Strength { get; set; }
-        public int Dexterity { get; set; }
-        public int Constitution { get; set; }
-        public int Intelligence { get; set; }
-        public int Wisdom { get; set; }
-        public int Charisma { get; set; }
+
+        #endregion
+
+        #region Stats
+
+        // Stats
+        public Attribute HitPoints { get; set; }
+        public ICollection<Attribute> HitDice { get; set; }
+        public Attribute ArmorClass { get; set; }
+        public Attribute Speed { get; set; }
+        
+        public Attribute DeathSaveSuccesses { get; set; }
+        public Attribute DeathSaveFailures { get; set; }
+        
+        public Attribute Strength { get; set; }
+        public Attribute Dexterity { get; set; }
+        public Attribute Constitution { get; set; }
+        public Attribute Intelligence { get; set; }
+        public Attribute Wisdom { get; set; }
+        public Attribute Charisma { get; set; }
+
+        #endregion
+
+        #region Proficiencies
         
         public bool Acrobatics { get; set; }
         public bool AnimalHandling { get; set; }
@@ -53,21 +52,18 @@ namespace OatMilk.Backend.Api.Data.Entities
         public bool Stealth { get; set; }
         public bool Survival { get; set; }
 
-        public int AcrobaticsModifier => Strength + (Acrobatics ? 0 : Proficiency);
-        public int AnimalHandlingModifier => Wisdom + (AnimalHandling ? 0 : Proficiency);
-        public int ArcanaModifier { get; set; }
-        public int AthleticsModifier { get; set; }
-        public int DeceptionModifier { get; set; }
-        public int HistoryModifier { get; set; }
-        public int InsightModifier { get; set; }
-        public int IntimidationModifier { get; set; }
-        public int InvestigationModifier { get; set; }
-        public int MedicineModifier { get; set; }
-        public int NatureModifier { get; set; }
-        public int PerceptionModifier { get; set; }
-        public int ReligionModifier { get; set; }
-        public int SleightOfHandModifier { get; set; }
-        public int StealthModifier { get; set; }
-        public int SurvivalModifier { get; set; }
+        #endregion
+
+        #region Bio and flavour
+
+        public string PersonalityTraits { get; set; }
+        public string Ideals { get; set; }
+        public string Bonds { get; set; }
+        public string Flaws { get; set; }
+        public string Backstory { get; set; }
+        public string AlliesAndOrganisations { get; set; }
+        public string Appearance { get; set; }
+
+        #endregion
     }
 }
