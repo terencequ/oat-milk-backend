@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.SymbolStore;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using MockQueryable.Moq;
 using Moq;
@@ -51,6 +52,40 @@ namespace OatMilk.Backend.Api.Tests.Services
         #endregion
         
         #region DeleteModifier
+        
+        [Test]
+        public async Task DeleteModifier_ValidParameters_ReturnsModifier()
+        {
+            var expectedModifier = new Modifier()
+            {
+                Id = Guid.NewGuid()
+            };
+            var expectedEffect = new Effect()
+            {
+                Id = Guid.NewGuid(),
+                Modifiers = new List<Modifier>()
+                {
+                    expectedModifier
+                }
+            };
+            var sut = new Fixture(new []{expectedModifier}, new []{expectedEffect}).GetSut();
+            var result = await sut.DeleteModifer(expectedEffect.Id, expectedModifier.Id);
+            
+            Assert.AreEqual(expectedModifier.Id, result.Id);
+        }
+
+        [Test]
+        public void DeleteModifier_ModifierDoesntExist_ThrowsArgumentException()
+        {
+            var expectedEffect = new Effect()
+            {
+                Id = Guid.NewGuid(),
+                Modifiers = new List<Modifier>() { }
+            };
+            var sut = new Fixture(Array.Empty<Modifier>(), new []{expectedEffect}).GetSut();
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await sut.DeleteModifer(expectedEffect.Id, Guid.Empty));
+        }
         
         #endregion
     }

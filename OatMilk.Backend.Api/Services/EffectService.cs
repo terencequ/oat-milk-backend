@@ -34,11 +34,12 @@ namespace OatMilk.Backend.Api.Services
             return Mapper.Map<ModifierResponse>(modifier);
         }
 
-        public async Task DeleteModifer(Guid id, Guid modifierId)
+        public async Task<ModifierResponse> DeleteModifer(Guid id, Guid modifierId)
         {
             var modifier = await FindModifierById(id, modifierId);
             _modifierRepository.Remove(modifier);
             await Repository.SaveAsync();
+            return Mapper.Map<ModifierResponse>(modifier);
         }
 
         #region Helpers
