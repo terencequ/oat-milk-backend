@@ -35,14 +35,7 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public ActionResult<AuthTokenResponse> Login([FromBody] UserLoginRequest request)
         {
-            try
-            {
-                return _userService.Login(request);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return _userService.Login(request);
         }
 
         /// <summary>
@@ -56,14 +49,7 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AuthTokenResponse>> Register([FromBody] UserRegisterRequest request)
         {
-            try
-            {
-                return await _userService.Register(request);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return await _userService.Register(request);
         }
 
         /// <summary>
@@ -76,15 +62,8 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public ActionResult<UserResponse> GetProfile()
         {
-            try
-            {
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                return _userService.GetUser(identity.GetUserIdOrDefault().GetValueOrDefault());
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            return _userService.GetUser(identity.GetUserIdOrDefault().GetValueOrDefault());
         }
 
         /// <summary>
@@ -98,14 +77,7 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public ActionResult<bool> UserExistsById([FromRoute] Guid userId)
         {
-            try
-            {
-                return _userService.UserExistsById(userId);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return _userService.UserExistsById(userId);
         }
     }
 }

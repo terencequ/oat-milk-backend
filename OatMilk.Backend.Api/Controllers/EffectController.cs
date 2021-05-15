@@ -27,14 +27,7 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<EffectResponse>> CreateEffect([FromBody] EffectRequest request)
         {
-            try
-            {
-                return await _service.Create(request);
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return await _service.Create(request);
         }
         
         
@@ -43,14 +36,7 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PageResponse<EffectResponse>>> GetEffects([FromQuery] SearchableSortedPageFilter filter)
         {
-            try
-            {
-                return await _service.GetMultiple(filter);
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return await _service.GetMultiple(filter);
         }
         
         
@@ -59,14 +45,7 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<EffectResponse>> GetEffectByName([FromRoute] string name)
         {
-            try
-            {
-                return await _service.GetByName(name);
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return await _service.GetByName(name);
         }
         
         [HttpPut("{id:guid}")]
@@ -74,14 +53,8 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<EffectResponse>> UpdateEffect([FromRoute] Guid id, [FromBody] EffectRequest request)
         {
-            try
-            {
-                return await _service.Update(id, request);
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+
+            return await _service.Update(id, request);
         }
         
         /// <summary>
@@ -94,15 +67,8 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> DeleteEffect([FromRoute] Guid id)
         {
-            try
-            {
-                await _service.Delete(id);
-                return Ok();
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            await _service.Delete(id);
+            return Ok();
         }
     }
 }

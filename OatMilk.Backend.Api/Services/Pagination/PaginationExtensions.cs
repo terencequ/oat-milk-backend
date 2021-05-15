@@ -17,7 +17,7 @@ namespace OatMilk.Backend.Api.Services.Pagination
         public static async Task<PageResponse<TEntity>> GetPageResponseAsync<TEntity>(this IQueryable<TEntity> queryable, PageFilter filter)
         {
             var pageIndex = filter.PageIndex is <= 0 or null ? 0 : filter.PageIndex.GetValueOrDefault();
-            var pageSize = filter.PageSize is <= 0 or null ? queryable.Count() : filter.PageSize.GetValueOrDefault();
+            var pageSize = filter.PageSize is <= 0 or null ? Math.Max(queryable.Count(), 1) : filter.PageSize.GetValueOrDefault();
             var totalCount = await queryable.CountAsync();
             var totalPages = (int) Math.Ceiling(totalCount / (double) pageSize);
             var hasPreviousPage = pageIndex > 0;

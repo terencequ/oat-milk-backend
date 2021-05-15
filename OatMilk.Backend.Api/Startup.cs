@@ -100,10 +100,11 @@ namespace OatMilk.Backend.Api
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OatMilk.Backend.Api v1"));
             }
+            
+            app.UseExceptionHandler("/error");
 
             app.UseRouting();
 
@@ -111,7 +112,7 @@ namespace OatMilk.Backend.Api
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
