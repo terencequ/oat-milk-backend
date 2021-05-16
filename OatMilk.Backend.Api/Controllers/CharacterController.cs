@@ -75,7 +75,7 @@ namespace OatMilk.Backend.Api.Controllers
             return Ok();
         }
         
-        [HttpPost("{id:guid}/Action/ApplyAbilityAsTarget/")]
+        [HttpPost("{id:guid}/Action/ApplyAbilityAsTarget/{abilityId:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> ApplyAbilityAsTarget([FromRoute] Guid id, [FromRoute] Guid abilityId)
