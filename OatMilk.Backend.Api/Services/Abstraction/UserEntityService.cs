@@ -70,7 +70,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
 
         public async Task<TResponse> GetByName(string name)
         {
-            var effect = await FindByNameAsync(name);
+            var effect = await FindByNameAsyncDetailed(name);
             return Mapper.Map<TResponse>(effect);
         }
         
@@ -85,6 +85,17 @@ namespace OatMilk.Backend.Api.Services.Abstraction
             }
         }
 
+        protected async Task<TEntity> FindByNameAsyncDetailed(string name)
+        {
+            var entity = await Repository.GetWithIncludes().FirstOrDefaultAsync(a => a.Name == name);
+            if (entity == null)
+            {
+                throw new ArgumentException($"Ability with name '{name}' not found.", nameof(name));
+            }
+
+            return entity;
+        }
+        
         protected async Task<TEntity> FindByNameAsync(string name)
         {
             var entity = await Repository.Get().FirstOrDefaultAsync(a => a.Name == name);
@@ -95,7 +106,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
 
             return entity;
         }
-        
+
         #endregion
     }
 }

@@ -31,7 +31,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
 
         public async Task<TResponse> GetById(Guid id)
         {
-            var entity = await FindByIdAsync(id);
+            var entity = await FindByIdAsyncDetailed(id);
             return Mapper.Map<TResponse>(entity);
         }
 
@@ -54,6 +54,17 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         
         #region Helpers
 
+        protected async Task<TEntity> FindByIdAsyncDetailed(Guid id)
+        {
+            var entity = await Repository.GetWithIncludes().FirstOrDefaultAsync(a => a.Id == id);
+            if (entity == null)
+            {
+                throw new ArgumentException($"{nameof(TEntity)} with id '{id}' not found.", nameof(id));
+            }
+
+            return entity;
+        }
+        
         protected async Task<TEntity> FindByIdAsync(Guid id)
         {
             var entity = await Repository.Get().FirstOrDefaultAsync(a => a.Id == id);

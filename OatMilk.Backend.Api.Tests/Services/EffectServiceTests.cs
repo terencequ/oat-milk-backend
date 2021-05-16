@@ -28,6 +28,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             {
                 _mockModifierRepository = new Mock<IRepository<Modifier>>();
                 _mockModifierRepository.Setup(m => m.Get()).Returns(modifiers.AsQueryable().BuildMock().Object);
+                _mockModifierRepository.Setup(m => m.GetWithIncludes()).Returns(modifiers.AsQueryable().BuildMock().Object);
             }
 
             public EffectService GetSut()
@@ -49,6 +50,50 @@ namespace OatMilk.Backend.Api.Tests.Services
             Assert.AreEqual(expectedAttribute, result.Attribute);
         }
         
+        #endregion
+
+        #region UpdateModifier
+
+        [Test]
+        public async Task UpdateModifier_ValidParameters_ReturnsModifier()
+        {
+            var modifier = new Modifier()
+            {
+                Id = Guid.NewGuid()
+            };
+            var effect = new Effect()
+            {
+                Id = Guid.NewGuid(),
+                Modifiers = new List<Modifier>()
+                {
+                    modifier
+                }
+            };
+
+            var expectedAttribute = "test";
+            var sut = new Fixture(new []{modifier}, new []{effect}).GetSut();
+            var result = await sut.UpdateModifier(effect.Id, modifier.Id, new ModifierRequest()
+            {
+                Attribute = expectedAttribute,
+            });
+            
+            Assert.AreEqual(modifier.Id, result.Id);
+            Assert.AreEqual(expectedAttribute, result.Attribute);
+        }
+
+        [Test]
+        public void UpdateModifier_ModifierDoesntExist_ThrowsArgumentException()
+        {
+            var expectedEffect = new Effect()
+            {
+                Id = Guid.NewGuid(),
+                Modifiers = new List<Modifier>() { }
+            };
+            var sut = new Fixture(Array.Empty<Modifier>(), new []{expectedEffect}).GetSut();
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await sut.UpdateModifier(expectedEffect.Id, Guid.Empty, new ModifierRequest()));
+        }
+
         #endregion
         
         #region DeleteModifier

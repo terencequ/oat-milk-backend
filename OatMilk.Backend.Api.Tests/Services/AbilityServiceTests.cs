@@ -91,6 +91,67 @@ namespace OatMilk.Backend.Api.Tests.Services
             Assert.ThrowsAsync<ArgumentException>(async () => await service.AssignEffect(expectedAbilityId, Guid.NewGuid()));
         }
 
+        #endregion
+
+        #region UnassignEffect
+
+        [Test]
+        public async Task UnassignEffect_BothExisting_ShouldRemoveEffect()
+        {
+            var expectedEffectId = Guid.NewGuid();
+            var effects = new Effect[]
+            {
+                new Effect() { Id = expectedEffectId }
+            };
+            
+            var expectedAbilityId = Guid.NewGuid();
+            var abilities = new Ability[]
+            {
+                new Ability()
+                {
+                    Id = expectedAbilityId, 
+                    AbilityEffects = new List<AbilityEffect>()
+                }
+            };
+            
+            abilities.First().AbilityEffects.Add(new AbilityEffect()
+            {
+                AbilityId = expectedAbilityId,
+                EffectId = expectedEffectId,
+                Ability = abilities.First(), 
+                Effect = effects.First()
+            });
+
+            var service = new Fixture(effects, abilities).GetSut();
+            await service.UnassignEffect(expectedAbilityId, expectedEffectId);
+
+            Assert.IsTrue(abilities.First().AbilityEffects.All(abilityEffect => abilityEffect.Effect.Id != expectedEffectId));
+        }
+        
+        [Test]
+        public void UnassignEffect_EffectDoesntExist_ShouldThrowArgumentException()
+        {
+            var expectedAbilityId = Guid.NewGuid();
+            var abilities = new Ability[]
+            {
+                new Ability()
+                {
+                    Id = expectedAbilityId,
+                    AbilityEffects = new List<AbilityEffect>()
+                }
+            };
+            var service = new Fixture(Array.Empty<Effect>(), abilities).GetSut();
+            
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.UnassignEffect(expectedAbilityId, Guid.NewGuid()));
+        }
+        
+        [Test]
+        public void UnassignEffect_AbilityDoesntExist_ShouldThrowArgumentException()
+        {
+            var service = new Fixture(Array.Empty<Effect>(), Array.Empty<Ability>()).GetSut();
+            
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.UnassignEffect(Guid.NewGuid(), Guid.NewGuid()));
+        }
 
         #endregion
     }

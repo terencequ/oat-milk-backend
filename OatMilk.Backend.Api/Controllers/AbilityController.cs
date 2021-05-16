@@ -62,5 +62,21 @@ namespace OatMilk.Backend.Api.Controllers
             await _service.Delete(id); 
             return Ok();
         }
+        
+        [HttpPost("{id:guid}/Effect/{effectId:guid}")]
+        [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<AbilityResponse>> AssignEffect([FromRoute] Guid id, Guid effectId)
+        {
+            return await _service.AssignEffect(id, effectId);
+        }
+        
+        [HttpDelete("{id:guid}/Effect/{effectId:guid}")]
+        [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<AbilityResponse>> UnassignEffect([FromRoute] Guid id, Guid effectId)
+        {
+            return await _service.UnassignEffect(id, effectId);
+        }
     }
 }

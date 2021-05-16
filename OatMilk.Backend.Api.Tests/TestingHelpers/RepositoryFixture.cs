@@ -33,6 +33,7 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers
             Mapper = TestAutoMapperHelper.GetAutoMapper();
             MockRepository = new Mock<IRepository<TEntity>>();
             MockRepository.Setup(m => m.Get()).Returns(entities.AsQueryable().BuildMock().Object);
+            MockRepository.Setup(m => m.GetWithIncludes()).Returns(entities.AsQueryable().BuildMock().Object);
         }
         
         public Mock<IRepository<TEntity>> GetMockRepository()

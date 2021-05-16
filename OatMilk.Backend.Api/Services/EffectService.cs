@@ -22,10 +22,10 @@ namespace OatMilk.Backend.Api.Services
         {
             _modifierRepository = modifierRepository;
         }
-
+        
         public async Task<ModifierResponse> CreateModifier(Guid id, ModifierRequest request)
         {
-            var effect = await FindByIdAsync(id);
+            var effect = await FindByIdAsyncDetailed(id);
 
             var modifier = Mapper.Map<Modifier>(request);
             effect.Modifiers.Add(modifier);
@@ -34,6 +34,15 @@ namespace OatMilk.Backend.Api.Services
             return Mapper.Map<ModifierResponse>(modifier);
         }
 
+        public async Task<ModifierResponse> UpdateModifier(Guid id, Guid modifierId, ModifierRequest request)
+        {
+            var modifier = await FindModifierById(id, modifierId);
+            Mapper.Map(request, modifier);
+            await Repository.SaveAsync();
+
+            return Mapper.Map<ModifierResponse>(modifier);
+        }
+        
         public async Task<ModifierResponse> DeleteModifer(Guid id, Guid modifierId)
         {
             var modifier = await FindModifierById(id, modifierId);

@@ -74,6 +74,14 @@ namespace OatMilk.Backend.Api.Controllers
             return await _service.CreateModifier(id, modifierRequest);
         }
         
+        [HttpPut("{id:guid}/Modifier/{modifierId:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<ModifierResponse>> UpdateModifier([FromRoute] Guid id, [FromRoute] Guid modifierId, [FromBody] ModifierRequest modifierRequest)
+        {
+            return await _service.UpdateModifier(id, modifierId, modifierRequest);
+        }
+        
         [HttpDelete("{id:guid}/Modifier/{modifierId:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
