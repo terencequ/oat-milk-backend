@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OatMilk.Backend.Api.Controllers
 {
@@ -12,10 +7,7 @@ namespace OatMilk.Backend.Api.Controllers
     [Route("[controller]")]
     public class PingController : ControllerBase
     {
-        public PingController()
-        {
-
-        }
+        public PingController() { }
 
         /// <summary>
         /// Basic test endpoint.

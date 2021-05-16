@@ -2,26 +2,21 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OatMilk.Backend.Api.Configuration;
 using OatMilk.Backend.Api.Data;
-using OatMilk.Backend.Api.Data.AutoMapper;
+using OatMilk.Backend.Api.Services;
+using OatMilk.Backend.Api.Controllers.Security;
+using OatMilk.Backend.Api.Controllers.Security.Handlers;
+using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Repositories;
-using OatMilk.Backend.Api.Security;
-using OatMilk.Backend.Api.Security.Handlers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OatMilk.Backend.Api.Repositories.Abstraction;
+using OatMilk.Backend.Api.Services.Abstraction;
+using OatMilk.Backend.Api.Services.AutoMapper;
 
 namespace OatMilk.Backend.Api
 {
@@ -38,20 +33,46 @@ namespace OatMilk.Backend.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // AutoMapper
-            services.AddAutoMapper(typeof(UserProfile));
+            services.AddAutoMapper(AutoMapperHelper.GetAutoMapperTypes());
 
             // Config
             services.Configure<ConnectionStringsOptions>(Configuration.GetSection(ConnectionStringsOptions.ConnectionStrings));
             services.Configure<AuthOptions>(Configuration.GetSection(AuthOptions.Auth));
 
-            // Context
+            // OatMilkContext
             var connectionString = Configuration.GetSection(ConnectionStringsOptions.ConnectionStrings).Get<ConnectionStringsOptions>().MainDatabase;
-            services.AddDbContext<Context>(opt => opt.UseSqlServer(connectionString));
+            services.AddDbContext<OatMilkContext>(opt => opt.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            // HttpAccessor
+            services.AddHttpContextAccessor();
+            
             // Repositories
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IRepository<Ability>, AbilityRepository>();
+            services.AddScoped<IRepository<Effect>, EffectRepository>();
+            services.AddScoped<IRepository<Modifier>, ModifierRepository>();
+            services.AddScoped<IRepository<Character>, CharacterRepository>();
 
+            // Services
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAbilityService, AbilityService>();
+            services.AddScoped<IEffectService, EffectService>();
+            services.AddScoped<ICharacterService, CharacterService>();
+
+            // CORS
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowCredentials()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+            
             // Auth
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -65,18 +86,6 @@ namespace OatMilk.Backend.Api
                     .Build();
             });
             services.AddTransient<IAuthorizationHandler, UserAuthorizationHandler>();
-
-            // CORS
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:4200")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                    });
-            });
 
             // Controllers
             services.AddControllers();
@@ -93,12 +102,11 @@ namespace OatMilk.Backend.Api
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OatMilk.Backend.Api v1"));
             }
-
-            app.UseHttpsRedirection();
+            
+            app.UseExceptionHandler("/error");
 
             app.UseRouting();
 
@@ -106,7 +114,7 @@ namespace OatMilk.Backend.Api
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

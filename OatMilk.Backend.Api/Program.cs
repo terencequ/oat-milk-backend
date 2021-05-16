@@ -1,13 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using OatMilk.Backend.Api.Data;
 
 namespace OatMilk.Backend.Api
@@ -18,7 +10,7 @@ namespace OatMilk.Backend.Api
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDbContext<Context>()
+                .MigrateDbContext<OatMilkContext>()
                 .Run();
         }
 
