@@ -12,15 +12,5 @@ namespace OatMilk.Backend.Api.Repositories
         public CharacterRepository(OatMilkContext oatMilkContext, IHttpContextAccessor httpContextAccessor) : base(oatMilkContext, httpContextAccessor)
         {
         }
-        
-        public override Task<Character> FindByIdDetailedAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<Character> FindByNameDetailedAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
