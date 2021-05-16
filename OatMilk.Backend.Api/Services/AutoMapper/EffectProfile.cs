@@ -5,7 +5,7 @@ using OatMilk.Backend.Api.Services.Models.Responses;
 
 namespace OatMilk.Backend.Api.Services.AutoMapper
 {
-    public class UserProfile : EntityProfile<UserRequest, User, UserResponse>
+    public class EffectProfile : EntityProfile<EffectRequest, Effect, EffectResponse>
     {
     }
 }

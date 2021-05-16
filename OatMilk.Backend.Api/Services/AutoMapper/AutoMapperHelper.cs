@@ -18,12 +18,12 @@ namespace OatMilk.Backend.Api.Services.AutoMapper
         {
             return new []
             {
-                typeof(EntityProfile<UserRequest, User, UserResponse>),
-                typeof(EntityProfile<AbilityRequest, Ability, AbilityResponse>),
-                typeof(EntityProfile<AttributeRequest, Attribute, AttributeResponse>),
-                typeof(EntityProfile<CharacterRequest, Character, CharacterResponse>),
-                typeof(EntityProfile<EffectRequest, Effect, EffectResponse>),
-                typeof(EntityProfile<ModifierRequest, Modifier, ModifierResponse>)
+                typeof(UserProfile),
+                typeof(AbilityProfile),
+                typeof(AttributeProfile),
+                typeof(CharacterProfile),
+                typeof(EffectProfile),
+                typeof(ModifierProfile)
             };
         }
 

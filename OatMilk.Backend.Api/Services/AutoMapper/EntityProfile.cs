@@ -4,7 +4,7 @@ namespace OatMilk.Backend.Api.Services.AutoMapper
 {
     public class EntityProfile<TRequest, TEntity, TResponse> : Profile
     {
-        public EntityProfile() : base()
+        protected EntityProfile() : base()
         {
             CreateMap<TRequest, TEntity>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
