@@ -64,19 +64,5 @@ namespace OatMilk.Backend.Api.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             return _userService.GetUser(identity.GetUserIdOrDefault().GetValueOrDefault());
         }
-
-        /// <summary>
-        /// Does this user exist?
-        /// </summary>
-        /// <param name="userId">User id.</param>
-        /// <returns>True if exists, false if it doesn't.</returns>
-        [AllowAnonymous]
-        [HttpGet("exists")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public ActionResult<bool> UserExistsById([FromRoute] Guid userId)
-        {
-            return _userService.UserExistsById(userId);
-        }
     }
 }
