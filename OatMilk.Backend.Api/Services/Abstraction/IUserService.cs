@@ -26,7 +26,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         /// </summary>
         /// <param name="request"></param>
         /// <returns>Auth JWT to use for other endpoints.</returns>
-        Task<AuthTokenResponse> Register(UserRegisterRequest request);
+        Task<AuthTokenResponse> Register(UserRequest request);
 
         /// <summary>
         /// Check if a user of id <paramref name="userId"/> exists.

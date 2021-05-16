@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Data.Entities
@@ -13,23 +15,41 @@ namespace OatMilk.Backend.Api.Data.Entities
 
         #endregion
 
-        #region Stats
+        #region Stats and Attributes
+        
+        public ICollection<Attribute> Attributes { get; set; }
 
-        // Stats
-        public Attribute HitPoints { get; set; }
-        public ICollection<Attribute> HitDice { get; set; }
-        public Attribute ArmorClass { get; set; }
-        public Attribute Speed { get; set; }
-        
-        public Attribute DeathSaveSuccesses { get; set; }
-        public Attribute DeathSaveFailures { get; set; }
-        
-        public Attribute Strength { get; set; }
-        public Attribute Dexterity { get; set; }
-        public Attribute Constitution { get; set; }
-        public Attribute Intelligence { get; set; }
-        public Attribute Wisdom { get; set; }
-        public Attribute Charisma { get; set; }
+        /// <summary>
+        /// Set up attributes for a blank character.
+        /// </summary>
+        public void SetupAttributes()
+        {
+            var attributeTypes = new string[]
+            {
+                "Strength",
+                "Dexterity",
+                "Constitution",
+                "Intelligence",
+                "Wisdom",
+                "Charisma",
+                "HitPoints",
+                "ArmorClass",
+                "Speed",
+                "DeathSaveSuccesses",
+                "DeathSaveFailures"
+            };
+            foreach (var type in attributeTypes)
+            {
+                Attributes.Add(new Attribute()
+                {
+                    Type = type,
+                    BaseValue = 0,
+                    CurrentValue = 0,
+                    CreatedDateTimeUtc = DateTime.UtcNow,
+                    UpdatedDateTimeUtc = DateTime.UtcNow
+                });
+            }
+        }
 
         #endregion
 

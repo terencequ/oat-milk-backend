@@ -10,7 +10,7 @@ using OatMilk.Backend.Api.Data;
 namespace OatMilk.Backend.Api.Data.Migrations
 {
     [DbContext(typeof(OatMilkContext))]
-    [Migration("20210508070601_Initial")]
+    [Migration("20210516013218_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,6 +71,134 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     b.ToTable("AbilityEffect");
                 });
 
+            modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Attribute", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("BaseValue")
+                        .HasColumnType("float");
+
+                    b.Property<Guid?>("CharacterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateTimeUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("CurrentValue")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDateTimeUtc")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CharacterId");
+
+                    b.ToTable("Attribute");
+                });
+
+            modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Character", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Acrobatics")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AlliesAndOrganisations")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("AnimalHandling")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Appearance")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Arcana")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Athletics")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Backstory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Bonds")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDateTimeUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deception")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Experience")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Flaws")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("History")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Ideals")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Insight")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Intimidation")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Investigation")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Medicine")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Nature")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Perception")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PersonalityTraits")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Religion")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("SleightOfHand")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Stealth")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Survival")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedDateTimeUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Character");
+                });
+
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Effect", b =>
                 {
                     b.Property<Guid>("Id")
@@ -117,8 +245,8 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     b.Property<Guid?>("EffectId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("Magnitude")
-                        .HasColumnType("real");
+                    b.Property<double>("Magnitude")
+                        .HasColumnType("float");
 
                     b.Property<int>("Operation")
                         .HasColumnType("int");
@@ -196,6 +324,22 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     b.Navigation("Effect");
                 });
 
+            modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Attribute", b =>
+                {
+                    b.HasOne("OatMilk.Backend.Api.Data.Entities.Character", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("CharacterId");
+                });
+
+            modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Character", b =>
+                {
+                    b.HasOne("OatMilk.Backend.Api.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Effect", b =>
                 {
                     b.HasOne("OatMilk.Backend.Api.Data.Entities.User", "User")
@@ -217,6 +361,11 @@ namespace OatMilk.Backend.Api.Data.Migrations
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Ability", b =>
                 {
                     b.Navigation("AbilityEffects");
+                });
+
+            modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Character", b =>
+                {
+                    b.Navigation("Attributes");
                 });
 
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Effect", b =>

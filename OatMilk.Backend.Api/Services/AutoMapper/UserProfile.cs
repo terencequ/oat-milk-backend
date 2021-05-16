@@ -9,7 +9,7 @@ namespace OatMilk.Backend.Api.Services.AutoMapper
     {
         public UserProfile() : base()
         {
-            CreateMap<UserRegisterRequest, User>();
+            CreateMap<UserRequest, User>();
             CreateMap<User, UserResponse>();
         }
     }

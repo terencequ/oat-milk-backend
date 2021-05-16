@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
+using System.Reflection;
 using OatMilk.Backend.Api.Data.Entities;
 
 namespace OatMilk.Backend.Api.Data
@@ -15,15 +17,19 @@ namespace OatMilk.Backend.Api.Data
         public DbSet<Effect> Effect { get; set; }
         public DbSet<AbilityEffect> AbilityEffect { get; set; }
         public DbSet<Modifier> Modifier { get; set; }
+        public DbSet<Character> Character { get; set; }
+        public DbSet<Modifier> Attribute { get; set; }
         
         public DbSet<T> GetDbSet<T>() where T: class
         {
-            if (typeof(T) == typeof(User)) { return User as DbSet<T>; }
-            if (typeof(T) == typeof(Ability)) { return Ability as DbSet<T>; }
-            if (typeof(T) == typeof(Effect)) { return Effect as DbSet<T>; }
-            if (typeof(T) == typeof(AbilityEffect)) { return AbilityEffect as DbSet<T>; }
-            if (typeof(T) == typeof(Modifier)) { return Modifier as DbSet<T>; }
-            
+            var type = typeof(OatMilkContext)
+                .GetProperties()
+                .FirstOrDefault(property => property.PropertyType == typeof(DbSet<T>));
+            if (type != null)
+            {
+                return type.GetMethod?.Invoke(this, Array.Empty<object>()) as DbSet<T>;
+            }
+
             throw new TypeLoadException($"No DbSet of type {typeof(T).Name} exists!");
         }
 

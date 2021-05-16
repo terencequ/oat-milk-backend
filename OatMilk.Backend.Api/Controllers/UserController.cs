@@ -47,7 +47,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpPost("register")]
         [ProducesResponseType(typeof(AuthTokenResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuthTokenResponse>> Register([FromBody] UserRegisterRequest request)
+        public async Task<ActionResult<AuthTokenResponse>> Register([FromBody] UserRequest request)
         {
             return await _userService.Register(request);
         }

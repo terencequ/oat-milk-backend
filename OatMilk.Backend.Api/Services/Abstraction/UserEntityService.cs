@@ -22,11 +22,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         
         public new async Task<TResponse> Create(TRequest request)
         {
-            // Check for duplicate name
-            if (Repository.Get().Any(a => a.Name == request.Name))
-            {
-                throw new ArgumentException($"Ability of name '{request.Name}' already exists!", nameof(request.Name));
-            }
+            ThrowIfNameExists(request.Name);
             return await base.Create(request);
         }
 
@@ -79,6 +75,15 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         }
         
         #region Helpers
+
+        protected void ThrowIfNameExists(string name)
+        {
+            // Check for duplicate name
+            if (Repository.Get().Any(a => a.Name == name))
+            {
+                throw new ArgumentException($"Ability of name '{name}' already exists!", nameof(name));
+            }
+        }
 
         protected async Task<TEntity> FindByNameAsync(string name)
         {

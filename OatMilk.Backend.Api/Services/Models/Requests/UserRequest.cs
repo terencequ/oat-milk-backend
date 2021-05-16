@@ -2,7 +2,7 @@
 
 namespace OatMilk.Backend.Api.Services.Models.Requests
 {
-    public class UserRegisterRequest
+    public class UserRequest
     {
         [Required]
         [MinLength(4, ErrorMessage = "Too short. Minimum length is 4.")]

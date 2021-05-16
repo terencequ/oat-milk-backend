@@ -56,13 +56,13 @@ namespace OatMilk.Backend.Api.Services.Abstraction
 
         protected async Task<TEntity> FindByIdAsync(Guid id)
         {
-            var effect = await Repository.Get().FirstOrDefaultAsync(a => a.Id == id);
-            if (effect == null)
+            var entity = await Repository.Get().FirstOrDefaultAsync(a => a.Id == id);
+            if (entity == null)
             {
-                throw new ArgumentException($"Ability with id '{id}' not found.", nameof(id));
+                throw new ArgumentException($"{nameof(TEntity)} with id '{id}' not found.", nameof(id));
             }
 
-            return effect;
+            return entity;
         }
 
         #endregion

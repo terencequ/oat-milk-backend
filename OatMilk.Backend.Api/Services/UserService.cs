@@ -57,7 +57,7 @@ namespace OatMilk.Backend.Api.Services
             };
         }
 
-        public async Task<AuthTokenResponse> Register(UserRegisterRequest request)
+        public async Task<AuthTokenResponse> Register(UserRequest request)
         {
             if(_repository.Get().Any(u => request.Email.ToLower() == u.Email.ToLower()))
             {
@@ -65,7 +65,7 @@ namespace OatMilk.Backend.Api.Services
             }
 
             // Create user
-            var user = _mapper.Map<UserRegisterRequest, User>(request);
+            var user = _mapper.Map<UserRequest, User>(request);
             user.Email = user.Email.ToLower();
             user.Password = SecurePasswordHasher.Hash(user.Password);
             user.CreatedUtc = DateTime.UtcNow;

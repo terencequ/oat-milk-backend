@@ -19,11 +19,21 @@ namespace OatMilk.Backend.Api.Data.Entities
         /// <summary>
         /// Magnitude of the modifier.
         /// </summary>
-        public float Magnitude { get; set; }
+        public double Magnitude { get; set; }
         
         /// <summary>
         /// The type of operation to be performed by the modifier.
         /// </summary>
         public ModifierOperation Operation { get; set; }
+
+        /// <summary>
+        /// Calculates the total magnitude.
+        /// TODO: Change this when magnitude is properly implemented.
+        /// </summary>
+        /// <returns>Magnitude of this modifier.</returns>
+        public double CalculateMagnitude()
+        {
+            return Magnitude;
+        }
     }
 }

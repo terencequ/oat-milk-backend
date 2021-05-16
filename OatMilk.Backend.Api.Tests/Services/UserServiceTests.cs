@@ -118,7 +118,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             
             var sut = new Fixture().GetSut();
             var result = await sut.Register(
-                new UserRegisterRequest()
+                new UserRequest()
                 {
                     DisplayName = expectedDisplayName,
                     Email = expectedEmail, 
@@ -137,7 +137,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             var sut = new Fixture(new User(){Id = Guid.NewGuid(), Email = expectedEmail, Password = "test123456778"}).GetSut();
 
             var exception = Assert.ThrowsAsync<ArgumentException>(async () => await sut.Register(
-                new UserRegisterRequest()
+                new UserRequest()
                 {
                     DisplayName = expectedDisplayName,
                     Email = expectedEmail, 
