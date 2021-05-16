@@ -5,7 +5,12 @@ using OatMilk.Backend.Api.Services.Models.Responses;
 
 namespace OatMilk.Backend.Api.Services.AutoMapper
 {
-    public class CharacterProfile : EntityProfile<CharacterRequest, Character, CharacterResponse>
+    public class CharacterProfile : Profile
     {
+        public CharacterProfile()
+        {
+            CreateMap<CharacterRequest, Character>();
+            CreateMap<Character, CharacterResponse>();
+        }
     }
 }

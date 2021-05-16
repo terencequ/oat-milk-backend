@@ -5,7 +5,12 @@ using OatMilk.Backend.Api.Services.Models.Responses;
 
 namespace OatMilk.Backend.Api.Services.AutoMapper
 {
-    public class ModifierProfile : EntityProfile<ModifierRequest, Modifier, ModifierResponse>
+    public class ModifierProfile : Profile
     {
+        public ModifierProfile()
+        {
+            CreateMap<ModifierRequest, Modifier>();
+            CreateMap<Modifier, ModifierResponse>();
+        }
     }
 }

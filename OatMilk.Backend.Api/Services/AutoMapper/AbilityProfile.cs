@@ -5,7 +5,12 @@ using OatMilk.Backend.Api.Services.Models.Responses;
 
 namespace OatMilk.Backend.Api.Services.AutoMapper
 {
-    public class AbilityProfile : EntityProfile<AbilityRequest, Ability, AbilityResponse>
+    public class AbilityProfile : Profile
     {
+        public AbilityProfile()
+        {
+            CreateMap<AbilityRequest, Ability>();
+            CreateMap<Ability, AbilityResponse>();
+        }
     }
 }
