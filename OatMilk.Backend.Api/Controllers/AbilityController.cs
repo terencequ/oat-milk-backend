@@ -41,7 +41,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpGet("{name}")]
         [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AbilityResponse>> GetAbilityByName([FromRoute] string name)
+        public async Task<ActionResult<AbilityResponse>> GetByName([FromRoute] string name)
         {
             return await _service.GetByName(name);
         }
@@ -49,7 +49,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpPut("{id:guid}")]
         [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AbilityResponse>> UpdateAbility([FromRoute] Guid id, [FromBody] AbilityRequest request)
+        public async Task<ActionResult<AbilityResponse>> Update([FromRoute] Guid id, [FromBody] AbilityRequest request)
         {
             return await _service.Update(id, request);
         }
@@ -57,7 +57,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> DeleteAbility([FromRoute] Guid id)
+        public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             await _service.Delete(id); 
             return Ok();

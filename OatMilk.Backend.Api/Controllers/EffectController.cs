@@ -25,7 +25,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpPost("")]
         [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EffectResponse>> CreateEffect([FromBody] EffectRequest request)
+        public async Task<ActionResult<EffectResponse>> Create([FromBody] EffectRequest request)
         {
             return await _service.Create(request);
         }
@@ -34,7 +34,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpGet("")]
         [ProducesResponseType(typeof(PageResponse<EffectResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PageResponse<EffectResponse>>> GetEffects([FromQuery] SearchableSortedPageFilter filter)
+        public async Task<ActionResult<PageResponse<EffectResponse>>> GetMultiple([FromQuery] SearchableSortedPageFilter filter)
         {
             return await _service.GetMultiple(filter);
         }
@@ -43,7 +43,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpGet("{name}")]
         [ProducesResponseType(typeof(EffectResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EffectResponse>> GetEffectByName([FromRoute] string name)
+        public async Task<ActionResult<EffectResponse>> GetByName([FromRoute] string name)
         {
             return await _service.GetByName(name);
         }
@@ -51,7 +51,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpPut("{id:guid}")]
         [ProducesResponseType(typeof(EffectResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EffectResponse>> UpdateEffect([FromRoute] Guid id, [FromBody] EffectRequest request)
+        public async Task<ActionResult<EffectResponse>> Update([FromRoute] Guid id, [FromBody] EffectRequest request)
         {
 
             return await _service.Update(id, request);
@@ -60,7 +60,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> DeleteEffect([FromRoute] Guid id)
+        public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             await _service.Delete(id);
             return Ok();
