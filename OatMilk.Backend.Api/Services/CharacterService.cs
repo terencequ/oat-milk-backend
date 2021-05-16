@@ -40,7 +40,7 @@ namespace OatMilk.Backend.Api.Services
         /// Apply an ability's effects to a character.
         /// </summary>
         /// <returns></returns>
-        public async Task<CharacterResponse> ApplyAbilityToCharacter(Guid id, Guid abilityId)
+        public async Task<CharacterResponse> ApplyAbilityAsTarget(Guid id, Guid abilityId)
         {
             var character = await FindByIdAsync(id);
             var ability = await FindAbilityByIdAsync(id);

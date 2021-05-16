@@ -65,5 +65,23 @@ namespace OatMilk.Backend.Api.Controllers
             await _service.Delete(id);
             return Ok();
         }
+        
+        [HttpPost("{id:guid}/Action/SetupAttributes")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> SetupAttributes([FromRoute] Guid id)
+        {
+            await _service.SetupAttributes(id);
+            return Ok();
+        }
+        
+        [HttpPost("{id:guid}/Action/ApplyAbilityAsTarget/")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> ApplyAbilityAsTarget([FromRoute] Guid id, [FromRoute] Guid abilityId)
+        {
+            await _service.ApplyAbilityAsTarget(id, abilityId);
+            return Ok();
+        }
     }
 }

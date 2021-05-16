@@ -20,6 +20,6 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         /// Apply an ability's effects to a character.
         /// </summary>
         /// <returns>Updated character.</returns>
-        Task<CharacterResponse> ApplyAbilityToCharacter(Guid id, Guid abilityId);
+        Task<CharacterResponse> ApplyAbilityAsTarget(Guid id, Guid abilityId);
     }
 }
