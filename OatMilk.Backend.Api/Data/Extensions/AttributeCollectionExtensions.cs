@@ -30,7 +30,7 @@ namespace OatMilk.Backend.Api.Data.Extensions
                 
                 // Apply modifiers
                 if (attribute == null) continue;
-                attribute.CurrentValue = modifiers.AggregateModifierValues(attribute.BaseValue);
+                attribute.CurrentValue = modifiers.AggregateModifierValues(attribute.CurrentValue);
                 appliedModifiers.AddRange(modifiers);
             }
 

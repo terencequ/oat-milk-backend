@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -23,11 +24,11 @@ namespace OatMilk.Backend.Api.Services
         {
             var ability = await FindByIdAsync(abilityId);
             var effect = await FindEffectByIdAsync(effectId);
-            
-            ability.AbilityEffects.Add(new AbilityEffect(){Ability = ability, Effect = effect});
+
+            ability.AbilityEffects.Add(new AbilityEffect() {Ability = ability, Effect = effect});
             await Repository.SaveAsync();
         }
-        
+
         #region Helpers
 
         private async Task<Effect> FindEffectByIdAsync(Guid id)

@@ -36,7 +36,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             }
         }
 
-        #region CreateAndAssignModifier
+        #region CreateModifier
 
         [Test]
         public async Task CreateAndAssignModifier_ValidParameters_ReturnsModifier()
@@ -44,7 +44,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             var expectedId = Guid.NewGuid();
             var expectedAttribute = "test";
             var sut = new Fixture(new Effect(){Id = expectedId, Modifiers = new List<Modifier>()}).GetSut();
-            var result = await sut.CreateAndAssignModifier(expectedId, new ModifierRequest(){ Attribute = expectedAttribute });
+            var result = await sut.CreateModifier(expectedId, new ModifierRequest(){ Attribute = expectedAttribute });
             
             Assert.AreEqual(expectedAttribute, result.Attribute);
         }

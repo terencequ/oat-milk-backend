@@ -23,7 +23,7 @@ namespace OatMilk.Backend.Api.Services
             _modifierRepository = modifierRepository;
         }
 
-        public async Task<ModifierResponse> CreateAndAssignModifier(Guid id, ModifierRequest request)
+        public async Task<ModifierResponse> CreateModifier(Guid id, ModifierRequest request)
         {
             var effect = await FindByIdAsync(id);
 

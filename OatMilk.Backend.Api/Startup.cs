@@ -52,11 +52,13 @@ namespace OatMilk.Backend.Api
             services.AddScoped<IRepository<Ability>, AbilityRepository>();
             services.AddScoped<IRepository<Effect>, EffectRepository>();
             services.AddScoped<IRepository<Modifier>, ModifierRepository>();
+            services.AddScoped<IRepository<Character>, CharacterRepository>();
 
             // Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAbilityService, AbilityService>();
             services.AddScoped<IEffectService, EffectService>();
+            services.AddScoped<ICharacterService, CharacterService>();
 
             // CORS
             services.AddCors(options =>

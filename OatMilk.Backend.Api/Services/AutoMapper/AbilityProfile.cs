@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
@@ -10,7 +11,9 @@ namespace OatMilk.Backend.Api.Services.AutoMapper
         public AbilityProfile()
         {
             CreateMap<AbilityRequest, Ability>();
-            CreateMap<Ability, AbilityResponse>();
+            CreateMap<Ability, AbilityResponse>()
+                .ForMember(dest => dest.Effects, 
+                    opts => opts.MapFrom(src => src.AbilityEffects.Select(ae => ae.Effect)));
         }
     }
 }

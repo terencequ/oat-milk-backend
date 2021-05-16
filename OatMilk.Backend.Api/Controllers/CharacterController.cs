@@ -13,11 +13,11 @@ namespace OatMilk.Backend.Api.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class EffectController : ControllerBase
+    public class CharacterController : ControllerBase
     {
-        private readonly IEffectService _service;
+        private readonly ICharacterService _service;
 
-        public EffectController(IEffectService service)
+        public CharacterController(ICharacterService service)
         {
             _service = service;
         }
@@ -25,7 +25,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpPost("")]
         [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EffectResponse>> CreateEffect([FromBody] EffectRequest request)
+        public async Task<ActionResult<CharacterResponse>> CreateCharacter([FromBody] CharacterRequest request)
         {
             return await _service.Create(request);
         }
@@ -34,7 +34,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpGet("")]
         [ProducesResponseType(typeof(PageResponse<EffectResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PageResponse<EffectResponse>>> GetEffects([FromQuery] SearchableSortedPageFilter filter)
+        public async Task<ActionResult<PageResponse<CharacterResponse>>> GetCharacters([FromQuery] SearchableSortedPageFilter filter)
         {
             return await _service.GetMultiple(filter);
         }
@@ -43,7 +43,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpGet("{name}")]
         [ProducesResponseType(typeof(EffectResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EffectResponse>> GetEffectByName([FromRoute] string name)
+        public async Task<ActionResult<CharacterResponse>> GetCharacterByName([FromRoute] string name)
         {
             return await _service.GetByName(name);
         }
@@ -51,7 +51,7 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpPut("{id:guid}")]
         [ProducesResponseType(typeof(EffectResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EffectResponse>> UpdateEffect([FromRoute] Guid id, [FromBody] EffectRequest request)
+        public async Task<ActionResult<CharacterResponse>> UpdateCharacter([FromRoute] Guid id, [FromBody] CharacterRequest request)
         {
 
             return await _service.Update(id, request);
@@ -60,26 +60,10 @@ namespace OatMilk.Backend.Api.Controllers
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> DeleteEffect([FromRoute] Guid id)
+        public async Task<ActionResult> DeleteCharacter([FromRoute] Guid id)
         {
             await _service.Delete(id);
             return Ok();
-        }
-        
-        [HttpPost("{id:guid}/Modifier")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ModifierResponse>> CreateModifier([FromRoute] Guid id, [FromBody] ModifierRequest modifierRequest)
-        {
-            return await _service.CreateModifier(id, modifierRequest);
-        }
-        
-        [HttpDelete("{id:guid}/Modifier/{modifierId:guid}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ModifierResponse>> DeleteModifier([FromRoute] Guid id, [FromRoute] Guid modifierId)
-        {
-            return await _service.DeleteModifer(id, modifierId);
         }
     }
 }

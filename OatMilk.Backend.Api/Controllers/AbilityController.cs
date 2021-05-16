@@ -22,24 +22,12 @@ namespace OatMilk.Backend.Api.Controllers
             _service = service;
         }
         
-        /// <summary>
-        /// Create a new ability.
-        /// </summary>
-        /// <param name="request">Parameters for new ability.</param>
-        /// <returns>Id of newly created ability.</returns>
         [HttpPost("")]
         [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AbilityResponse>> CreateAbility([FromBody] AbilityRequest request)
         {
-            try
-            {
-                return await _service.Create(request);
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return await _service.Create(request);
         }
         
         [HttpGet("")]
@@ -47,14 +35,7 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PageResponse<AbilityResponse>>> GetAbilities([FromQuery] SearchableSortedPageFilter filter)
         {
-            try
-            {
-                return await _service.GetMultiple(filter);
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return await _service.GetMultiple(filter);
         }
         
         [HttpGet("{name}")]
@@ -62,14 +43,7 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AbilityResponse>> GetAbilityByName([FromRoute] string name)
         {
-            try
-            {
-                return await _service.GetByName(name);
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return await _service.GetByName(name);
         }
         
         [HttpPut("{id:guid}")]
@@ -77,35 +51,16 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AbilityResponse>> UpdateAbility([FromRoute] Guid id, [FromBody] AbilityRequest request)
         {
-            try
-            {
-                return await _service.Update(id, request);
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            return await _service.Update(id, request);
         }
         
-        /// <summary>
-        /// Delete an existing ability.
-        /// </summary>
-        /// <param name="id">Id of existing ability.</param>
-        /// <returns></returns>
-        [HttpGet("{id}")]
+        [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> DeleteAbility([FromRoute] Guid id)
         {
-            try
-            {
-                await _service.Delete(id);
-                return Ok();
-            }
-            catch (ArgumentException exception)
-            {
-                return BadRequest(exception.Message);
-            }
+            await _service.Delete(id); 
+            return Ok();
         }
     }
 }
