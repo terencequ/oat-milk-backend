@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OatMilk.Backend.Api.Controllers.Models;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
@@ -24,7 +25,7 @@ namespace OatMilk.Backend.Api.Controllers
         
         [HttpPost("")]
         [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CharacterResponse>> Create([FromBody] CharacterRequest request)
         {
             return await _service.Create(request);
@@ -33,7 +34,7 @@ namespace OatMilk.Backend.Api.Controllers
         
         [HttpGet("")]
         [ProducesResponseType(typeof(PageResponse<EffectResponse>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PageResponse<CharacterResponse>>> GetMultiple([FromQuery] SearchableSortedPageFilter filter)
         {
             return await _service.GetMultiple(filter);
@@ -42,7 +43,7 @@ namespace OatMilk.Backend.Api.Controllers
         
         [HttpGet("{name}")]
         [ProducesResponseType(typeof(EffectResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CharacterResponse>> GetByName([FromRoute] string name)
         {
             return await _service.GetByName(name);
@@ -50,7 +51,7 @@ namespace OatMilk.Backend.Api.Controllers
         
         [HttpPut("{id:guid}")]
         [ProducesResponseType(typeof(EffectResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CharacterResponse>> Update([FromRoute] Guid id, [FromBody] CharacterRequest request)
         {
 
@@ -59,7 +60,7 @@ namespace OatMilk.Backend.Api.Controllers
         
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             await _service.Delete(id);
@@ -68,7 +69,7 @@ namespace OatMilk.Backend.Api.Controllers
         
         [HttpPost("{id:guid}/Action/SetupAttributes")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> SetupAttributes([FromRoute] Guid id)
         {
             await _service.SetupAttributes(id);
@@ -77,7 +78,7 @@ namespace OatMilk.Backend.Api.Controllers
         
         [HttpPost("{id:guid}/Action/ApplyAbilityAsTarget/{abilityId:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> ApplyAbilityAsTarget([FromRoute] Guid id, [FromRoute] Guid abilityId)
         {
             await _service.ApplyAbilityAsTarget(id, abilityId);

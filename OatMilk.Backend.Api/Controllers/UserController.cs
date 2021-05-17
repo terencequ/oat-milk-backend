@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using OatMilk.Backend.Api.Controllers.Models;
 using OatMilk.Backend.Api.Controllers.Security;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;
@@ -31,7 +32,7 @@ namespace OatMilk.Backend.Api.Controllers
         [AllowAnonymous]
         [HttpPost("login")]
         [ProducesResponseType(typeof(AuthTokenResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public ActionResult<AuthTokenResponse> Login([FromBody] UserLoginRequest request)
         {
             return _userService.Login(request);
@@ -45,7 +46,7 @@ namespace OatMilk.Backend.Api.Controllers
         [AllowAnonymous]
         [HttpPost("register")]
         [ProducesResponseType(typeof(AuthTokenResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AuthTokenResponse>> Register([FromBody] UserRequest request)
         {
             return await _userService.Register(request);
@@ -58,7 +59,7 @@ namespace OatMilk.Backend.Api.Controllers
         [AllowAnonymous]
         [HttpGet("profile")]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public ActionResult<UserResponse> GetProfile()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;

@@ -102,11 +102,16 @@ namespace OatMilk.Backend.Api
         {
             if (env.IsDevelopment())
             {
+                app.UseExceptionHandler("/error");
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OatMilk.Backend.Api v1"));
             }
-            
-            app.UseExceptionHandler("/error");
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
+
+
 
             app.UseRouting();
 
