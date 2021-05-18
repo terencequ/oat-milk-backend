@@ -20,26 +20,29 @@ namespace OatMilk.Backend.Api.Data.Entities
         public ICollection<Attribute> Attributes { get; set; }
 
         /// <summary>
+        /// Remove all attributes from character.
+        /// </summary>
+        public void ClearAttributes()
+        {
+            foreach (var attribute in Attributes)
+            {
+                Attributes.Remove(attribute);
+            }
+        }
+        
+        /// <summary>
         /// Set up attributes for a blank character.
         /// </summary>
-        public void SetupAttributes()
+        public void ResetAndSetupAttributes()
         {
             var attributeTypes = new string[]
             {
-                "Strength",
-                "Dexterity",
-                "Constitution",
-                "Intelligence",
-                "Wisdom",
-                "Charisma",
-                "HitPoints",
-                "ArmorClass",
-                "Speed",
-                "DeathSaveSuccesses",
-                "DeathSaveFailures"
+                "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma", "HitPoints", 
+                "ArmorClass", "Speed", "DeathSaveSuccesses", "DeathSaveFailures"
             };
             foreach (var type in attributeTypes)
             {
+                ClearAttributes();
                 Attributes.Add(new Attribute()
                 {
                     Type = type,

@@ -22,15 +22,37 @@ namespace OatMilk.Backend.Api.Services
         }
 
         /// <summary>
-        /// Create a blank set of attributes for the character.
+        /// Different implementation of Create.
+        /// This will set up attributes in addition to persisting a character.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public new async Task<CharacterResponse> Create(CharacterRequest request)
+        {
+            ThrowIfNameExists(request.Name);
+
+            // Create and save blank character
+            var entity = Mapper.Map<Character>(request);
+            Repository.Add(entity);
+            await Repository.SaveAsync();
+            
+            // Set up attributes
+            entity.ResetAndSetupAttributes();
+            await Repository.SaveAsync();
+
+            return Mapper.Map<CharacterResponse>(entity);
+        }
+        
+        /// <summary>
+        /// Reset the character.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public async Task<CharacterResponse> SetupAttributes(Guid id)
+        public async Task<CharacterResponse> ResetCharacter(Guid id)
         {
-            var entity = await FindByIdAsync(id);
-            entity.SetupAttributes();
+            var entity = await FindByIdAsyncDetailed(id);
+            entity.ResetAndSetupAttributes();
             await Repository.SaveAsync();
 
             return Mapper.Map<CharacterResponse>(entity);
@@ -42,7 +64,7 @@ namespace OatMilk.Backend.Api.Services
         /// <returns></returns>
         public async Task<CharacterResponse> ApplyAbilityAsTarget(Guid id, Guid abilityId)
         {
-            var character = await FindByIdAsync(id);
+            var character = await FindByIdAsyncDetailed(id);
             var ability = await FindAbilityByIdAsync(id);
             
             var effects = from ae in ability.AbilityEffects select ae.Effect;

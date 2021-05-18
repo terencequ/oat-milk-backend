@@ -24,7 +24,7 @@ namespace OatMilk.Backend.Api.Controllers
         }
         
         [HttpPost("")]
-        [ProducesResponseType(typeof(AbilityResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CharacterResponse>> Create([FromBody] CharacterRequest request)
         {
@@ -33,7 +33,7 @@ namespace OatMilk.Backend.Api.Controllers
         
         
         [HttpGet("")]
-        [ProducesResponseType(typeof(PageResponse<EffectResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PageResponse<CharacterResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PageResponse<CharacterResponse>>> GetMultiple([FromQuery] SearchableSortedPageFilter filter)
         {
@@ -42,7 +42,7 @@ namespace OatMilk.Backend.Api.Controllers
         
         
         [HttpGet("{name}")]
-        [ProducesResponseType(typeof(EffectResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CharacterResponse>> GetByName([FromRoute] string name)
         {
@@ -50,7 +50,7 @@ namespace OatMilk.Backend.Api.Controllers
         }
         
         [HttpPut("{id:guid}")]
-        [ProducesResponseType(typeof(EffectResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CharacterResponse>> Update([FromRoute] Guid id, [FromBody] CharacterRequest request)
         {
@@ -67,19 +67,19 @@ namespace OatMilk.Backend.Api.Controllers
             return Ok();
         }
         
-        [HttpPost("{id:guid}/Action/SetupAttributes")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpPost("{id:guid}/Action/ResetCharacter")]
+        [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> SetupAttributes([FromRoute] Guid id)
+        public async Task<ActionResult<CharacterResponse>> ResetCharacter([FromRoute] Guid id)
         {
-            await _service.SetupAttributes(id);
+            await _service.ResetCharacter(id);
             return Ok();
         }
         
         [HttpPost("{id:guid}/Action/ApplyAbilityAsTarget/{abilityId:guid}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ApplyAbilityAsTarget([FromRoute] Guid id, [FromRoute] Guid abilityId)
+        public async Task<ActionResult<CharacterResponse>> ApplyAbilityAsTarget([FromRoute] Guid id, [FromRoute] Guid abilityId)
         {
             await _service.ApplyAbilityAsTarget(id, abilityId);
             return Ok();

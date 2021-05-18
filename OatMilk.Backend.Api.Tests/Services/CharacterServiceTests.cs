@@ -37,7 +37,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             }
         }
 
-        #region SetupAttributes
+        #region ResetCharacter
 
         [Test]
         public async Task SetupAttributes_ValidParameters_ShouldPopulateAttributes()
@@ -47,7 +47,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             {
                 Id = expectedId,
                 Attributes = new List<Attribute>()
-            }).GetSut().SetupAttributes(expectedId);
+            }).GetSut().ResetCharacter(expectedId);
             
             Assert.IsTrue(result.Attributes.Any());
         }

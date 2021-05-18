@@ -14,7 +14,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         /// <param name="id"></param>
         /// <returns>Updated Character.</returns>
         /// <exception cref="ArgumentException"></exception>
-        Task<CharacterResponse> SetupAttributes(Guid id);
+        Task<CharacterResponse> ResetCharacter(Guid id);
 
         /// <summary>
         /// Apply an ability's effects to a character.
