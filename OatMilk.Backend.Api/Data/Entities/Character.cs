@@ -40,9 +40,9 @@ namespace OatMilk.Backend.Api.Data.Entities
                 "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma", "HitPoints", 
                 "ArmorClass", "Speed", "DeathSaveSuccesses", "DeathSaveFailures"
             };
+            ClearAttributes();
             foreach (var type in attributeTypes)
             {
-                ClearAttributes();
                 Attributes.Add(new Attribute()
                 {
                     Type = type,

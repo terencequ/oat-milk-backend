@@ -29,18 +29,8 @@ namespace OatMilk.Backend.Api.Services
         /// <returns></returns>
         public new async Task<CharacterResponse> Create(CharacterRequest request)
         {
-            ThrowIfNameExists(request.Name);
-
-            // Create and save blank character
-            var entity = Mapper.Map<Character>(request);
-            Repository.Add(entity);
-            await Repository.SaveAsync();
-            
-            // Set up attributes
-            entity.ResetAndSetupAttributes();
-            await Repository.SaveAsync();
-
-            return Mapper.Map<CharacterResponse>(entity);
+            var response = await base.Create(request);
+            return await ResetCharacter(response.Id); 
         }
         
         /// <summary>
