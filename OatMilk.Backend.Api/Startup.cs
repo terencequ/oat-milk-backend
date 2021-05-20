@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +13,7 @@ using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Controllers.Security;
 using OatMilk.Backend.Api.Controllers.Security.Handlers;
+using OatMilk.Backend.Api.Controllers.Security.Requirements;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Repositories;
 using OatMilk.Backend.Api.Repositories.Abstraction;
@@ -81,7 +83,7 @@ namespace OatMilk.Backend.Api
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder()
-                    .RequireClaim(JWTClaimTypes.UserId)
+                    .AddRequirements(new UserAuthorizationRequirement())
                     .RequireAuthenticatedUser()
                     .Build();
             });

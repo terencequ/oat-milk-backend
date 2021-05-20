@@ -23,6 +23,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         public new async Task<TResponse> Create(TRequest request)
         {
             ThrowIfNameExists(request.Name);
+            // Create ability and add it to database
             return await base.Create(request);
         }
 
@@ -81,7 +82,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
             // Check for duplicate name
             if (Repository.Get().Any(a => a.Name == name))
             {
-                throw new ArgumentException($"Ability of name '{name}' already exists!", nameof(name));
+                throw new ArgumentException($"Entity of name '{name}' already exists!", nameof(name));
             }
         }
 
@@ -90,7 +91,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
             var entity = await Repository.GetWithIncludes().FirstOrDefaultAsync(a => a.Name == name);
             if (entity == null)
             {
-                throw new ArgumentException($"Ability with name '{name}' not found.", nameof(name));
+                throw new ArgumentException($"Entity with name '{name}' not found.", nameof(name));
             }
 
             return entity;
@@ -101,7 +102,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
             var entity = await Repository.Get().FirstOrDefaultAsync(a => a.Name == name);
             if (entity == null)
             {
-                throw new ArgumentException($"Ability with name '{name}' not found.", nameof(name));
+                throw new ArgumentException($"Entity with name '{name}' not found.", nameof(name));
             }
 
             return entity;

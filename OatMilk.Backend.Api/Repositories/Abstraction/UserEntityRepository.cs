@@ -43,10 +43,12 @@ namespace OatMilk.Backend.Api.Repositories.Abstraction
             var userId = GetCurrentUserIdOrDefault();
             var user = _userDbSet.Find(userId);
             entity.User = user;
+            entity.CreatedDateTimeUtc = DateTime.UtcNow;
+            entity.UpdatedDateTimeUtc = DateTime.UtcNow;
             
             base.Add(entity);
         }
-        
+
         private Guid? GetCurrentUserIdOrDefault()
         {
             var identity = _httpContextAccessor.HttpContext?.User.Identity as ClaimsIdentity;

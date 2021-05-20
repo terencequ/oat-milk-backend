@@ -169,6 +169,9 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     b.Property<bool>("Perception")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("Performance")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PersonalityTraits")
                         .HasColumnType("nvarchar(max)");
 

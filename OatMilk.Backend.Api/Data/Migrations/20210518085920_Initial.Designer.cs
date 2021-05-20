@@ -10,7 +10,7 @@ using OatMilk.Backend.Api.Data;
 namespace OatMilk.Backend.Api.Data.Migrations
 {
     [DbContext(typeof(OatMilkContext))]
-    [Migration("20210516013218_Initial")]
+    [Migration("20210518085920_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,6 +169,9 @@ namespace OatMilk.Backend.Api.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("Perception")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Performance")
                         .HasColumnType("bit");
 
                     b.Property<string>("PersonalityTraits")
