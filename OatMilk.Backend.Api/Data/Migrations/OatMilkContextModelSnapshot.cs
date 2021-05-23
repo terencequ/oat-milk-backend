@@ -289,10 +289,7 @@ namespace OatMilk.Backend.Api.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("CreatedUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedUtc")
+                    b.Property<DateTime>("CreatedDateTimeUtc")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DisplayName")
@@ -303,6 +300,9 @@ namespace OatMilk.Backend.Api.Data.Migrations
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDateTimeUtc")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

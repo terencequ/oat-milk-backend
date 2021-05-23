@@ -11,6 +11,6 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         /// Any custom levels will be deleted by this process.
         /// </summary>
         /// <returns>Collection of levels.</returns>
-        Task<ICollection<CharacterLevelResponse>> ResetLevels();
+        Task<ICollection<LevelResponse>> ResetLevels();
     }
 }

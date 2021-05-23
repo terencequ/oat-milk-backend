@@ -10,7 +10,7 @@ using OatMilk.Backend.Api.Data;
 namespace OatMilk.Backend.Api.Data.Migrations
 {
     [DbContext(typeof(OatMilkContext))]
-    [Migration("20210523024855_Initial")]
+    [Migration("20210523031722_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -291,10 +291,7 @@ namespace OatMilk.Backend.Api.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("CreatedUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedUtc")
+                    b.Property<DateTime>("CreatedDateTimeUtc")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DisplayName")
@@ -305,6 +302,9 @@ namespace OatMilk.Backend.Api.Data.Migrations
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDateTimeUtc")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

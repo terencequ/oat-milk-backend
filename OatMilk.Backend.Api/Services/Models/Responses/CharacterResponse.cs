@@ -9,7 +9,7 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public CharacterLevelResponse Level { get; set; }
+        public LevelResponse Level { get; set; }
         public ICollection<AttributeResponse> Attributes { get; set; }
         
         #region Proficiencies

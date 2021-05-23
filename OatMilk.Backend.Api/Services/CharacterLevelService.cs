@@ -12,26 +12,26 @@ using OatMilk.Backend.Api.Services.Models.Responses;
 
 namespace OatMilk.Backend.Api.Services
 {
-    public class CharacterLevelService : UserEntityService<CharacterLevelRequest, Level, CharacterLevelResponse>, ICharacterLevelService
+    public class CharacterLevelService : UserEntityService<LevelRequest, Level, LevelResponse>, ICharacterLevelService
     {
         public CharacterLevelService(IRepository<Level> repository, IMapper mapper) : base(repository, mapper) { }
         
-        public async Task<ICollection<CharacterLevelResponse>> ResetLevels()
+        public async Task<ICollection<LevelResponse>> ResetLevels()
         {
             for (int i = 0; i < LevelExperience.Length; i++)
             {
                 // Create level definition
-                var level = i + 1;
-                var characterLevel = new Level()
+                var levelNumber = i + 1;
+                var level = new Level()
                 {
-                    Name = $"Level {level}",
-                    Number = level,
+                    Name = $"Level {levelNumber}",
+                    Number = levelNumber,
                     ExperienceRequirement = LevelExperience[i],
-                    ProficiencyBonus = GetProficiencyBonusForLevel(level),
+                    ProficiencyBonus = GetProficiencyBonusForLevel(levelNumber),
                     CreatedDateTimeUtc = DateTime.UtcNow,
                     UpdatedDateTimeUtc = DateTime.UtcNow
                 };
-                Repository.Add(characterLevel);
+                Repository.Add(level);
                 await Repository.SaveAsync();
             }
 
@@ -39,7 +39,7 @@ namespace OatMilk.Backend.Api.Services
             var characterLevels = Repository
                 .Get()
                 .OrderBy(level => level.CreatedDateTimeUtc)
-                .ProjectTo<CharacterLevelResponse>(Mapper.ConfigurationProvider)
+                .ProjectTo<LevelResponse>(Mapper.ConfigurationProvider)
                 .ToList();
             return characterLevels;
         }

@@ -20,10 +20,9 @@ namespace OatMilk.Backend.Api.Controllers
         private readonly IUserService _userService;
         private readonly ICharacterLevelService _characterLevelService;
 
-        public UserController(IUserService userService, ICharacterLevelService characterLevelService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            _characterLevelService = characterLevelService;
         }
 
         /// <summary>
@@ -51,10 +50,7 @@ namespace OatMilk.Backend.Api.Controllers
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AuthTokenResponse>> Register([FromBody] UserRequest request)
         {
-            var authTokenResponse = await _userService.Register(request);
-            await _characterLevelService.ResetLevels();
-
-            return authTokenResponse;
+            return await _userService.Register(request);
         }
 
         /// <summary>

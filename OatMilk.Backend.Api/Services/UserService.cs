@@ -68,7 +68,8 @@ namespace OatMilk.Backend.Api.Services
             var user = _mapper.Map<UserRequest, User>(request);
             user.Email = user.Email.ToLower();
             user.Password = SecurePasswordHasher.Hash(user.Password);
-            user.CreatedUtc = DateTime.UtcNow;
+            user.CreatedDateTimeUtc = DateTime.UtcNow;
+            user.UpdatedDateTimeUtc = DateTime.UtcNow;
 
             // Add user to database
             _repository.Add(user);
