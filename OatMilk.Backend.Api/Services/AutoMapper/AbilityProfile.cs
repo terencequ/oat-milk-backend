@@ -11,9 +11,7 @@ namespace OatMilk.Backend.Api.Services.AutoMapper
         public AbilityProfile()
         {
             CreateMap<AbilityRequest, Ability>();
-            CreateMap<Ability, AbilityResponse>()
-                .ForMember(dest => dest.Effects, 
-                    opts => opts.MapFrom(src => src.AbilityEffects.Select(ae => ae.Effect)));
+            CreateMap<Ability, AbilityResponse>();
         }
     }
 }

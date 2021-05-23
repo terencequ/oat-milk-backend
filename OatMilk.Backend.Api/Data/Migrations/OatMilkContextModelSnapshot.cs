@@ -40,7 +40,7 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     b.Property<DateTime>("UpdatedDateTimeUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -52,21 +52,6 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Ability");
-                });
-
-            modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.AbilityEffect", b =>
-                {
-                    b.Property<Guid>("AbilityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("EffectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("AbilityId", "EffectId");
-
-                    b.HasIndex("EffectId");
-
-                    b.ToTable("AbilityEffect");
                 });
 
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Attribute", b =>
@@ -190,7 +175,7 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     b.Property<DateTime>("UpdatedDateTimeUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -204,6 +189,9 @@ namespace OatMilk.Backend.Api.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AbilityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("ChanceToApplyToTarget")
@@ -224,14 +212,50 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     b.Property<DateTime>("UpdatedDateTimeUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AbilityId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Effect");
+                });
+
+            modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Level", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateTimeUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExperienceRequirement")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProficiencyBonus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDateTimeUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Effect");
+                    b.ToTable("Level");
                 });
 
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Modifier", b =>
@@ -297,32 +321,15 @@ namespace OatMilk.Backend.Api.Data.Migrations
 
                     b.HasOne("OatMilk.Backend.Api.Data.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CooldownEffect");
 
                     b.Navigation("CostEffect");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.AbilityEffect", b =>
-                {
-                    b.HasOne("OatMilk.Backend.Api.Data.Entities.Ability", "Ability")
-                        .WithMany("AbilityEffects")
-                        .HasForeignKey("AbilityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OatMilk.Backend.Api.Data.Entities.Effect", "Effect")
-                        .WithMany("AbilityEffects")
-                        .HasForeignKey("EffectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ability");
-
-                    b.Navigation("Effect");
                 });
 
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Attribute", b =>
@@ -336,16 +343,35 @@ namespace OatMilk.Backend.Api.Data.Migrations
                 {
                     b.HasOne("OatMilk.Backend.Api.Data.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Effect", b =>
                 {
+                    b.HasOne("OatMilk.Backend.Api.Data.Entities.Ability", null)
+                        .WithMany("Effects")
+                        .HasForeignKey("AbilityId");
+
                     b.HasOne("OatMilk.Backend.Api.Data.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Level", b =>
+                {
+                    b.HasOne("OatMilk.Backend.Api.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -361,7 +387,7 @@ namespace OatMilk.Backend.Api.Data.Migrations
 
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Ability", b =>
                 {
-                    b.Navigation("AbilityEffects");
+                    b.Navigation("Effects");
                 });
 
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Character", b =>
@@ -371,8 +397,6 @@ namespace OatMilk.Backend.Api.Data.Migrations
 
             modelBuilder.Entity("OatMilk.Backend.Api.Data.Entities.Effect", b =>
                 {
-                    b.Navigation("AbilityEffects");
-
                     b.Navigation("Modifiers");
                 });
 #pragma warning restore 612, 618

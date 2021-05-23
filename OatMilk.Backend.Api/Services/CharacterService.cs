@@ -20,25 +20,13 @@ namespace OatMilk.Backend.Api.Services
         {
             AbilityRepository = abilityRepository;
         }
-
-        /// <summary>
-        /// Different implementation of Create.
-        /// This will set up attributes in addition to persisting a character.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        
         public new async Task<CharacterResponse> Create(CharacterRequest request)
         {
             var response = await base.Create(request);
             return await ResetCharacter(response.Id); 
         }
         
-        /// <summary>
-        /// Reset the character.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
         public async Task<CharacterResponse> ResetCharacter(Guid id)
         {
             var entity = await FindByIdAsyncDetailed(id);
@@ -47,17 +35,13 @@ namespace OatMilk.Backend.Api.Services
 
             return Mapper.Map<CharacterResponse>(entity);
         }
-
-        /// <summary>
-        /// Apply an ability's effects to a character.
-        /// </summary>
-        /// <returns></returns>
+        
         public async Task<CharacterResponse> ApplyAbilityAsTarget(Guid id, Guid abilityId)
         {
             var character = await FindByIdAsyncDetailed(id);
             var ability = await FindAbilityByIdAsync(id);
-            
-            var effects = from ae in ability.AbilityEffects select ae.Effect;
+
+            var effects = ability.Effects;
             foreach (var effect in effects)
             {
                 character.Attributes.ApplyEffect(effect);
@@ -66,14 +50,26 @@ namespace OatMilk.Backend.Api.Services
             await Repository.SaveAsync();
             return Mapper.Map<CharacterResponse>(effects);
         }
+        
+        public async Task<AttributeResponse> EditAttribute(Guid id, string attributeType, AttributeRequest attributeRequest)
+        {
+            var character = await FindByIdAsyncDetailed(id);
+            var attribute = character.Attributes.FirstOrDefault(attr => attr.Type == attributeType);
+            if (attribute == null)
+            {
+                throw new ArgumentException($"Attribute of type {attributeType} doesn't exist!");
+            }
+            Mapper.Map(attributeRequest, attribute);
+            attribute.UpdatedDateTimeUtc = DateTime.UtcNow;
+            return Mapper.Map<AttributeResponse>(attribute);
+        }
 
         #region Helpers
 
         protected async Task<Ability> FindAbilityByIdAsync(Guid id)
         {
             var entity = await AbilityRepository.Get()
-                .Include(ability => ability.AbilityEffects)
-                .ThenInclude(abilityEffect => abilityEffect.Effect)
+                .Include(ability => ability.Effects)
                 .ThenInclude(effect => effect.Modifiers)
                 .FirstOrDefaultAsync(a => a.Id == id);
             if (entity == null)

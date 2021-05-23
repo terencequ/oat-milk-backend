@@ -2,6 +2,7 @@
 {
     public class AttributeRequest
     {
-        
+        public double BaseValue { get; set; }
+        public double CurrentValue { get; set; }
     }
 }

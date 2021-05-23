@@ -37,8 +37,9 @@ namespace OatMilk.Backend.Api.Data.Entities
         {
             var attributeTypes = new string[]
             {
-                "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma", "HitPoints", 
-                "ArmorClass", "Speed", "DeathSaveSuccesses", "DeathSaveFailures"
+                "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma", 
+                "HitPoints", "ArmorClass", "Speed", 
+                "DeathSaveSuccesses", "DeathSaveFailures",
             };
             ClearAttributes();
             foreach (var type in attributeTypes)

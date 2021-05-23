@@ -21,5 +21,14 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         /// </summary>
         /// <returns>Updated character.</returns>
         Task<CharacterResponse> ApplyAbilityAsTarget(Guid id, Guid abilityId);
+
+        /// <summary>
+        /// Edit an attribute on the character.
+        /// </summary>
+        /// <param name="id">Id of the character</param>
+        /// <param name="attributeType">Type of attribute</param>
+        /// <param name="attributeRequest">Updated attribute properties</param>
+        /// <returns></returns>
+        Task<AttributeResponse> EditAttribute(Guid id, string attributeType, AttributeRequest attributeRequest);
     }
 }

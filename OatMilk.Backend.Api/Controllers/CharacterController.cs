@@ -66,7 +66,16 @@ namespace OatMilk.Backend.Api.Controllers
             await _service.Delete(id);
             return Ok();
         }
-        
+
+        [HttpPut("{id:guid}/Attribute/{attributeType}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<AttributeResponse>> EditAttribute([FromRoute] Guid id,
+            [FromRoute] string attributeType, [FromBody] AttributeRequest request)
+        {
+            return await _service.EditAttribute(id, attributeType, request);
+        }
+
         [HttpPost("{id:guid}/Action/ResetCharacter")]
         [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]

@@ -56,7 +56,7 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     CreatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,31 +66,31 @@ namespace OatMilk.Backend.Api.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Effect",
+                name: "Level",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Duration = table.Column<int>(type: "int", nullable: false),
-                    Period = table.Column<int>(type: "int", nullable: false),
-                    ChanceToApplyToTarget = table.Column<float>(type: "real", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    ExperienceRequirement = table.Column<int>(type: "int", nullable: false),
+                    ProficiencyBonus = table.Column<int>(type: "int", nullable: false),
                     CreatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Effect", x => x.Id);
+                    table.PrimaryKey("PK_Level", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Effect_User_UserId",
+                        name: "FK_Level_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,6 +117,31 @@ namespace OatMilk.Backend.Api.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Effect",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Duration = table.Column<int>(type: "int", nullable: false),
+                    Period = table.Column<int>(type: "int", nullable: false),
+                    ChanceToApplyToTarget = table.Column<float>(type: "real", nullable: false),
+                    AbilityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Effect", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Effect_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ability",
                 columns: table => new
                 {
@@ -126,7 +151,7 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     CreatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDateTimeUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,7 +173,7 @@ namespace OatMilk.Backend.Api.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,30 +197,6 @@ namespace OatMilk.Backend.Api.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "AbilityEffect",
-                columns: table => new
-                {
-                    AbilityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EffectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbilityEffect", x => new { x.AbilityId, x.EffectId });
-                    table.ForeignKey(
-                        name: "FK_AbilityEffect_Ability_AbilityId",
-                        column: x => x.AbilityId,
-                        principalTable: "Ability",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AbilityEffect_Effect_EffectId",
-                        column: x => x.EffectId,
-                        principalTable: "Effect",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Ability_CooldownEffectId",
                 table: "Ability",
@@ -212,11 +213,6 @@ namespace OatMilk.Backend.Api.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AbilityEffect_EffectId",
-                table: "AbilityEffect",
-                column: "EffectId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Attribute_CharacterId",
                 table: "Attribute",
                 column: "CharacterId");
@@ -227,35 +223,61 @@ namespace OatMilk.Backend.Api.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Effect_AbilityId",
+                table: "Effect",
+                column: "AbilityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Effect_UserId",
                 table: "Effect",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Level_UserId",
+                table: "Level",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Modifier_EffectId",
                 table: "Modifier",
                 column: "EffectId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Effect_Ability_AbilityId",
+                table: "Effect",
+                column: "AbilityId",
+                principalTable: "Ability",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AbilityEffect");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Ability_Effect_CooldownEffectId",
+                table: "Ability");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Ability_Effect_CostEffectId",
+                table: "Ability");
 
             migrationBuilder.DropTable(
                 name: "Attribute");
 
             migrationBuilder.DropTable(
-                name: "Modifier");
+                name: "Level");
 
             migrationBuilder.DropTable(
-                name: "Ability");
+                name: "Modifier");
 
             migrationBuilder.DropTable(
                 name: "Character");
 
             migrationBuilder.DropTable(
                 name: "Effect");
+
+            migrationBuilder.DropTable(
+                name: "Ability");
 
             migrationBuilder.DropTable(
                 name: "User");

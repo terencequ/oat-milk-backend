@@ -16,9 +16,7 @@ namespace OatMilk.Backend.Api.Repositories
         public override IQueryable<Ability> GetWithIncludes()
         {
             return Get()
-                .Include(ability => ability.AbilityEffects)
-                .ThenInclude(abilityEffect => abilityEffect.Effect)
-                .ThenInclude(effect => effect.Modifiers);
+                .Include(ability => ability.Effects);
         }
     }
 }

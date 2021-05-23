@@ -23,7 +23,6 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         public new async Task<TResponse> Create(TRequest request)
         {
             ThrowIfNameExists(request.Name);
-            // Create ability and add it to database
             return await base.Create(request);
         }
 

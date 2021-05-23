@@ -43,7 +43,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             var expectedAbilityId = Guid.NewGuid();
             var abilities = new Ability[]
             {
-                new Ability() { Id = expectedAbilityId, AbilityEffects = new List<AbilityEffect>() }
+                new Ability() { Id = expectedAbilityId, Effects = new List<Effect>() }
             };
 
             var expectedEffectId = Guid.NewGuid();
@@ -54,10 +54,9 @@ namespace OatMilk.Backend.Api.Tests.Services
 
             var service = new Fixture(effects, abilities).GetSut();
             await service.AssignEffect(expectedAbilityId, expectedEffectId);
-            var abilityEffect = abilities.First().AbilityEffects.First();
+            var effect = abilities.First().Effects.First();
             
-            Assert.AreEqual(expectedEffectId, abilityEffect.Effect.Id);
-            Assert.AreEqual(expectedAbilityId, abilityEffect.Ability.Id);
+            Assert.AreEqual(expectedEffectId, effect.Id);
         }
         
         [Test]
@@ -81,7 +80,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             var expectedAbilityId = Guid.NewGuid();
             var abilities = new Ability[]
             {
-                new Ability() { Id = expectedAbilityId, AbilityEffects = new List<AbilityEffect>() }
+                new Ability() { Id = expectedAbilityId, Effects = new List<Effect>() }
             };
             
             var effects = new Effect[] { };
@@ -110,22 +109,16 @@ namespace OatMilk.Backend.Api.Tests.Services
                 new Ability()
                 {
                     Id = expectedAbilityId, 
-                    AbilityEffects = new List<AbilityEffect>()
+                    Effects = new List<Effect>()
                 }
             };
             
-            abilities.First().AbilityEffects.Add(new AbilityEffect()
-            {
-                AbilityId = expectedAbilityId,
-                EffectId = expectedEffectId,
-                Ability = abilities.First(), 
-                Effect = effects.First()
-            });
+            abilities.First().Effects.Add(effects.First());
 
             var service = new Fixture(effects, abilities).GetSut();
             await service.UnassignEffect(expectedAbilityId, expectedEffectId);
 
-            Assert.IsTrue(abilities.First().AbilityEffects.All(abilityEffect => abilityEffect.Effect.Id != expectedEffectId));
+            Assert.IsTrue(abilities.First().Effects.All(effect => effect.Id != expectedEffectId));
         }
         
         [Test]
@@ -137,7 +130,7 @@ namespace OatMilk.Backend.Api.Tests.Services
                 new Ability()
                 {
                     Id = expectedAbilityId,
-                    AbilityEffects = new List<AbilityEffect>()
+                    Effects = new List<Effect>()
                 }
             };
             var service = new Fixture(Array.Empty<Effect>(), abilities).GetSut();
