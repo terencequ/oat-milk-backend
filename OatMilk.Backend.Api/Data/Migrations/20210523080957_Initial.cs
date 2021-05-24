@@ -42,6 +42,7 @@ namespace OatMilk.Backend.Api.Data.Migrations
                     Nature = table.Column<bool>(type: "bit", nullable: false),
                     Perception = table.Column<bool>(type: "bit", nullable: false),
                     Performance = table.Column<bool>(type: "bit", nullable: false),
+                    Persuasion = table.Column<bool>(type: "bit", nullable: false),
                     Religion = table.Column<bool>(type: "bit", nullable: false),
                     SleightOfHand = table.Column<bool>(type: "bit", nullable: false),
                     Stealth = table.Column<bool>(type: "bit", nullable: false),

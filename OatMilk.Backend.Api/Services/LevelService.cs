@@ -9,15 +9,21 @@ using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
+using OatMilk.Backend.Api.Services.Pagination;
 
 namespace OatMilk.Backend.Api.Services
 {
-    public class CharacterLevelService : UserEntityService<LevelRequest, Level, LevelResponse>, ICharacterLevelService
+    public class LevelService : UserEntityService<LevelRequest, Level, LevelResponse>, ILevelService
     {
-        public CharacterLevelService(IRepository<Level> repository, IMapper mapper) : base(repository, mapper) { }
+        public LevelService(IRepository<Level> repository, IMapper mapper) : base(repository, mapper) { }
         
-        public async Task<ICollection<LevelResponse>> ResetLevels()
+        public async Task<PageResponse<LevelResponse>> ResetLevels()
         {
+            foreach (var level in Repository.Get())
+            {
+                Repository.Remove(level);
+            }
+            
             for (int i = 0; i < LevelExperience.Length; i++)
             {
                 // Create level definition
@@ -32,16 +38,20 @@ namespace OatMilk.Backend.Api.Services
                     UpdatedDateTimeUtc = DateTime.UtcNow
                 };
                 Repository.Add(level);
-                await Repository.SaveAsync();
             }
+            
+            await Repository.SaveAsync();
 
             // Get all levels and return them as a list
-            var characterLevels = Repository
+            return await Repository
                 .Get()
                 .OrderBy(level => level.CreatedDateTimeUtc)
                 .ProjectTo<LevelResponse>(Mapper.ConfigurationProvider)
-                .ToList();
-            return characterLevels;
+                .GetPageResponseAsync(new PageFilter()
+                {
+                    PageIndex = 0, // Return all items in one page
+                    PageSize = 0
+                });
         }
 
         #region Static Helpers

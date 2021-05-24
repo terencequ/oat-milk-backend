@@ -9,7 +9,7 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public LevelResponse Level { get; set; }
+        public int Experience { get; set; }
         public ICollection<AttributeResponse> Attributes { get; set; }
         
         #region Proficiencies
@@ -27,6 +27,7 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
         public bool Nature { get; set; }
         public bool Perception { get; set; }
         public bool Performance { get; set; }
+        public bool Persuasion { get; set; }
         public bool Religion { get; set; }
         public bool SleightOfHand { get; set; }
         public bool Stealth { get; set; }

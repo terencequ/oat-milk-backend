@@ -72,6 +72,7 @@ namespace OatMilk.Backend.Api.Data.Entities
         public bool Nature { get; set; }
         public bool Perception { get; set; }
         public bool Performance { get; set; }
+        public bool Persuasion { get; set; }
         public bool Religion { get; set; }
         public bool SleightOfHand { get; set; }
         public bool Stealth { get; set; }
