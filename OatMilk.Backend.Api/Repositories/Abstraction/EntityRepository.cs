@@ -9,12 +9,12 @@ namespace OatMilk.Backend.Api.Repositories.Abstraction
 {
     public abstract class EntityRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
-        private readonly OatMilkContext _oatMilkContext;
+        protected readonly OatMilkContext OatMilkContext;
         private readonly DbSet<TEntity> _entityDbSet;
 
         protected EntityRepository(OatMilkContext oatMilkContext)
         {
-            _oatMilkContext = oatMilkContext;
+            OatMilkContext = oatMilkContext;
             _entityDbSet = oatMilkContext.GetDbSet<TEntity>();
         }
         
@@ -32,12 +32,12 @@ namespace OatMilk.Backend.Api.Repositories.Abstraction
 
         public async Task SaveAsync()
         {
-            await _oatMilkContext.SaveChangesAsync();
+            await OatMilkContext.SaveChangesAsync();
         }
         
-        public void Remove(TEntity entity)
+        public virtual void Remove(TEntity entity)
         {
-            _oatMilkContext.Remove(entity);
+            OatMilkContext.Remove(entity);
         }
     }
 }

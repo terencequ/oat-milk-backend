@@ -9,6 +9,7 @@ using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
+using Attribute = System.Attribute;
 
 namespace OatMilk.Backend.Api.Services
 {
@@ -26,7 +27,7 @@ namespace OatMilk.Backend.Api.Services
             var response = await base.Create(request);
             return await ResetCharacter(response.Id); 
         }
-        
+
         public async Task<CharacterResponse> ResetCharacter(Guid id)
         {
             var entity = await FindByIdAsyncDetailed(id);
@@ -54,13 +55,14 @@ namespace OatMilk.Backend.Api.Services
         public async Task<AttributeResponse> EditAttribute(Guid id, string attributeType, AttributeRequest attributeRequest)
         {
             var character = await FindByIdAsyncDetailed(id);
-            var attribute = character.Attributes.FirstOrDefault(attr => attr.Type == attributeType);
+            var attribute = character.Attributes.FirstOrDefault(attr => attr.Type.ToLower() == attributeType.ToLower());
             if (attribute == null)
             {
                 throw new ArgumentException($"Attribute of type {attributeType} doesn't exist!");
             }
             Mapper.Map(attributeRequest, attribute);
             attribute.UpdatedDateTimeUtc = DateTime.UtcNow;
+            await Repository.SaveAsync();
             return Mapper.Map<AttributeResponse>(attribute);
         }
 

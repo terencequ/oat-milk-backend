@@ -8,7 +8,6 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-
         public int Experience { get; set; }
         public ICollection<AttributeResponse> Attributes { get; set; }
         

@@ -55,7 +55,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
 
         public async Task Delete(Guid id)
         {
-            var entity = await FindByIdAsync(id);
+            var entity = await FindByIdAsyncDetailed(id);
 
             Repository.Remove(entity);
             await Repository.SaveAsync();
