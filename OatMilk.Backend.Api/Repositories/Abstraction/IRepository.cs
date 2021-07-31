@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
@@ -11,15 +12,16 @@ namespace OatMilk.Backend.Api.Repositories.Abstraction
         /// Calls DbSet AsQueryable.
         /// </summary>
         /// <returns></returns>
-        IQueryable<TEntity> Get();
-        
+        IQueryable<TEntity> GetQueryable();
+
         /// <summary>
-        /// Retrieve values as a queryable, with all desired relationships eagerly loaded.
+        /// Retrieve values as a queryable filtered by primary key ID.
         /// Calls DbSet AsQueryable.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
-        IQueryable<TEntity> GetWithIncludes();
-        
+        IQueryable<TEntity> GetByIdQueryable(Guid id);
+
         /// <summary>
         /// Add a new entity to the database.
         /// Calls DbSet Add.

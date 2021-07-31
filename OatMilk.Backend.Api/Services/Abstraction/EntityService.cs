@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 using OatMilk.Backend.Api.Repositories.Abstraction;
@@ -26,13 +28,12 @@ namespace OatMilk.Backend.Api.Services.Abstraction
             Repository.Add(entity);
             await Repository.SaveAsync();
 
-            return Mapper.Map<TResponse>(entity);
+            return await FindByIdAndMapToResponseAsync(entity.Id);
         }
 
         public async Task<TResponse> GetById(Guid id)
         {
-            var entity = await FindByIdAsyncDetailed(id);
-            return Mapper.Map<TResponse>(entity);
+            return await FindByIdAndMapToResponseAsync(id);
         }
 
         public async Task<TResponse> Update(Guid id, TRequest request)
@@ -41,7 +42,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
             Mapper.Map(request, entity);
             await Repository.SaveAsync();
             
-            return Mapper.Map<TResponse>(entity);
+            return await FindByIdAndMapToResponseAsync(id);
         }
 
         public async Task Delete(Guid id)
@@ -54,20 +55,22 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         
         #region Helpers
 
-        protected async Task<TEntity> FindByIdAsyncDetailed(Guid id)
+        protected async Task<TResponse> FindByIdAndMapToResponseAsync(Guid id)
         {
-            var entity = await Repository.GetWithIncludes().FirstOrDefaultAsync(a => a.Id == id);
-            if (entity == null)
+            var result = await Repository.GetByIdQueryable(id)
+                .ProjectTo<TResponse>(Mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+            if (result == null)
             {
-                throw new ArgumentException($"{nameof(TEntity)} with id '{id}' not found.", nameof(id));
+                throw new ArgumentException($"{typeof(TEntity).Name} could not be found with ID {id}!");
             }
 
-            return entity;
+            return result;
         }
         
         protected async Task<TEntity> FindByIdAsync(Guid id)
         {
-            var entity = await Repository.Get().FirstOrDefaultAsync(a => a.Id == id);
+            var entity = await Repository.GetQueryable().FirstOrDefaultAsync(a => a.Id == id);
             if (entity == null)
             {
                 throw new ArgumentException($"{nameof(TEntity)} with id '{id}' not found.", nameof(id));
