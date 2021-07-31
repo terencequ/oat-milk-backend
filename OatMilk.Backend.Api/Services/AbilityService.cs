@@ -23,22 +23,22 @@ namespace OatMilk.Backend.Api.Services
 
         public async Task<AbilityResponse> AssignEffect(Guid abilityId, Guid effectId)
         {
-            var ability = await FindByIdAsyncDetailed(abilityId);
+            var ability = await FindByIdAsync(abilityId);
             var effect = await FindEffectByIdAsync(effectId);
 
-            ability.Effects.Add(effect);
+            ability.AbilityEffects.Add(new AbilityEffect() {Ability = ability, Effect = effect});
             await Repository.SaveAsync();
             return Mapper.Map<AbilityResponse>(ability);
         }
 
         public async Task<AbilityResponse> UnassignEffect(Guid abilityId, Guid effectId)
         {
-            var ability = await FindByIdAsyncDetailed(abilityId);
-            var effect = ability.Effects.FirstOrDefault(e => e.Id == effectId);
-            if (effect == null)
+            var ability = await FindByIdAsync(abilityId);
+            var abilityEffect = ability.AbilityEffects.FirstOrDefault(ae => ae.EffectId == effectId);
+            if (abilityEffect == null)
                 throw new ArgumentException($"Effect of ID {effectId} is not assigned to ability of ID {abilityId}.");
             
-            ability.Effects.Remove(effect);
+            ability.AbilityEffects.Remove(abilityEffect);
             await Repository.SaveAsync();
             return Mapper.Map<AbilityResponse>(ability);
         }
@@ -47,7 +47,7 @@ namespace OatMilk.Backend.Api.Services
 
         private async Task<Effect> FindEffectByIdAsync(Guid id)
         {
-            var effect = await _effectRepository.Get().FirstOrDefaultAsync(a => a.Id == id);
+            var effect = await _effectRepository.GetQueryable().FirstOrDefaultAsync(a => a.Id == id);
             if (effect == null)
             {
                 throw new ArgumentException($"Ability with id '{id}' not found.", nameof(id));

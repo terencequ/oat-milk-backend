@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -18,7 +12,6 @@ using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Controllers.Security;
 using OatMilk.Backend.Api.Controllers.Security.Handlers;
-using OatMilk.Backend.Api.Controllers.Security.Requirements;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Repositories;
 using OatMilk.Backend.Api.Repositories.Abstraction;
@@ -55,19 +48,14 @@ namespace OatMilk.Backend.Api
             services.AddHttpContextAccessor();
             
             // Repositories
-            services.AddScoped<IRepository<User>, UserRepository>();
-            services.AddScoped<IRepository<Ability>, AbilityRepository>();
-            services.AddScoped<IRepository<Effect>, EffectRepository>();
-            services.AddScoped<IRepository<Modifier>, ModifierRepository>();
-            services.AddScoped<IRepository<Character>, CharacterRepository>();
-            services.AddScoped<IRepository<Level>, CharacterLevelRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IUserRepository<>), typeof(GenericUserRepository<>));
 
             // Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAbilityService, AbilityService>();
             services.AddScoped<IEffectService, EffectService>();
             services.AddScoped<ICharacterService, CharacterService>();
-            services.AddScoped<ILevelService, LevelService>();
 
             // CORS
             services.AddCors(options =>
@@ -90,7 +78,7 @@ namespace OatMilk.Backend.Api
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder()
-                    .AddRequirements(new UserAuthorizationRequirement())
+                    .RequireClaim(JWTClaimTypes.UserId)
                     .RequireAuthenticatedUser()
                     .Build();
             });
@@ -111,14 +99,11 @@ namespace OatMilk.Backend.Api
         {
             if (env.IsDevelopment())
             {
-                app.UseExceptionHandler("/error");
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OatMilk.Backend.Api v1"));
             }
-            else
-            {
-                app.UseExceptionHandler("/error");
-            }
+            
+            app.UseExceptionHandler("/error");
 
             app.UseRouting();
 

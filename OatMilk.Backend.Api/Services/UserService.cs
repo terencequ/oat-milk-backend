@@ -27,7 +27,7 @@ namespace OatMilk.Backend.Api.Services
 
         public UserResponse GetUser(Guid userId)
         {
-            var user = _repository.Get().FirstOrDefault(u => userId == u.Id);
+            var user = _repository.GetQueryable().FirstOrDefault(u => userId == u.Id);
             if (user == null) // Email check
             {
                 throw new ArgumentException("User could not be found.", nameof(userId));
@@ -38,7 +38,7 @@ namespace OatMilk.Backend.Api.Services
 
         public AuthTokenResponse Login(UserLoginRequest request)
         {
-            var user = _repository.Get().FirstOrDefault(u => request.Email.ToLower() == u.Email.ToLower());
+            var user = _repository.GetQueryable().FirstOrDefault(u => request.Email.ToLower() == u.Email.ToLower());
             
             if(user == null) // Email check
             {
@@ -59,7 +59,7 @@ namespace OatMilk.Backend.Api.Services
 
         public async Task<AuthTokenResponse> Register(UserRequest request)
         {
-            if(_repository.Get().Any(u => request.Email.ToLower() == u.Email.ToLower()))
+            if(_repository.GetQueryable().Any(u => request.Email.ToLower() == u.Email.ToLower()))
             {
                 throw new ArgumentException("User already exists.", nameof(request.Email));
             }
@@ -84,7 +84,7 @@ namespace OatMilk.Backend.Api.Services
 
         public bool UserExistsById(Guid userId)
         {
-            return _repository.Get().Any(user => user.Id == userId);
+            return _repository.GetQueryable().Any(user => user.Id == userId);
         }
     }
 }

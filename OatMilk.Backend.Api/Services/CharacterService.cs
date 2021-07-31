@@ -9,7 +9,6 @@ using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
-using Attribute = System.Attribute;
 
 namespace OatMilk.Backend.Api.Services
 {
@@ -21,28 +20,32 @@ namespace OatMilk.Backend.Api.Services
         {
             AbilityRepository = abilityRepository;
         }
-        
-        public new async Task<CharacterResponse> Create(CharacterRequest request)
-        {
-            var response = await base.Create(request);
-            return await ResetCharacter(response.Id); 
-        }
 
-        public async Task<CharacterResponse> ResetCharacter(Guid id)
+        /// <summary>
+        /// Create a blank set of attributes for the character.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public async Task<CharacterResponse> SetupAttributes(Guid id)
         {
-            var entity = await FindByIdAsyncDetailed(id);
-            entity.ResetAndSetupAttributes();
+            var entity = await FindByIdAsync(id);
+            entity.SetupAttributes();
             await Repository.SaveAsync();
 
             return Mapper.Map<CharacterResponse>(entity);
         }
-        
+
+        /// <summary>
+        /// Apply an ability's effects to a character.
+        /// </summary>
+        /// <returns></returns>
         public async Task<CharacterResponse> ApplyAbilityAsTarget(Guid id, Guid abilityId)
         {
-            var character = await FindByIdAsyncDetailed(id);
+            var character = await FindByIdAsync(id);
             var ability = await FindAbilityByIdAsync(id);
-
-            var effects = ability.Effects;
+            
+            var effects = from ae in ability.AbilityEffects select ae.Effect;
             foreach (var effect in effects)
             {
                 character.Attributes.ApplyEffect(effect);
@@ -51,27 +54,14 @@ namespace OatMilk.Backend.Api.Services
             await Repository.SaveAsync();
             return Mapper.Map<CharacterResponse>(effects);
         }
-        
-        public async Task<AttributeResponse> EditAttribute(Guid id, string attributeType, AttributeRequest attributeRequest)
-        {
-            var character = await FindByIdAsyncDetailed(id);
-            var attribute = character.Attributes.FirstOrDefault(attr => attr.Type.ToLower() == attributeType.ToLower());
-            if (attribute == null)
-            {
-                throw new ArgumentException($"Attribute of type {attributeType} doesn't exist!");
-            }
-            Mapper.Map(attributeRequest, attribute);
-            attribute.UpdatedDateTimeUtc = DateTime.UtcNow;
-            await Repository.SaveAsync();
-            return Mapper.Map<AttributeResponse>(attribute);
-        }
 
         #region Helpers
 
         protected async Task<Ability> FindAbilityByIdAsync(Guid id)
         {
-            var entity = await AbilityRepository.Get()
-                .Include(ability => ability.Effects)
+            var entity = await AbilityRepository.GetQueryable()
+                .Include(ability => ability.AbilityEffects)
+                .ThenInclude(abilityEffect => abilityEffect.Effect)
                 .ThenInclude(effect => effect.Modifiers)
                 .FirstOrDefaultAsync(a => a.Id == id);
             if (entity == null)
