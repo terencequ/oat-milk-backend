@@ -18,7 +18,6 @@ namespace OatMilk.Backend.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly ILevelService _levelService;
 
         public UserController(IUserService userService)
         {
