@@ -2,13 +2,13 @@
 
 namespace OatMilk.Backend.Api.Data.Entities.Abstraction
 {
-    public abstract class UserEntity : AuditableEntity
+    public interface IUserEntity : IAuditableEntity
     {
         /// <summary>
         /// This will be used as an ID that will be enforced on a user level.
         /// </summary>
-        public string Name { get; set; }
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        string Name { get; set; }
+        Guid UserId { get; set; }
+        User User { get; set; }
     }
 }

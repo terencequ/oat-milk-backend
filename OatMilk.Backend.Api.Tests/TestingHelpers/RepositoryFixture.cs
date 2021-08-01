@@ -18,7 +18,7 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers
     /// - MockRepository
     /// </summary>
     /// <typeparam name="TEntity">Entity stored in the repository.</typeparam>
-    public abstract class RepositoryFixture<TEntity> where TEntity : Entity
+    public abstract class RepositoryFixture<TEntity> where TEntity : class, IEntity
     {
         protected readonly IConfiguration Configuration;
         protected readonly IMapper Mapper;

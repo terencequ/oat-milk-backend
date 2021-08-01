@@ -6,7 +6,7 @@ using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Repositories.Abstraction
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
         protected readonly OatMilkContext OatMilkContext;
         private readonly DbSet<TEntity> _entityDbSet;

@@ -2,8 +2,8 @@
 
 namespace OatMilk.Backend.Api.Data.Entities.Abstraction
 {
-    public class Entity
+    public interface IEntity
     {
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
     }
 }

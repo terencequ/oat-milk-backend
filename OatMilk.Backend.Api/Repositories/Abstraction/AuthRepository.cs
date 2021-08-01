@@ -10,7 +10,7 @@ using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Repositories.Abstraction
 {
-    public abstract class AuthRepository<TEntity> : Repository<TEntity>, IAuthRepository<TEntity> where TEntity : UserEntity
+    public abstract class AuthRepository<TEntity> : Repository<TEntity>, IAuthRepository<TEntity> where TEntity : class, IUserEntity
     {
         private readonly DbSet<User> _userDbSet;
         private readonly IHttpContextAccessor _httpContextAccessor;
