@@ -59,7 +59,7 @@ namespace OatMilk.Backend.Api.Services
 
         protected async Task<Ability> FindAbilityByIdAsync(Guid id)
         {
-            var entity = await AbilityRepository.GetQueryable()
+            var entity = await AbilityRepository.Get()
                 .Include(ability => ability.AbilityEffects)
                 .ThenInclude(abilityEffect => abilityEffect.Effect)
                 .ThenInclude(effect => effect.Modifiers)

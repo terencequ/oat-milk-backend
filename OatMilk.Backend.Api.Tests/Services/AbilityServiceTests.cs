@@ -26,7 +26,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             public Fixture(Effect[] effects, Ability[] abilities) : base(abilities)
             {
                 _mockEffectRepository = new Mock<IRepository<Effect>>();
-                _mockEffectRepository.Setup(m => m.GetQueryable()).Returns(effects.AsQueryable().BuildMock().Object);
+                _mockEffectRepository.Setup(m => m.Get()).Returns(effects.AsQueryable().BuildMock().Object);
             }
             
             public AbilityService GetSut()
