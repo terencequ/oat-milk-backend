@@ -6,12 +6,12 @@ using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Repositories.Abstraction
 {
-    public abstract class EntityRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         protected readonly OatMilkContext OatMilkContext;
         private readonly DbSet<TEntity> _entityDbSet;
 
-        protected EntityRepository(OatMilkContext oatMilkContext)
+        protected Repository(OatMilkContext oatMilkContext)
         {
             OatMilkContext = oatMilkContext;
             _entityDbSet = oatMilkContext.GetDbSet<TEntity>();
