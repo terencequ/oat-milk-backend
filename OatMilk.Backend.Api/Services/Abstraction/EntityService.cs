@@ -24,6 +24,11 @@ namespace OatMilk.Backend.Api.Services.Abstraction
             // Create ability and add it to database
             var entity = Mapper.Map<TEntity>(request);
             Repository.Add(entity);
+            if (entity is AuditableEntity auditableEntity)
+            {
+                auditableEntity.CreatedDateTimeUtc = DateTime.UtcNow;
+                auditableEntity.UpdatedDateTimeUtc = DateTime.UtcNow;
+            }
             await Repository.SaveAsync();
 
             return Mapper.Map<TResponse>(entity);
@@ -39,6 +44,10 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         {
             var entity = await FindByIdAsync(id);
             Mapper.Map(request, entity);
+            if (entity is AuditableEntity auditableEntity)
+            {
+                auditableEntity.UpdatedDateTimeUtc = DateTime.UtcNow;
+            }
             await Repository.SaveAsync();
             
             return Mapper.Map<TResponse>(entity);
@@ -46,7 +55,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
 
         public async Task Delete(Guid id)
         {
-            var entity = await FindByIdAsync(id);
+            var entity = await FindByIdAsyncDetailed(id);
 
             Repository.Remove(entity);
             await Repository.SaveAsync();

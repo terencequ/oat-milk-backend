@@ -20,24 +20,28 @@ namespace OatMilk.Backend.Api.Data.Entities
         public ICollection<Attribute> Attributes { get; set; }
 
         /// <summary>
+        /// Remove all attributes from character.
+        /// </summary>
+        public void ClearAttributes()
+        {
+            foreach (var attribute in Attributes)
+            {
+                Attributes.Remove(attribute);
+            }
+        }
+        
+        /// <summary>
         /// Set up attributes for a blank character.
         /// </summary>
-        public void SetupAttributes()
+        public void ResetAndSetupAttributes()
         {
             var attributeTypes = new string[]
             {
-                "Strength",
-                "Dexterity",
-                "Constitution",
-                "Intelligence",
-                "Wisdom",
-                "Charisma",
-                "HitPoints",
-                "ArmorClass",
-                "Speed",
-                "DeathSaveSuccesses",
-                "DeathSaveFailures"
+                "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma", 
+                "HitPoints", "ArmorClass", "Speed", 
+                "DeathSaveSuccesses", "DeathSaveFailures",
             };
+            ClearAttributes();
             foreach (var type in attributeTypes)
             {
                 Attributes.Add(new Attribute()
@@ -67,6 +71,8 @@ namespace OatMilk.Backend.Api.Data.Entities
         public bool Medicine { get; set; }
         public bool Nature { get; set; }
         public bool Perception { get; set; }
+        public bool Performance { get; set; }
+        public bool Persuasion { get; set; }
         public bool Religion { get; set; }
         public bool SleightOfHand { get; set; }
         public bool Stealth { get; set; }
