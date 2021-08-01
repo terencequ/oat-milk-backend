@@ -29,7 +29,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         public async Task<PageResponse<TResponse>> GetMultiple(SearchableSortedPageFilter filter)
         {
             var query = Repository
-                .GetQueryable();
+                .Get();
 
             // Search by name
             if (filter.SearchByName != null)
@@ -76,18 +76,18 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         
         #region Helpers
 
-        private void ThrowIfNameExists(string name)
+        protected void ThrowIfNameExists(string name)
         {
             // Check for duplicate name
-            if (Repository.GetQueryable().Any(a => a.Name == name))
+            if (Repository.Get().Any(a => a.Name == name))
             {
                 throw new ArgumentException($"Entity of name '{name}' already exists!", nameof(name));
             }
         }
 
-        private async Task<TEntity> FindByNameAsyncDetailed(string name)
+        protected async Task<TEntity> FindByNameAsyncDetailed(string name)
         {
-            var entity = await Repository.GetQueryable().FirstOrDefaultAsync(a => a.Name == name);
+            var entity = await Repository.GetWithIncludes().FirstOrDefaultAsync(a => a.Name == name);
             if (entity == null)
             {
                 throw new ArgumentException($"Entity with name '{name}' not found.", nameof(name));
@@ -98,7 +98,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         
         protected async Task<TEntity> FindByNameAsync(string name)
         {
-            var entity = await Repository.GetQueryable().FirstOrDefaultAsync(a => a.Name == name);
+            var entity = await Repository.Get().FirstOrDefaultAsync(a => a.Name == name);
             if (entity == null)
             {
                 throw new ArgumentException($"Entity with name '{name}' not found.", nameof(name));

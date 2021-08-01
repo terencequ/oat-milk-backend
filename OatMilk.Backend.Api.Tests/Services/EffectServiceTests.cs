@@ -27,10 +27,8 @@ namespace OatMilk.Backend.Api.Tests.Services
             public Fixture(Modifier[] modifiers, Effect[] effects) : base(effects)
             {
                 _mockModifierRepository = new Mock<IRepository<Modifier>>();
-                _mockModifierRepository.Setup(m => m.GetQueryable())
-                    .Returns(modifiers.AsQueryable().BuildMock().Object);
-                _mockModifierRepository.Setup(m => m.GetByIdQueryable(It.IsAny<Guid>()))
-                    .Returns<Guid>(id => modifiers.AsQueryable().BuildMock().Object.Where(e => e.Id == id));
+                _mockModifierRepository.Setup(m => m.Get()).Returns(modifiers.AsQueryable().BuildMock().Object);
+                _mockModifierRepository.Setup(m => m.GetWithIncludes()).Returns(modifiers.AsQueryable().BuildMock().Object);
             }
 
             public EffectService GetSut()

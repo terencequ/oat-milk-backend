@@ -25,7 +25,7 @@ namespace OatMilk.Backend.Api.Services
         
         public async Task<ModifierResponse> CreateModifier(Guid id, ModifierRequest request)
         {
-            var effect = await FindByIdAsync(id);
+            var effect = await FindByIdAsyncDetailed(id);
 
             var modifier = Mapper.Map<Modifier>(request);
             effect.Modifiers.Add(modifier);
@@ -55,7 +55,7 @@ namespace OatMilk.Backend.Api.Services
 
         private async Task<Modifier> FindModifierById(Guid parentId, Guid modifierId)
         {
-            var effect = await Repository.GetQueryable()
+            var effect = await Repository.Get()
                 .Where(a => a.Id == parentId)
                 .Include(a => a.Modifiers)
                 .FirstOrDefaultAsync();

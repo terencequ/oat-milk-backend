@@ -10,12 +10,12 @@ using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Repositories.Abstraction
 {
-    public abstract class GenericUserRepository<TEntity> : GenericRepository<TEntity>, IUserRepository<TEntity> where TEntity : UserEntity
+    public abstract class UserEntityRepository<TEntity> : EntityRepository<TEntity> where TEntity : UserEntity
     {
         private readonly DbSet<User> _userDbSet;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        protected GenericUserRepository(OatMilkContext oatMilkContext, IHttpContextAccessor httpContextAccessor) : base(oatMilkContext)
+        protected UserEntityRepository(OatMilkContext oatMilkContext, IHttpContextAccessor httpContextAccessor) : base(oatMilkContext)
         {
             _httpContextAccessor = httpContextAccessor;
             _userDbSet = oatMilkContext.GetDbSet<User>();
@@ -26,10 +26,10 @@ namespace OatMilk.Backend.Api.Repositories.Abstraction
         /// Calls DbSet AsQueryable.
         /// </summary>
         /// <returns></returns>
-        public override IQueryable<TEntity> GetQueryable()
+        public override IQueryable<TEntity> Get()
         {
             var userId = GetCurrentUserId();
-            return base.GetQueryable().Where(entity => entity.User.Id == userId);
+            return base.Get().Where(entity => entity.User.Id == userId);
         }
         
         /// <summary>

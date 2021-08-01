@@ -48,8 +48,11 @@ namespace OatMilk.Backend.Api
             services.AddHttpContextAccessor();
             
             // Repositories
-            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-            services.AddScoped(typeof(IUserRepository<>), typeof(GenericUserRepository<>));
+            services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IRepository<Ability>, AbilityRepository>();
+            services.AddScoped<IRepository<Effect>, EffectRepository>();
+            services.AddScoped<IRepository<Modifier>, ModifierRepository>();
+            services.AddScoped<IRepository<Character>, CharacterRepository>();
 
             // Services
             services.AddScoped<IUserService, UserService>();
