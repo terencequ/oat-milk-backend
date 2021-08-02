@@ -1,10 +1,5 @@
 ﻿using System;
-using System.IO.Pipes;
 using AutoMapper;
-using OatMilk.Backend.Api.Data.Entities;
-using OatMilk.Backend.Api.Services.Models.Requests;
-using OatMilk.Backend.Api.Services.Models.Responses;
-using Attribute = OatMilk.Backend.Api.Data.Entities.Attribute;
 
 namespace OatMilk.Backend.Api.Services.AutoMapper
 {
@@ -19,11 +14,7 @@ namespace OatMilk.Backend.Api.Services.AutoMapper
             return new []
             {
                 typeof(UserProfile),
-                typeof(AbilityProfile),
-                typeof(AttributeProfile),
                 typeof(CharacterProfile),
-                typeof(EffectProfile),
-                typeof(ModifierProfile)
             };
         }
 

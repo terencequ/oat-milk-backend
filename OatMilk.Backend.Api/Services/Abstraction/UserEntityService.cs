@@ -14,7 +14,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
 {
     public abstract class UserEntityService<TRequest, TEntity, TResponse> : EntityService<TRequest, TEntity, TResponse>, IUserEntityService<TRequest, TResponse>
         where TRequest : NamedRequest
-        where TEntity : UserEntity
+        where TEntity : IUserEntity
     {
         protected UserEntityService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
         {

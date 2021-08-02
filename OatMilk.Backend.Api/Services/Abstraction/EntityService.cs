@@ -8,7 +8,7 @@ using OatMilk.Backend.Api.Repositories.Abstraction;
 namespace OatMilk.Backend.Api.Services.Abstraction
 {
     public abstract class EntityService<TRequest, TEntity, TResponse> : IEntityService<TRequest, TResponse>
-        where TEntity : Entity
+        where TEntity : IEntity
     {
         protected readonly IRepository<TEntity> Repository;
         protected readonly IMapper Mapper;
@@ -24,7 +24,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
             // Create ability and add it to database
             var entity = Mapper.Map<TEntity>(request);
             Repository.Add(entity);
-            if (entity is AuditableEntity auditableEntity)
+            if (entity is IAuditableEntity auditableEntity)
             {
                 auditableEntity.CreatedDateTimeUtc = DateTime.UtcNow;
                 auditableEntity.UpdatedDateTimeUtc = DateTime.UtcNow;
@@ -44,7 +44,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         {
             var entity = await FindByIdAsync(id);
             Mapper.Map(request, entity);
-            if (entity is AuditableEntity auditableEntity)
+            if (entity is IAuditableEntity auditableEntity)
             {
                 auditableEntity.UpdatedDateTimeUtc = DateTime.UtcNow;
             }

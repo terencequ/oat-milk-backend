@@ -7,8 +7,19 @@ using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Data.Entities
 {
-    public class Character : UserEntity // TODO: convert attributes to attribute sets
+    public class Character : IUserEntity // TODO: convert attributes to attribute sets
     {
+        #region Entity
+
+        public Guid Id { get; set; }
+        public DateTime CreatedDateTimeUtc { get; set; }
+        public DateTime UpdatedDateTimeUtc { get; set; }
+        public string Name { get; set; }
+        public Guid UserId { get; set; }
+        public User User { get; set; }
+
+        #endregion
+        
         #region Experience
 
         public int Experience { get; set; }
@@ -16,44 +27,23 @@ namespace OatMilk.Backend.Api.Data.Entities
         #endregion
 
         #region Stats and Attributes
-        
-        public ICollection<Attribute> Attributes { get; set; }
 
-        /// <summary>
-        /// Remove all attributes from character.
-        /// </summary>
-        public void ClearAttributes()
-        {
-            foreach (var attribute in Attributes)
-            {
-                Attributes.Remove(attribute);
-            }
-        }
+        public int Strength { get; set; }
+        public int Dexterity { get; set; }
+        public int Constitution { get; set; }
+        public int Intelligence { get; set; }
+        public int Wisdom { get; set; }
+        public int Charisma { get; set; }
         
-        /// <summary>
-        /// Set up attributes for a blank character.
-        /// </summary>
-        public void ResetAndSetupAttributes()
-        {
-            var attributeTypes = new string[]
-            {
-                "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma", 
-                "HitPoints", "ArmorClass", "Speed", 
-                "DeathSaveSuccesses", "DeathSaveFailures",
-            };
-            ClearAttributes();
-            foreach (var type in attributeTypes)
-            {
-                Attributes.Add(new Attribute()
-                {
-                    Type = type,
-                    BaseValue = 0,
-                    CurrentValue = 0,
-                    CreatedDateTimeUtc = DateTime.UtcNow,
-                    UpdatedDateTimeUtc = DateTime.UtcNow
-                });
-            }
-        }
+        public int ArmorClass { get; set; }
+        public int Initiative { get; set; }
+        public int SpeedInFt { get; set; }
+
+        public int CurrentHitPoints { get; set; }
+        public int MaxHitPoints { get; set; }
+        
+        public int DeathSaveSuccesses { get; set; }
+        public int DeathSaveFailures { get; set; }
 
         #endregion
 

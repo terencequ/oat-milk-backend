@@ -10,12 +10,12 @@ using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Repositories.Abstraction
 {
-    public abstract class UserEntityRepository<TEntity> : EntityRepository<TEntity> where TEntity : UserEntity
+    public abstract class AuthRepository<TEntity> : Repository<TEntity>, IAuthRepository<TEntity> where TEntity : class, IUserEntity
     {
         private readonly DbSet<User> _userDbSet;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        protected UserEntityRepository(OatMilkContext oatMilkContext, IHttpContextAccessor httpContextAccessor) : base(oatMilkContext)
+        protected AuthRepository(OatMilkContext oatMilkContext, IHttpContextAccessor httpContextAccessor) : base(oatMilkContext)
         {
             _httpContextAccessor = httpContextAccessor;
             _userDbSet = oatMilkContext.GetDbSet<User>();
@@ -49,13 +49,13 @@ namespace OatMilk.Backend.Api.Repositories.Abstraction
             base.Add(entity);
         }
 
-        private Guid? GetCurrentUserIdOrDefault()
+        public Guid? GetCurrentUserIdOrDefault()
         {
             var identity = _httpContextAccessor.HttpContext?.User.Identity as ClaimsIdentity;
             return identity.GetUserIdOrDefault();
         }
         
-        private Guid? GetCurrentUserId()
+        public Guid GetCurrentUserId()
         {
             var identity = _httpContextAccessor.HttpContext?.User.Identity as ClaimsIdentity;
             var userId = identity.GetUserIdOrDefault();
@@ -65,7 +65,7 @@ namespace OatMilk.Backend.Api.Repositories.Abstraction
                 throw new Exception("User ID not found in current HttpContext.");
             }
             
-            return userId;
+            return userId.GetValueOrDefault();
         }
     }
 }

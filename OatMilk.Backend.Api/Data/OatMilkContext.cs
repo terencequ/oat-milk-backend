@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using System.Reflection;
 using OatMilk.Backend.Api.Data.Entities;
-using Attribute = OatMilk.Backend.Api.Data.Entities.Attribute;
 
 namespace OatMilk.Backend.Api.Data
 {
@@ -14,13 +12,8 @@ namespace OatMilk.Backend.Api.Data
         public OatMilkContext(DbContextOptions options): base(options) { }
 
         public DbSet<User> User { get; set; }
-        public DbSet<Ability> Ability { get; set; }
-        public DbSet<Effect> Effect { get; set; }
-        public DbSet<Modifier> Modifier { get; set; }
         public DbSet<Character> Character { get; set; }
-        public DbSet<Level> Level { get; set; }
-        public DbSet<Attribute> Attribute { get; set; }
-        
+
         public DbSet<T> GetDbSet<T>() where T: class
         {
             var type = typeof(OatMilkContext)
@@ -36,10 +29,7 @@ namespace OatMilk.Backend.Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Ability>()
-                .HasOne(a => a.CostEffect);
-            modelBuilder.Entity<Ability>()
-                .HasOne(a => a.CooldownEffect);
+
         }
     }
 }
