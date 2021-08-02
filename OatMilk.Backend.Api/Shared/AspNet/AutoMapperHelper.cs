@@ -1,7 +1,8 @@
 ﻿using System;
 using AutoMapper;
+using OatMilk.Backend.Api.Services.AutoMapper;
 
-namespace OatMilk.Backend.Api.Services.AutoMapper
+namespace OatMilk.Backend.Api.Shared.AspNet
 {
     public static class AutoMapperHelper
     {

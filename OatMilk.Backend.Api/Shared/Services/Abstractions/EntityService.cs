@@ -3,17 +3,17 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
-using OatMilk.Backend.Api.Data.Repositories.Abstraction;
+using OatMilk.Backend.Api.Shared.Repositories.Abstraction;
 
-namespace OatMilk.Backend.Api.Services.Abstraction
+namespace OatMilk.Backend.Api.Shared.Services.Abstractions
 {
-    public abstract class EntityService<TRequest, TEntity, TResponse> : IEntityService<TRequest, TResponse>
+    public class EntityService<TRequest, TEntity, TResponse> : IEntityService<TRequest, TResponse>
         where TEntity : IEntity
     {
         protected readonly IRepository<TEntity> Repository;
         protected readonly IMapper Mapper;
 
-        protected EntityService(IRepository<TEntity> repository, IMapper mapper)
+        public EntityService(IRepository<TEntity> repository, IMapper mapper)
         {
             Repository = repository;
             Mapper = mapper;
