@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
-namespace OatMilk.Backend.Api.Repositories.Abstraction
+namespace OatMilk.Backend.Api.Data.Repositories.Abstraction
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {

@@ -12,9 +12,7 @@ using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Controllers.Security;
 using OatMilk.Backend.Api.Controllers.Security.Handlers;
-using OatMilk.Backend.Api.Data.Entities;
-using OatMilk.Backend.Api.Repositories;
-using OatMilk.Backend.Api.Repositories.Abstraction;
+using OatMilk.Backend.Api.Data.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.AutoMapper;
 
@@ -49,7 +47,7 @@ namespace OatMilk.Backend.Api
             
             // Repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped(typeof(IAuthRepository<>), typeof(AuthRepository<>));
+            services.AddScoped(typeof(IUserEntityRepository<>), typeof(UserEntityRepository<>));
 
             // Services
             services.AddScoped<IUserService, UserService>();

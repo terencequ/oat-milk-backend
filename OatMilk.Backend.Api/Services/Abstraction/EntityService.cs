@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
-using OatMilk.Backend.Api.Repositories.Abstraction;
+using OatMilk.Backend.Api.Data.Repositories.Abstraction;
 
 namespace OatMilk.Backend.Api.Services.Abstraction
 {

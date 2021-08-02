@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using OatMilk.Backend.Api.Repositories.Abstraction;
+using OatMilk.Backend.Api.Data.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Models;
 

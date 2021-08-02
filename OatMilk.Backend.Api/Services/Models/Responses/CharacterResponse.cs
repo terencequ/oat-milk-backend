@@ -6,11 +6,42 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
 {
     public class CharacterResponse
     {
+        #region Entity
+
         public Guid Id { get; set; }
+        public DateTime CreatedDateTimeUtc { get; set; }
+        public DateTime UpdatedDateTimeUtc { get; set; }
         public string Name { get; set; }
-        public int Experience { get; set; }
-        public ICollection<AttributeResponse> Attributes { get; set; }
+
+        #endregion
         
+        #region Experience
+
+        public int Experience { get; set; }
+
+        #endregion
+
+        #region Stats and Attributes
+
+        public int Strength { get; set; }
+        public int Dexterity { get; set; }
+        public int Constitution { get; set; }
+        public int Intelligence { get; set; }
+        public int Wisdom { get; set; }
+        public int Charisma { get; set; }
+        
+        public int ArmorClass { get; set; }
+        public int Initiative { get; set; }
+        public int SpeedInFt { get; set; }
+
+        public int CurrentHitPoints { get; set; }
+        public int MaxHitPoints { get; set; }
+        
+        public int DeathSaveSuccesses { get; set; }
+        public int DeathSaveFailures { get; set; }
+
+        #endregion
+
         #region Proficiencies
         
         public bool Acrobatics { get; set; }
@@ -45,8 +76,5 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
         public string Appearance { get; set; }
 
         #endregion
-        
-        public DateTime CreatedDateTimeUtc { get; set; }
-        public DateTime UpdatedDateTimeUtc { get; set; }
     }
 }

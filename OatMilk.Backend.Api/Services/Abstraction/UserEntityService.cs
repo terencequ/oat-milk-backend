@@ -5,7 +5,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
-using OatMilk.Backend.Api.Repositories.Abstraction;
+using OatMilk.Backend.Api.Data.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Responses;
 using OatMilk.Backend.Api.Services.Pagination;
@@ -13,7 +13,7 @@ using OatMilk.Backend.Api.Services.Pagination;
 namespace OatMilk.Backend.Api.Services.Abstraction
 {
     public abstract class UserEntityService<TRequest, TEntity, TResponse> : EntityService<TRequest, TEntity, TResponse>, IUserEntityService<TRequest, TResponse>
-        where TRequest : NamedRequest
+        where TRequest : INamedRequest
         where TEntity : IUserEntity
     {
         protected UserEntityService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
