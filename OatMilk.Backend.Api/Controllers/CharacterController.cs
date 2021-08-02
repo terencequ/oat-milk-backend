@@ -26,7 +26,7 @@ namespace OatMilk.Backend.Api.Controllers
         #region CRUD
 
         [HttpGet]
-        [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PageResponse<CharacterResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<PageResponse<CharacterResponse>> GetMultiple([FromQuery] SearchableSortedPageFilter filter)
         {
@@ -58,7 +58,7 @@ namespace OatMilk.Backend.Api.Controllers
         }
         
         [HttpDelete("{id:guid}")]
-        [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task Delete([FromRoute] Guid id)
         {
