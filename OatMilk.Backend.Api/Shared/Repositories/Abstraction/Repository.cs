@@ -1,45 +1,52 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using OatMilk.Backend.Api.Data;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using OatMilk.Backend.Api.Configuration;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Shared.Repositories.Abstraction
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        protected readonly OatMilkContext OatMilkContext;
-        private readonly DbSet<TEntity> _entityDbSet;
-
-        public Repository(OatMilkContext oatMilkContext)
+        protected readonly IMongoDatabase MongoDatabase;
+        protected readonly IMongoCollection<TEntity> EntityCollection;
+        public Repository(IOptions<DatabaseOptions> databaseOptions)
         {
-            OatMilkContext = oatMilkContext;
-            _entityDbSet = oatMilkContext.GetDbSet<TEntity>();
+            var databaseOptionsValue = databaseOptions.Value;
+            var client = new MongoClient(databaseOptionsValue.ConnectionString);
+            MongoDatabase = client.GetDatabase(databaseOptionsValue.Name);
+
+            EntityCollection = MongoDatabase.GetCollection<TEntity>(typeof(TEntity).Name);
         }
         
         public virtual IQueryable<TEntity> Get()
         {
-            return _entityDbSet.AsQueryable();
+            return EntityCollection.AsQueryable();
         }
 
-        public virtual IQueryable<TEntity> GetWithIncludes()
+        public virtual Task AddAsync(TEntity entity)
         {
-            return _entityDbSet.AsQueryable();
-        }
-        
-        public virtual void Add(TEntity entity)
-        {
-            _entityDbSet.Add(entity);
+            return EntityCollection.InsertOneAsync(entity);
         }
 
-        public async Task SaveAsync()
+        public virtual Task UpdateAsync(TEntity entity)
         {
-            await OatMilkContext.SaveChangesAsync();
+            return EntityCollection.ReplaceOneAsync(e => e.Id == entity.Id, entity);
         }
         
-        public virtual void Remove(TEntity entity)
+        public virtual async Task RemoveAsync(TEntity entity)
         {
-            OatMilkContext.Remove(entity);
+            var result = await EntityCollection.DeleteOneAsync(e => e.Id == entity.Id);
+            if (!result.IsAcknowledged)
+            {
+                throw new Exception("Entity was not removed.");
+            }
+            if (result.DeletedCount < 1)
+            {
+                throw new Exception($"Nothing was deleted. Expected to delete 1, deleted {result.DeletedCount}");
+            }
         }
     }
 }

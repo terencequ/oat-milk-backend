@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using NUnit.Framework;
 using OatMilk.Backend.Api.Controllers.Security;
 using OatMilk.Backend.Api.Data.Entities;
@@ -27,8 +28,8 @@ namespace OatMilk.Backend.Api.Tests.Services
         [Test]
         public void GetUser_ValidId_ShouldReturnUserProfile()
         {
-            var expectedId = Guid.NewGuid();
-            var sut = new Fixture(new User(){Id = expectedId}, new User(){Id = Guid.NewGuid()})
+            var expectedId = ObjectId.GenerateNewId();
+            var sut = new Fixture(new User(){Id = expectedId}, new User(){Id = ObjectId.GenerateNewId()})
                 .GetSut();
             
             var result = sut.GetUser(expectedId);
@@ -40,7 +41,7 @@ namespace OatMilk.Backend.Api.Tests.Services
         {
             var sut = new Fixture() // Empty user list
                 .GetSut();
-            Assert.Throws<ArgumentException>(()=> sut.GetUser(Guid.NewGuid()));
+            Assert.Throws<ArgumentException>(()=> sut.GetUser(ObjectId.GenerateNewId()));
         }
 
         #endregion
@@ -56,7 +57,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             var sut = new Fixture(
                     new User()
                     {
-                        Id = Guid.NewGuid(), 
+                        Id = ObjectId.GenerateNewId(), 
                         Email = expectedEmail, 
                         Password = SecurePasswordHasher.Hash(expectedPassword)
                     })
@@ -76,7 +77,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             var sut = new Fixture(
                     new User()
                     {
-                        Id=Guid.NewGuid(), 
+                        Id = ObjectId.GenerateNewId(), 
                         Email = "wrong@wrong.com", 
                         Password = "wrong"
                     })
@@ -94,7 +95,7 @@ namespace OatMilk.Backend.Api.Tests.Services
         public void Login_InvalidPassword_ShouldThrowArgumentExceptionWithPasswordParamName()
         {
             const string expectedEmail = "test@test.com";
-            var sut = new Fixture(new User(){ Id=Guid.NewGuid(), Email = expectedEmail, Password = SecurePasswordHasher.Hash("wrong")})
+            var sut = new Fixture(new User(){ Id = ObjectId.GenerateNewId(), Email = expectedEmail, Password = SecurePasswordHasher.Hash("wrong")})
                 .GetSut();
             var exception = Assert.Throws<ArgumentException>(()=> sut.Login(
                 new UserLoginRequest()
@@ -134,7 +135,7 @@ namespace OatMilk.Backend.Api.Tests.Services
             const string expectedEmail = "test@test.com";
             const string expectedPassword = "Password12";
             
-            var sut = new Fixture(new User(){Id = Guid.NewGuid(), Email = expectedEmail, Password = "test123456778"}).GetSut();
+            var sut = new Fixture(new User(){Id = ObjectId.GenerateNewId(), Email = expectedEmail, Password = "test123456778"}).GetSut();
 
             var exception = Assert.ThrowsAsync<ArgumentException>(async () => await sut.Register(
                 new UserRequest()
@@ -154,7 +155,7 @@ namespace OatMilk.Backend.Api.Tests.Services
         [Test]
         public void UserExistsById_UserExists_ShouldReturnTrue()
         {
-            var expectedId = Guid.NewGuid();
+            var expectedId = ObjectId.GenerateNewId();
             var sut = new Fixture(new User(){Id = expectedId}).GetSut();
             var result = sut.UserExistsById(expectedId);
             Assert.IsTrue(result);
@@ -163,8 +164,8 @@ namespace OatMilk.Backend.Api.Tests.Services
         [Test]
         public void UserExistsById_UserDoesntExists_ShouldReturnFalse()
         {
-            var sut = new Fixture(new User(){Id = Guid.NewGuid()}).GetSut();
-            var result = sut.UserExistsById(Guid.NewGuid());
+            var sut = new Fixture(new User(){Id = ObjectId.GenerateNewId()}).GetSut();
+            var result = sut.UserExistsById(ObjectId.GenerateNewId());
             Assert.IsFalse(result);
         }
         

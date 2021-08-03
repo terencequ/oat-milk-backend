@@ -1,9 +1,10 @@
 ﻿using System;
+using MongoDB.Bson;
 
 namespace OatMilk.Backend.Api.Data.Entities.Abstraction
 {
     public interface IEntity
     {
-        Guid Id { get; set; }
+        ObjectId Id { get; set; }
     }
 }

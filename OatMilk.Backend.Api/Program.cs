@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using OatMilk.Backend.Api.Data;
 
@@ -10,7 +11,6 @@ namespace OatMilk.Backend.Api
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDbContext<OatMilkContext>()
                 .Run();
         }
 
@@ -18,6 +18,11 @@ namespace OatMilk.Backend.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureAppConfiguration(config =>
+                    {
+                        config.AddEnvironmentVariables();
+                        config.AddJsonFile("local.settings.json", true);
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }

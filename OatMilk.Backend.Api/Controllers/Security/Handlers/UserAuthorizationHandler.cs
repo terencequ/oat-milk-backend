@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using MongoDB.Bson;
 using OatMilk.Backend.Api.Controllers.Security.Requirements;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Shared.Services.Abstractions;
@@ -21,7 +22,7 @@ namespace OatMilk.Backend.Api.Controllers.Security.Handlers
         {
             bool ValidUserIdPredicate(Claim c)
             {
-                return c.Type == JWTClaimTypes.UserId && _userService.UserExistsById(Guid.Parse(c.Value));
+                return c.Type == JWTClaimTypes.UserId && _userService.UserExistsById(ObjectId.Parse(c.Value));
             }
 
             if (context.User.HasClaim(ValidUserIdPredicate))

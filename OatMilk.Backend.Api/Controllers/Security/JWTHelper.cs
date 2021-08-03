@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson;
 using OatMilk.Backend.Api.Configuration;
 
 namespace OatMilk.Backend.Api.Controllers.Security
@@ -37,7 +38,7 @@ namespace OatMilk.Backend.Api.Controllers.Security
         /// <param name="configuration"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static string GenerateToken(IConfiguration configuration, Guid userId)
+        public static string GenerateToken(IConfiguration configuration, ObjectId userId)
         {
             var secret = configuration
                 .GetSection(AuthOptions.Auth)
@@ -66,22 +67,18 @@ namespace OatMilk.Backend.Api.Controllers.Security
         /// </summary>
         /// <param name="identity">ClaimsIdentity from a JWT.</param>
         /// <returns></returns>
-        public static Guid? GetUserIdOrDefault(this ClaimsIdentity identity)
+        public static ObjectId? GetUserIdOrDefault(this ClaimsIdentity identity)
         {
-            if (identity != null)
-            {
-                if(Guid.TryParse(identity.FindFirst(JWTClaimTypes.UserId)?.Value, out var userId))
-                {
-                    return userId;
-                } else
-                {
-                    return null;
-                }
-            }
-            else
+            if (identity == null)
             {
                 throw new ArgumentNullException(nameof(identity), $"Argument is null. ({nameof(identity)})");
             }
+            
+            if(ObjectId.TryParse(identity.FindFirst(JWTClaimTypes.UserId)?.Value, out var userId))
+            {
+                return userId;
+            }
+            return null;
         }
     }
 }

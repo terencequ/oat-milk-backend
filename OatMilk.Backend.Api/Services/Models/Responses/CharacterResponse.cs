@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MongoDB.Bson;
 
 namespace OatMilk.Backend.Api.Services.Models.Responses
 {
@@ -8,7 +9,7 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
     {
         #region Entity
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime UpdatedDateTimeUtc { get; set; }
         public string Name { get; set; }

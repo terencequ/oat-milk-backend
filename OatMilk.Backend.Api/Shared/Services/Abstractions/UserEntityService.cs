@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Abstraction;
 using OatMilk.Backend.Api.Services.Pagination;
@@ -19,7 +17,7 @@ namespace OatMilk.Backend.Api.Shared.Services.Abstractions
         {
         }
         
-        public new async Task<TResponse> Create(TRequest request)
+        public override async Task<TResponse> Create(TRequest request)
         {
             ThrowIfNameExists(request.Name);
             return await base.Create(request);
@@ -61,16 +59,14 @@ namespace OatMilk.Backend.Api.Shared.Services.Abstractions
                         $"Cannot sort by {filter.SortColumnName}, because the column doesn't exist!",
                         nameof(filter.SortColumnName));
             }
-            
-            return await query
-                .ProjectTo<TResponse>(Mapper.ConfigurationProvider)
-                .GetPageResponseAsync(filter);
+            var page = query.GetPageResponse(filter);
+            return Mapper.Map<PageResponse<TResponse>>(page);
         }
 
-        public async Task<TResponse> GetByName(string name)
+        public Task<TResponse> GetByName(string name)
         {
-            var effect = await FindByNameAsyncDetailed(name);
-            return Mapper.Map<TResponse>(effect);
+            var effect = FindByName(name);
+            return Task.FromResult(Mapper.Map<TResponse>(effect));
         }
         
         #region Helpers
@@ -84,20 +80,9 @@ namespace OatMilk.Backend.Api.Shared.Services.Abstractions
             }
         }
 
-        protected async Task<TEntity> FindByNameAsyncDetailed(string name)
+        protected TEntity FindByName(string name)
         {
-            var entity = await Repository.GetWithIncludes().FirstOrDefaultAsync(a => a.Name == name);
-            if (entity == null)
-            {
-                throw new ArgumentException($"Entity with name '{name}' not found.", nameof(name));
-            }
-
-            return entity;
-        }
-        
-        protected async Task<TEntity> FindByNameAsync(string name)
-        {
-            var entity = await Repository.Get().FirstOrDefaultAsync(a => a.Name == name);
+            var entity = Repository.Get().FirstOrDefault(a => a.Name == name);
             if (entity == null)
             {
                 throw new ArgumentException($"Entity with name '{name}' not found.", nameof(name));

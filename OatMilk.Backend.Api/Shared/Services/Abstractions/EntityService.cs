@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 using OatMilk.Backend.Api.Shared.Repositories.Abstraction;
 
@@ -19,64 +20,51 @@ namespace OatMilk.Backend.Api.Shared.Services.Abstractions
             Mapper = mapper;
         }
 
-        public async Task<TResponse> Create(TRequest request)
+        public virtual async Task<TResponse> Create(TRequest request)
         {
-            // Create ability and add it to database
             var entity = Mapper.Map<TEntity>(request);
-            Repository.Add(entity);
             if (entity is IAuditableEntity auditableEntity)
             {
                 auditableEntity.CreatedDateTimeUtc = DateTime.UtcNow;
                 auditableEntity.UpdatedDateTimeUtc = DateTime.UtcNow;
             }
-            await Repository.SaveAsync();
+            await Repository.AddAsync(entity);
 
             return Mapper.Map<TResponse>(entity);
         }
 
-        public async Task<TResponse> GetById(Guid id)
+        public virtual async Task<TResponse> GetById(ObjectId id)
         {
-            var entity = await FindByIdAsyncDetailed(id);
+            var entity = FindById(id);
             return Mapper.Map<TResponse>(entity);
         }
 
-        public async Task<TResponse> Update(Guid id, TRequest request)
+        public virtual async Task<TResponse> Update(ObjectId id, TRequest request)
         {
-            var entity = await FindByIdAsync(id);
+            var entity = FindById(id);
             Mapper.Map(request, entity);
             if (entity is IAuditableEntity auditableEntity)
             {
                 auditableEntity.UpdatedDateTimeUtc = DateTime.UtcNow;
             }
-            await Repository.SaveAsync();
-            
+
+            await Repository.UpdateAsync(entity);
+
             return Mapper.Map<TResponse>(entity);
         }
 
-        public async Task Delete(Guid id)
+        public virtual async Task Delete(ObjectId id)
         {
-            var entity = await FindByIdAsyncDetailed(id);
+            var entity = FindById(id);
 
-            Repository.Remove(entity);
-            await Repository.SaveAsync();
+            await Repository.RemoveAsync(entity);
         }
         
         #region Helpers
 
-        protected async Task<TEntity> FindByIdAsyncDetailed(Guid id)
+        protected TEntity FindById(ObjectId id)
         {
-            var entity = await Repository.GetWithIncludes().FirstOrDefaultAsync(a => a.Id == id);
-            if (entity == null)
-            {
-                throw new ArgumentException($"{nameof(TEntity)} with id '{id}' not found.", nameof(id));
-            }
-
-            return entity;
-        }
-        
-        protected async Task<TEntity> FindByIdAsync(Guid id)
-        {
-            var entity = await Repository.Get().FirstOrDefaultAsync(a => a.Id == id);
+            var entity = Repository.Get().FirstOrDefault(a => a.Id == id);
             if (entity == null)
             {
                 throw new ArgumentException($"{nameof(TEntity)} with id '{id}' not found.", nameof(id));
