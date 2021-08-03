@@ -10,7 +10,7 @@ namespace OatMilk.Backend.Api.Services
 {
     public class CharacterService : UserEntityService<CharacterRequest, Character, CharacterResponse>, ICharacterService
     {
-        public CharacterService(IRepository<Character> repository, IMapper mapper) : base(repository, mapper)
+        public CharacterService(IUserEntityRepository<Character> repository, IMapper mapper) : base(repository, mapper)
         {
         }
     }
