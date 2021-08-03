@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using OatMilk.Backend.Api.Controllers.Models;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;
@@ -49,20 +50,20 @@ namespace OatMilk.Backend.Api.Controllers
             return await _service.Create(request);
         }
         
-        [HttpPut("{id:guid}")]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<CharacterResponse> Update(Guid id, CharacterRequest request)
+        public async Task<CharacterResponse> Update(string id, CharacterRequest request)
         {
-            return await _service.Update(id, request);
+            return await _service.Update(ObjectId.Parse(id), request);
         }
         
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task Delete([FromRoute] Guid id)
+        public async Task Delete([FromRoute] string id)
         {
-            await _service.Delete(id);
+            await _service.Delete(ObjectId.Parse(id));
         }
 
         #endregion

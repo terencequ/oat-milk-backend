@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
 namespace OatMilk.Backend.Api.Data.Entities
@@ -11,12 +13,14 @@ namespace OatMilk.Backend.Api.Data.Entities
     {
         #region Entity
 
-        public Guid Id { get; set; }
+        [BsonId]
+        public ObjectId Id { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime UpdatedDateTimeUtc { get; set; }
         public string Name { get; set; }
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        
+        
+        public ObjectId UserId { get; set; }
 
         #endregion
         

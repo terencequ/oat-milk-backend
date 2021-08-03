@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Bson;
 using OatMilk.Backend.Api.Controllers.Security;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Services.Abstraction;
@@ -26,7 +27,7 @@ namespace OatMilk.Backend.Api.Services
             _mapper = mapper;
         }
 
-        public UserResponse GetUser(Guid userId)
+        public UserResponse GetUser(ObjectId userId)
         {
             var user = _repository.Get().FirstOrDefault(u => userId == u.Id);
             if (user == null) // Email check
@@ -73,8 +74,7 @@ namespace OatMilk.Backend.Api.Services
             user.UpdatedDateTimeUtc = DateTime.UtcNow;
 
             // Add user to database
-            _repository.Add(user);
-            await _repository.SaveAsync();
+            await _repository.AddAsync(user);
 
             // Create token for user
             return new AuthTokenResponse()
@@ -83,7 +83,7 @@ namespace OatMilk.Backend.Api.Services
             };
         }
 
-        public bool UserExistsById(Guid userId)
+        public bool UserExistsById(ObjectId userId)
         {
             return _repository.Get().Any(user => user.Id == userId);
         }

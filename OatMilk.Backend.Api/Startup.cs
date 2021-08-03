@@ -1,8 +1,5 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,13 +33,8 @@ namespace OatMilk.Backend.Api
             services.AddAutoMapper(AutoMapperHelper.GetAutoMapperTypes());
 
             // Config
-            services.Configure<ConnectionStringsOptions>(Configuration.GetSection(ConnectionStringsOptions.ConnectionStrings));
+            services.Configure<DatabaseOptions>(Configuration.GetSection(DatabaseOptions.Database));
             services.Configure<AuthOptions>(Configuration.GetSection(AuthOptions.Auth));
-
-            // OatMilkContext
-            var connectionString = Configuration.GetSection(ConnectionStringsOptions.ConnectionStrings).Get<ConnectionStringsOptions>().MainDatabase;
-            services.AddDbContext<OatMilkContext>(opt => opt.UseSqlServer(connectionString));
-            services.AddDatabaseDeveloperPageExceptionFilter();
 
             // HttpAccessor
             services.AddHttpContextAccessor();

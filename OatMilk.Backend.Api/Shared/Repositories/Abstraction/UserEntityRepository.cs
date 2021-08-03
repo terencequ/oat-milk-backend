@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Authentication;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using OatMilk.Backend.Api.Configuration;
 using OatMilk.Backend.Api.Controllers.Security;
-using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
@@ -12,13 +16,13 @@ namespace OatMilk.Backend.Api.Shared.Repositories.Abstraction
 {
     public class UserEntityRepository<TEntity> : Repository<TEntity>, IUserEntityRepository<TEntity> where TEntity : class, IUserEntity
     {
-        private readonly DbSet<User> _userDbSet;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IRepository<User> _userRepository;
 
-        public UserEntityRepository(OatMilkContext oatMilkContext, IHttpContextAccessor httpContextAccessor) : base(oatMilkContext)
+        public UserEntityRepository(IOptions<DatabaseOptions> databaseOptions, IHttpContextAccessor httpContextAccessor, IRepository<User> userRepository) : base(databaseOptions)
         {
             _httpContextAccessor = httpContextAccessor;
-            _userDbSet = oatMilkContext.GetDbSet<User>();
+            _userRepository = userRepository;
         }
 
         /// <summary>
@@ -29,7 +33,7 @@ namespace OatMilk.Backend.Api.Shared.Repositories.Abstraction
         public override IQueryable<TEntity> Get()
         {
             var userId = GetCurrentUserId();
-            return base.Get().Where(entity => entity.User.Id == userId);
+            return base.Get().Where(entity => entity.UserId == userId);
         }
         
         /// <summary>
@@ -37,25 +41,30 @@ namespace OatMilk.Backend.Api.Shared.Repositories.Abstraction
         /// Calls DbSet Add.
         /// </summary>
         /// <param name="entity"></param>
-        public override void Add(TEntity entity)
+        public override Task AddAsync(TEntity entity)
         {
             // Find and assign user
             var userId = GetCurrentUserIdOrDefault();
-            var user = _userDbSet.Find(userId);
-            entity.User = user;
+            var user = _userRepository.Get().FirstOrDefault(e => e.Id == userId);
+            entity.UserId = user?.Id ?? throw new AuthenticationException("Id is not valid!");
             entity.CreatedDateTimeUtc = DateTime.UtcNow;
             entity.UpdatedDateTimeUtc = DateTime.UtcNow;
-            
-            base.Add(entity);
+            return base.AddAsync(entity);
         }
 
-        public Guid? GetCurrentUserIdOrDefault()
+        public override Task UpdateAsync(TEntity entity)
+        {
+            entity.UpdatedDateTimeUtc = DateTime.UtcNow;
+            return base.UpdateAsync(entity);
+        }
+        
+        public ObjectId? GetCurrentUserIdOrDefault()
         {
             var identity = _httpContextAccessor.HttpContext?.User.Identity as ClaimsIdentity;
             return identity.GetUserIdOrDefault();
         }
         
-        public Guid GetCurrentUserId()
+        public ObjectId GetCurrentUserId()
         {
             var identity = _httpContextAccessor.HttpContext?.User.Identity as ClaimsIdentity;
             var userId = identity.GetUserIdOrDefault();

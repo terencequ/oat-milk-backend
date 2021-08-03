@@ -2,6 +2,7 @@
 using OatMilk.Backend.Api.Data.Entities;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
+using OatMilk.Backend.Api.Services.Pagination;
 
 namespace OatMilk.Backend.Api.Services.AutoMapper
 {
@@ -11,6 +12,7 @@ namespace OatMilk.Backend.Api.Services.AutoMapper
         {
             CreateMap<CharacterRequest, Character>();
             CreateMap<Character, CharacterResponse>();
+            CreateMap<PageResponse<Character>, PageResponse<CharacterResponse>>();
         }
     }
 }

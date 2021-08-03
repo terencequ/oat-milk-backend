@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace OatMilk.Backend.Api.Services.Pagination
 {
@@ -14,15 +13,16 @@ namespace OatMilk.Backend.Api.Services.Pagination
         /// <param name="filter">Details of page number and page size</param>
         /// <typeparam name="TEntity">Entity stored within the IQueryable</typeparam>
         /// <returns></returns>
-        public static async Task<PageResponse<TEntity>> GetPageResponseAsync<TEntity>(this IQueryable<TEntity> queryable, PageFilter filter)
+        public static PageResponse<TEntity> GetPageResponse<TEntity>(this IQueryable<TEntity> queryable,
+            PageFilter filter)
         {
             var pageIndex = filter.PageIndex is <= 0 or null ? 0 : filter.PageIndex.GetValueOrDefault();
             var pageSize = filter.PageSize is <= 0 or null ? Math.Max(queryable.Count(), 1) : filter.PageSize.GetValueOrDefault();
-            var totalCount = await queryable.CountAsync();
+            var totalCount = queryable.Count();
             var totalPages = (int) Math.Ceiling(totalCount / (double) pageSize);
             var hasPreviousPage = pageIndex > 0;
             var hasNextPage = pageIndex + 1 < totalPages;
-            var items = await queryable.Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
+            var items = queryable.Skip(pageIndex * pageSize).Take(pageSize).ToList();
             
             return new PageResponse<TEntity>()
             {

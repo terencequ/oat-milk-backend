@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
 
@@ -11,7 +12,7 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         /// Get user profile.
         /// </summary>
         /// <returns></returns>
-        UserResponse GetUser(Guid userId);
+        UserResponse GetUser(ObjectId userId);
 
         /// <summary>
         /// Login to a user account.
@@ -33,6 +34,6 @@ namespace OatMilk.Backend.Api.Services.Abstraction
         /// </summary>
         /// <param name="userId">Id of user</param>
         /// <returns>True if user exists, false otherwise.</returns>
-        bool UserExistsById(Guid userId);
+        bool UserExistsById(ObjectId userId);
     }
 }

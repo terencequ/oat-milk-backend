@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using NUnit.Framework;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
 using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services;
@@ -41,7 +42,7 @@ namespace OatMilk.Backend.Api.Tests.Services.Abstraction
         [Test]
         public async Task GetById_EntityExists_ShouldReturnAbilityResponse()
         {
-            var expectedId = Guid.NewGuid();
+            var expectedId = ObjectId.GenerateNewId();
 
             var service = new Fixture(new TestEntity(){ Id = expectedId }).GetSut();
             var result = await service.GetById(expectedId);
@@ -51,7 +52,7 @@ namespace OatMilk.Backend.Api.Tests.Services.Abstraction
         [Test]
         public void GetById_EntityDoesntExist_ShouldThrowArgumentException()
         {
-            var expectedId = Guid.NewGuid();
+            var expectedId = ObjectId.GenerateNewId();
 
             var service = new Fixture().GetSut();
             Assert.ThrowsAsync<ArgumentException>(async () => await service.GetById(expectedId));
@@ -64,7 +65,7 @@ namespace OatMilk.Backend.Api.Tests.Services.Abstraction
         [Test]
         public async Task Update_EntityExists_ShouldReturnAbilityResponse()
         {
-            var expectedId = Guid.NewGuid();
+            var expectedId = ObjectId.GenerateNewId();
             const string expectedString = "new name";
             
             var service = new Fixture(new TestEntity()
@@ -86,7 +87,7 @@ namespace OatMilk.Backend.Api.Tests.Services.Abstraction
             const string expectedString = "new name";
             var service = new Fixture().GetSut();
 
-            Assert.ThrowsAsync<ArgumentException>(async () => await service.Update(Guid.NewGuid(), new TestEntityRequest()
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.Update(ObjectId.GenerateNewId(), new TestEntityRequest()
             {
                 TestString = expectedString
             }));
@@ -99,7 +100,7 @@ namespace OatMilk.Backend.Api.Tests.Services.Abstraction
         [Test]
         public void DeleteEntity_EntityExists_Returns()
         {
-            var expectedGuid = Guid.NewGuid();
+            var expectedGuid = ObjectId.GenerateNewId();
             var service = new Fixture(new TestEntity()
             {
                 Id = expectedGuid
@@ -112,7 +113,7 @@ namespace OatMilk.Backend.Api.Tests.Services.Abstraction
         public void DeleteEntity_EntityDoesntExist_ThrowsArgumentException()
         {
             var service = new Fixture().GetSut();
-            Assert.ThrowsAsync<ArgumentException>(async () => await service.Delete(Guid.NewGuid()));
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.Delete(ObjectId.GenerateNewId()));
         }
         
         #endregion

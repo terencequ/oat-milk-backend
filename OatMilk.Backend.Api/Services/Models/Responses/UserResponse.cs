@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson;
 
 namespace OatMilk.Backend.Api.Services.Models.Responses
 {
@@ -8,7 +9,7 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
     /// </summary>
     public class UserResponse
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string DisplayName { get; set; }
         public string Email { get; set; }
     }
