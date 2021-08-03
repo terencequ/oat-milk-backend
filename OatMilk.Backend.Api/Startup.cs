@@ -39,6 +39,9 @@ namespace OatMilk.Backend.Api
             // HttpAccessor
             services.AddHttpContextAccessor();
             
+            // MongoDB database
+            services.SetupDatabase(Configuration);
+            
             // Repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IUserEntityRepository<>), typeof(UserEntityRepository<>));
