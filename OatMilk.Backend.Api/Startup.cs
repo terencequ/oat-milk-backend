@@ -12,11 +12,11 @@ using OatMilk.Backend.Api.Data;
 using OatMilk.Backend.Api.Services;
 using OatMilk.Backend.Api.Controllers.Security;
 using OatMilk.Backend.Api.Controllers.Security.Handlers;
-using OatMilk.Backend.Api.Data.Entities;
-using OatMilk.Backend.Api.Repositories;
-using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.AutoMapper;
+using OatMilk.Backend.Api.Shared.AspNet;
+using OatMilk.Backend.Api.Shared.Repositories.Abstraction;
+using OatMilk.Backend.Api.Shared.Services.Abstractions;
 
 namespace OatMilk.Backend.Api
 {
@@ -49,10 +49,11 @@ namespace OatMilk.Backend.Api
             
             // Repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped(typeof(IAuthRepository<>), typeof(AuthRepository<>));
+            services.AddScoped(typeof(IUserEntityRepository<>), typeof(UserEntityRepository<>));
 
             // Services
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICharacterService, CharacterService>();
 
             // CORS
             services.AddCors(options =>
@@ -66,20 +67,9 @@ namespace OatMilk.Backend.Api
                             .AllowAnyMethod();
                     });
             });
-            
-            // Auth
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = JWTHelper.GetTokenValidationParameters(Configuration);
-            });
-            services.AddAuthorization(options =>
-            {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder()
-                    .RequireClaim(JWTClaimTypes.UserId)
-                    .RequireAuthenticatedUser()
-                    .Build();
-            });
-            services.AddTransient<IAuthorizationHandler, UserAuthorizationHandler>();
+
+            // Security
+            services.ConfigureSecurity(Configuration);
 
             // Controllers
             services.AddControllers();

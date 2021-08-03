@@ -9,6 +9,7 @@ using OatMilk.Backend.Api.Controllers.Security;
 using OatMilk.Backend.Api.Services.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Requests;
 using OatMilk.Backend.Api.Services.Models.Responses;
+using OatMilk.Backend.Api.Shared.Services.Abstractions;
 
 namespace OatMilk.Backend.Api.Controllers
 {

@@ -5,18 +5,17 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
-using OatMilk.Backend.Api.Repositories.Abstraction;
 using OatMilk.Backend.Api.Services.Models.Abstraction;
-using OatMilk.Backend.Api.Services.Models.Responses;
 using OatMilk.Backend.Api.Services.Pagination;
+using OatMilk.Backend.Api.Shared.Repositories.Abstraction;
 
-namespace OatMilk.Backend.Api.Services.Abstraction
+namespace OatMilk.Backend.Api.Shared.Services.Abstractions
 {
-    public abstract class UserEntityService<TRequest, TEntity, TResponse> : EntityService<TRequest, TEntity, TResponse>, IUserEntityService<TRequest, TResponse>
-        where TRequest : NamedRequest
+    public class UserEntityService<TRequest, TEntity, TResponse> : EntityService<TRequest, TEntity, TResponse>, IUserEntityService<TRequest, TResponse>
+        where TRequest : INamedRequest
         where TEntity : IUserEntity
     {
-        protected UserEntityService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
+        public UserEntityService(IRepository<TEntity> repository, IMapper mapper) : base(repository, mapper)
         {
         }
         

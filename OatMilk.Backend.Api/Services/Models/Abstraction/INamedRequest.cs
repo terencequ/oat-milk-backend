@@ -1,6 +1,6 @@
 ﻿namespace OatMilk.Backend.Api.Services.Models.Abstraction
 {
-    public abstract class NamedRequest
+    public interface INamedRequest
     {
         public string Name { get; set; }
     }

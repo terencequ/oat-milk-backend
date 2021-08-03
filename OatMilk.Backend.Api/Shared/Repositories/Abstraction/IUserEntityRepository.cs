@@ -1,9 +1,9 @@
 ﻿using System;
 using OatMilk.Backend.Api.Data.Entities.Abstraction;
 
-namespace OatMilk.Backend.Api.Repositories.Abstraction
+namespace OatMilk.Backend.Api.Shared.Repositories.Abstraction
 {
-    public interface IAuthRepository<TEntity> : IRepository<TEntity> where TEntity : IUserEntity
+    public interface IUserEntityRepository<TEntity> : IRepository<TEntity> where TEntity : IUserEntity
     {
         Guid? GetCurrentUserIdOrDefault();
         
