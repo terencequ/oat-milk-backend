@@ -51,6 +51,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'oat-milk-backend'
-        slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_7d310f38cb5347d6859c086ec35b1dc2 }}
         package: .
