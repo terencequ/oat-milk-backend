@@ -9,11 +9,12 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  DOTNET_ROOT: OatMilk.Backend.Api
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DOTNET_ROOT: OatMilk.Backend.Api
     steps:
     - uses: actions/checkout@v2
 
