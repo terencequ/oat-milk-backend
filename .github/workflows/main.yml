@@ -16,7 +16,7 @@ jobs:
             dotnet-version: '5.0.x'
         - name: 'Publish a Release of the App'
           run: |
-            cd src/
+            cd OatMilk.Backend.Api/
             dotnet publish -c Release --output '../published-app'
         - name: 'Deploy to Azure App Service'
           uses: azure/webapps-deploy@v2
