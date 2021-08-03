@@ -52,4 +52,4 @@ jobs:
       with:
         app-name: 'oat-milk-backend'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_7d310f38cb5347d6859c086ec35b1dc2 }}
-        package: .
+        package: ${{env.DOTNET_ROOT}}/myapp
