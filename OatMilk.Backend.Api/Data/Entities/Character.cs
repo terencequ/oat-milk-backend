@@ -18,8 +18,7 @@ namespace OatMilk.Backend.Api.Data.Entities
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime UpdatedDateTimeUtc { get; set; }
         public string Name { get; set; }
-        
-        
+
         public ObjectId UserId { get; set; }
 
         #endregion

@@ -7,23 +7,28 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
 {
     public class CharacterResponse
     {
-        #region Entity
-
         public string Id { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime UpdatedDateTimeUtc { get; set; }
         public string Name { get; set; }
 
-        #endregion
-        
-        #region Experience
+        public CharacterLevelResponse Level { get; set; }
+        public CharacterAbilitiesAndAttributesResponse AbilitiesAndAttributes { get; set; }
+        public CharacterProficienciesResponse Proficiencies { get; set; }
+        public CharacterDescriptionsResponse CharacterDescriptionsResponse { get; set; }
+    }
 
+    public class CharacterLevelResponse
+    {
+        public int Level { get; set; }
+        public int PreviousLevelExperienceRequirement { get; set; }
+        public int CurrentLevelExperienceRequirement { get; set; }
+        public int NextLevelExperienceRequirement { get; set; }
         public int Experience { get; set; }
-
-        #endregion
-
-        #region Stats and Attributes
-
+    }
+    
+    public class CharacterAbilitiesAndAttributesResponse
+    {
         public int Strength { get; set; }
         public int Dexterity { get; set; }
         public int Constitution { get; set; }
@@ -34,17 +39,15 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
         public int ArmorClass { get; set; }
         public int Initiative { get; set; }
         public int SpeedInFt { get; set; }
-
         public int CurrentHitPoints { get; set; }
         public int MaxHitPoints { get; set; }
         
         public int DeathSaveSuccesses { get; set; }
         public int DeathSaveFailures { get; set; }
+    }
 
-        #endregion
-
-        #region Proficiencies
-        
+    public class CharacterProficienciesResponse
+    {
         public bool Acrobatics { get; set; }
         public bool AnimalHandling { get; set; }
         public bool Arcana { get; set; }
@@ -63,11 +66,10 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
         public bool SleightOfHand { get; set; }
         public bool Stealth { get; set; }
         public bool Survival { get; set; }
+    }
 
-        #endregion
-
-        #region Bio and flavour
-
+    public class CharacterDescriptionsResponse
+    {
         public string PersonalityTraits { get; set; }
         public string Ideals { get; set; }
         public string Bonds { get; set; }
@@ -75,7 +77,5 @@ namespace OatMilk.Backend.Api.Services.Models.Responses
         public string Backstory { get; set; }
         public string AlliesAndOrganisations { get; set; }
         public string Appearance { get; set; }
-
-        #endregion
     }
 }
