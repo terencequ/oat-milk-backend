@@ -23,7 +23,7 @@ namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
             return await base.Create(request);
         }
 
-        public virtual async Task<PageResponse<TResponse>> GetMultiple(SearchableSortedPageFilter filter)
+        public virtual Task<PageResponse<TResponse>> GetMultiple(SearchableSortedPageFilter filter)
         {
             var query = Repository
                 .Get();
@@ -60,7 +60,7 @@ namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
                         nameof(filter.SortColumnName));
             }
             var page = query.GetPageResponse(filter);
-            return Mapper.Map<PageResponse<TResponse>>(page);
+            return Task.FromResult(Mapper.Map<PageResponse<TResponse>>(page));
         }
 
         public Task<TResponse> GetByName(string name)

@@ -33,10 +33,10 @@ namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
             return Mapper.Map<TResponse>(entity);
         }
 
-        public virtual async Task<TResponse> GetById(ObjectId id)
+        public virtual Task<TResponse> GetById(ObjectId id)
         {
             var entity = FindById(id);
-            return Mapper.Map<TResponse>(entity);
+            return Task.FromResult(Mapper.Map<TResponse>(entity));
         }
 
         public virtual async Task<TResponse> Update(ObjectId id, TRequest request)

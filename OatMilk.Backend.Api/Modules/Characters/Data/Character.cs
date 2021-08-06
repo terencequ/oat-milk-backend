@@ -139,13 +139,15 @@ namespace OatMilk.Backend.Api.Modules.Characters.Data
                                ?? throw new NullReferenceException($"Ability score not found {abilityScoreId}");
             return abilityScore.Proficiencies.Any(s => s.Id == id);
         }
-        
+
         /// <summary>
         /// Add or update an ability score proficiency. If ability score ID and proficiency ID matches,
         /// it will update existing ability score proficiency, otherwise create a new ability score proficiency.
+        /// </summary>
+        /// <param name="id">Ability score ID</param>
         /// <param name="abilityScoreId">This will override the ability score ID in request if not null.</param>
         /// <param name="request">Ability score ID here will be overridden if abilityScoreId is not null.</param>
-        /// </summary>
+        /// <param name="dontOverride">If this is true, this function will do nothing if an AbilityScoreProficiency already exists.</param>
         public void AddOrUpdateAbilityScoreProficiency(string id, 
             string abilityScoreId = null,
             CharacterAbilityScoreProficiencyRequest request = null, 
