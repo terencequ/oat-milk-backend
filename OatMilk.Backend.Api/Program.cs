@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using OatMilk.Backend.Api.Data;
 
 namespace OatMilk.Backend.Api
 {

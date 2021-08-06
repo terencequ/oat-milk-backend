@@ -11,11 +11,17 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Humanizer.Core" Version="2.11.10" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="MockQueryable.Moq" Version="5.0.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.13.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Modules\Shared\Business" />
+    <Folder Include="Modules\Shared\Data" />
   </ItemGroup>
 
 </Project>

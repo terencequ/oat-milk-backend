@@ -1,7 +1,6 @@
 ﻿using System;
 using MongoDB.Bson;
-using OatMilk.Backend.Api.Data.Entities;
-using OatMilk.Backend.Api.Data.Entities.Abstraction;
+using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
 
 namespace OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Models
 {
