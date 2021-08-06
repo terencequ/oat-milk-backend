@@ -4,16 +4,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using OatMilk.Backend.Api.AspNet;
 using OatMilk.Backend.Api.Configuration;
-using OatMilk.Backend.Api.Data;
-using OatMilk.Backend.Api.Services;
-using OatMilk.Backend.Api.Controllers.Security;
-using OatMilk.Backend.Api.Controllers.Security.Handlers;
-using OatMilk.Backend.Api.Services.Abstraction;
-using OatMilk.Backend.Api.Services.AutoMapper;
-using OatMilk.Backend.Api.Shared.AspNet;
-using OatMilk.Backend.Api.Shared.Repositories.Abstraction;
-using OatMilk.Backend.Api.Shared.Services.Abstractions;
+using OatMilk.Backend.Api.Modules;
+using OatMilk.Backend.Api.Modules.Characters.Business;
+using OatMilk.Backend.Api.Modules.Characters.Business.Abstractions;
+using OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction;
+using OatMilk.Backend.Api.Modules.Users.Business;
+using OatMilk.Backend.Api.Modules.Users.Business.Abstractions;
 
 namespace OatMilk.Backend.Api
 {
@@ -29,9 +27,6 @@ namespace OatMilk.Backend.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // AutoMapper
-            services.AddAutoMapper(AutoMapperHelper.GetAutoMapperTypes());
-
             // Config
             services.Configure<DatabaseOptions>(Configuration.GetSection(DatabaseOptions.Database));
             services.Configure<AuthOptions>(Configuration.GetSection(AuthOptions.Auth));
@@ -40,16 +35,12 @@ namespace OatMilk.Backend.Api
             services.AddHttpContextAccessor();
             
             // MongoDB database
-            services.SetupDatabase(Configuration);
+            services.RegisterServices(Configuration);
             
             // Repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IUserEntityRepository<>), typeof(UserEntityRepository<>));
-
-            // Services
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ICharacterService, CharacterService>();
-
+            
             // CORS
             services.AddCors(options =>
             {

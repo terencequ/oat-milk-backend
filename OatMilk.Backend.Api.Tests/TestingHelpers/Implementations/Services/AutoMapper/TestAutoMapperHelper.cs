@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using OatMilk.Backend.Api.Services.AutoMapper;
-using OatMilk.Backend.Api.Shared.AspNet;
+using OatMilk.Backend.Api.Modules.Core.AspNet;
 
 namespace OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.AutoMapper
 {

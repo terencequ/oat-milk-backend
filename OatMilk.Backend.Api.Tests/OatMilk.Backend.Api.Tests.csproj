@@ -17,4 +17,8 @@
     <ProjectReference Include="..\OatMilk.Backend.Api\OatMilk.Backend.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Shared\Business" />
+  </ItemGroup>
+
 </Project>
