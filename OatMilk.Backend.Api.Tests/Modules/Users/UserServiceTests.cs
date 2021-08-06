@@ -8,7 +8,7 @@ using OatMilk.Backend.Api.Modules.Users.Business.Models.Requests;
 using OatMilk.Backend.Api.Modules.Users.Data;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
 
-namespace OatMilk.Backend.Api.Tests.Services
+namespace OatMilk.Backend.Api.Tests.Modules.Users
 {
     [TestFixture]
     public class UserServiceTests

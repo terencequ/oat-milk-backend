@@ -41,6 +41,9 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
             return await _service.GetByName(name);
         }
         
+        /// <summary>
+        /// Create a character.
+        /// </summary>
         [HttpPost]
         [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]

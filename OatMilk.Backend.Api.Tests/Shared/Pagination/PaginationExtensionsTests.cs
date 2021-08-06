@@ -1,11 +1,9 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using MockQueryable.Moq;
-using Moq;
 using NUnit.Framework;
 using OatMilk.Backend.Api.Modules.Shared.Pagination;
 
-namespace OatMilk.Backend.Api.Tests.Services.Pagination
+namespace OatMilk.Backend.Api.Tests.Shared.Pagination
 {
     public class PaginationExtensionsTests
     {

@@ -27,6 +27,11 @@ namespace OatMilk.Backend.Api.AspNet
             collection.Indexes.CreateOne(indexModel);
         }
 
+        protected void RegisterAutoMapperProfiles(params Type[] profileTypes)
+        {
+            _serviceCollection.AddAutoMapper(profileTypes);
+        }
+        
         protected void RegisterService<TServiceInterface, TService>() 
             where TServiceInterface : class
             where TService : class, TServiceInterface

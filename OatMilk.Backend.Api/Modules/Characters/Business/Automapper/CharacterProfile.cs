@@ -10,8 +10,8 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Automapper
     {
         public CharacterProfile()
         {
-            CreateMap<CharacterRequest, Character>();
-            CreateMap<Character, CharacterResponse>();
+            CreateMap<Character, CharacterResponse>()
+                .ConvertUsing(c => c.AsResponse());
             CreateMap<PageResponse<Character>, PageResponse<CharacterResponse>>();
         }
     }

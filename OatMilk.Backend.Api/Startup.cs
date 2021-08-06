@@ -34,13 +34,9 @@ namespace OatMilk.Backend.Api
             // HttpAccessor
             services.AddHttpContextAccessor();
             
-            // MongoDB database
+            // Register all business logic
             services.RegisterServices(Configuration);
-            
-            // Repositories
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped(typeof(IUserEntityRepository<>), typeof(UserEntityRepository<>));
-            
+
             // CORS
             services.AddCors(options =>
             {

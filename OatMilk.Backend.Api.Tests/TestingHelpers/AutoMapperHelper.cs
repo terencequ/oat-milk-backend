@@ -3,7 +3,7 @@ using AutoMapper;
 using OatMilk.Backend.Api.Modules.Characters.Business.Automapper;
 using OatMilk.Backend.Api.Modules.Users.Business.Automapper;
 
-namespace OatMilk.Backend.Api.Modules.Core.AspNet
+namespace OatMilk.Backend.Api.Tests.TestingHelpers
 {
     public static class AutoMapperHelper
     {

@@ -7,7 +7,7 @@ using OatMilk.Backend.Api.Tests.TestingHelpers;
 using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services;
 using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Models;
 
-namespace OatMilk.Backend.Api.Tests.Services.Abstraction
+namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
 {
     [TestFixture]
     public class UserEntityServiceTests

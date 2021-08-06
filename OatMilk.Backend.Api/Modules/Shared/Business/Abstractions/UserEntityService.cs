@@ -23,7 +23,7 @@ namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
             return await base.Create(request);
         }
 
-        public async Task<PageResponse<TResponse>> GetMultiple(SearchableSortedPageFilter filter)
+        public virtual async Task<PageResponse<TResponse>> GetMultiple(SearchableSortedPageFilter filter)
         {
             var query = Repository
                 .Get();
