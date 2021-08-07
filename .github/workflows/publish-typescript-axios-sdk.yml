@@ -29,16 +29,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: openapi-generator-generate-action
-        # You may pin to the exact commit or the version.
-        # uses: craicoverflow/openapi-generator-generate-action@b9c2152934cd8ea4938eb2d8a3de7905b9086285
         uses: craicoverflow/openapi-generator-generate-action@v1.0.0
         with:
-          # The name of the generator to use
           generator: typescript-axios
-          # OpenAPI specification file to use as the source for generation
-          input: ./OatMilk.Backend.Api/openapitools.json
-          # The output directory of the generated code
+          input: ./OatMilk.Backend.Api/openapi.json
           output: ${{env.ARTIFACT_PATH}}
+          config: ./OatMilk.Backend.Api/openapitools.json
           
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
