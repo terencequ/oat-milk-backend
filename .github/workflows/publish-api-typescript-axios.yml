@@ -12,20 +12,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
+    - name: Setup .NET 5.0
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
     - name: Build - dotnet build
       run: dotnet build ./OatMilk.Backend.Api/OatMilk.Backend.Api.csproj --configuration Release
-    - name: Publish - dotnet publish
-      run: dotnet publish ./OatMilk.Backend.Api/OatMilk.Backend.Api.csproj -c Release -o ${{env.ARTIFACT_LOCATION}}
     - name: Test - dotnet test
       run: dotnet test --no-build --verbosity normal
     - name: Restore Tool
       run: dotnet tool restore
+  
+  generate-swagger:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup .NET 3.0 for dotnet swagger
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
     - name: Create Swagger Spec - dotnet swagger
-      run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.ARTIFACT_LOCATION}}OatMilk.Backend.Api.dll v1
+      run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.DOTNET_ROOT}}/OatMilk.Backend.Api.dll v1
     - name: Publish Artifact
       uses: actions/upload-artifact@v2
       with:
