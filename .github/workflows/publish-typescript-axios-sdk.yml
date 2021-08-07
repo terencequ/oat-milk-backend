@@ -22,7 +22,6 @@ jobs:
           generator: typescript-axios
           input: OatMilk.Backend.Api/openapi.json
           output: ${{env.ARTIFACT_PATH}}
-          config: OatMilk.Backend.Api/openapitools.json
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
