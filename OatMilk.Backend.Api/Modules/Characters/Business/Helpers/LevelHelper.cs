@@ -4,6 +4,9 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
 {
     public static class LevelHelper
     {
+        private const int MinLevel = 1;
+        private const int MaxLevel = 20;
+        
         private static readonly Dictionary<int, int> Levels = new ()
         {
             {1, 0},
@@ -27,7 +30,47 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
             {19, 305000},
             {20, 355000},
         };
+
+        public static int GetLevel(int currentExperience)
+        {
+            for (var level = MaxLevel; level >= MinLevel; level--)
+            {
+                var experienceRequirement = Levels[level];
+                if (experienceRequirement <= currentExperience)
+                {
+                    return level;
+                }
+            }
+
+            return -1; // Special number which symbolises that no valid level was found.
+        }
         
+        public static int GetNextLevelExperienceRequirement(int currentExperience)
+        {
+            for (var level = MinLevel; level <= MaxLevel; level++)
+            {
+                var experienceRequirement = Levels[level];
+                if (experienceRequirement > currentExperience)
+                {
+                    return experienceRequirement;
+                }
+            }
+
+            return -1; // Special number which symbolises "MAX"
+        }
         
+        public static int GetPreviousLevelExperienceRequirement(int currentExperience)
+        {
+            for (var level = MaxLevel; level >= MinLevel; level--)
+            {
+                var experienceRequirement = Levels[level];
+                if (experienceRequirement <= currentExperience)
+                {
+                    return experienceRequirement;
+                }
+            }
+
+            return 0;
+        }
     }
 }

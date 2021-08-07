@@ -3,7 +3,7 @@ using MongoDB.Driver;
 using OatMilk.Backend.Api.AspNet;
 using OatMilk.Backend.Api.Modules.Characters.Business;
 using OatMilk.Backend.Api.Modules.Characters.Business.Abstractions;
-using OatMilk.Backend.Api.Modules.Characters.Business.Automapper;
+using OatMilk.Backend.Api.Modules.Characters.Business.Mapping;
 using OatMilk.Backend.Api.Modules.Characters.Data;
 
 namespace OatMilk.Backend.Api.Modules.Characters
