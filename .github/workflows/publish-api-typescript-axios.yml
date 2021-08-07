@@ -3,8 +3,6 @@ name: Publish Typescript Axios API SDK
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
     
 env:
   ARTIFACT_LOCATION: artifact
@@ -25,7 +23,7 @@ jobs:
     - name: Test - dotnet test
       run: dotnet test --no-build --verbosity normal
     - name: Create Swagger Spec - dotnet swagger
-      run: dotnet swagger tofile --output ./backend.json ${{env.ARTIFACT_LOCATION}}OatMilk.Backend.Api.dll v1
+      run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.ARTIFACT_LOCATION}}OatMilk.Backend.Api.dll v1
     - name: Publish Artifact
       uses: actions/upload-artifact@v2
       with:
