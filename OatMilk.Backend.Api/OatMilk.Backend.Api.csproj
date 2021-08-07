@@ -23,5 +23,4 @@
     <Folder Include="Modules\Shared\Business" />
     <Folder Include="Modules\Shared\Data" />
   </ItemGroup>
-
 </Project>
