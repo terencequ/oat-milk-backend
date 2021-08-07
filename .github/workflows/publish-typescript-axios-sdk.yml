@@ -6,7 +6,6 @@ on:
 
 env:
   ARTIFACT_LOCATION: artifact
-  DATABASE_CONNECTIONSTRING: ${{secrets.DATABASE_CONNECTIONSTRING}}
 
 jobs:
   build:
@@ -35,6 +34,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.0.x
+
+    - name: Set env
+      run: echo "DATABASE_CONNECTIONSTRING=${{secrets.DATABASE_CONNECTIONSTRING}}" >> $GITHUB_ENV
 
     - name: Create Swagger Spec - dotnet swagger
       run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.DOTNET_ROOT}}/myapp/OatMilk.Backend.Api.dll v1
