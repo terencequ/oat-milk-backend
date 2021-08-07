@@ -25,7 +25,7 @@ jobs:
     - name: Setup .NET 3.0 for dotnet swagger
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 3.0.x
     - name: Create Swagger Spec - dotnet swagger
       run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.DOTNET_ROOT}}/OatMilk.Backend.Api.dll v1
     - name: Publish Artifact
