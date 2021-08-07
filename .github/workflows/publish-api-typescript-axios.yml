@@ -35,6 +35,9 @@ jobs:
       with:
         dotnet-version: 3.0.x
         
+    - name: Change Directory To API Project
+      run: cd ./OatMilk.Backend.Api/
+    
     - name: Create Swagger Spec - dotnet swagger
       run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.DOTNET_ROOT}}/myapp/OatMilk.Backend.Api.dll v1
       
