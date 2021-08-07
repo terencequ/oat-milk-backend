@@ -23,4 +23,12 @@
     <Folder Include="Modules\Shared\Business" />
     <Folder Include="Modules\Shared\Data" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="local.settings.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
