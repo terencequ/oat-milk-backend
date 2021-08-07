@@ -25,6 +25,40 @@ namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
 
         public virtual Task<PageResponse<TResponse>> GetMultiple(SearchableSortedPageFilter filter)
         {
+            var page = GetEntitiesByPage(filter);
+            return Task.FromResult(Mapper.Map<PageResponse<TResponse>>(page));
+        }
+
+        public Task<TResponse> GetByName(string name)
+        {
+            var effect = FindByName(name);
+            return Task.FromResult(Mapper.Map<TResponse>(effect));
+        }
+        
+        #region Helpers
+
+        protected void ThrowIfNameExists(string name)
+        {
+            // Check for duplicate name
+            if (Repository.Get().Any(a => a.Name == name))
+            {
+                throw new ArgumentException($"Entity of name '{name}' already exists!", nameof(name));
+            }
+        }
+
+        protected TEntity FindByName(string name)
+        {
+            var entity = Repository.Get().FirstOrDefault(a => a.Name == name);
+            if (entity == null)
+            {
+                throw new ArgumentException($"Entity with name '{name}' not found.", nameof(name));
+            }
+
+            return entity;
+        }
+
+        protected PageResponse<TEntity> GetEntitiesByPage(SearchableSortedPageFilter filter)
+        {
             var query = Repository
                 .Get();
 
@@ -59,36 +93,9 @@ namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
                         $"Cannot sort by {filter.SortColumnName}, because the column doesn't exist!",
                         nameof(filter.SortColumnName));
             }
+
             var page = query.GetPageResponse(filter);
-            return Task.FromResult(Mapper.Map<PageResponse<TResponse>>(page));
-        }
-
-        public Task<TResponse> GetByName(string name)
-        {
-            var effect = FindByName(name);
-            return Task.FromResult(Mapper.Map<TResponse>(effect));
-        }
-        
-        #region Helpers
-
-        protected void ThrowIfNameExists(string name)
-        {
-            // Check for duplicate name
-            if (Repository.Get().Any(a => a.Name == name))
-            {
-                throw new ArgumentException($"Entity of name '{name}' already exists!", nameof(name));
-            }
-        }
-
-        protected TEntity FindByName(string name)
-        {
-            var entity = Repository.Get().FirstOrDefault(a => a.Name == name);
-            if (entity == null)
-            {
-                throw new ArgumentException($"Entity with name '{name}' not found.", nameof(name));
-            }
-
-            return entity;
+            return page;
         }
 
         #endregion

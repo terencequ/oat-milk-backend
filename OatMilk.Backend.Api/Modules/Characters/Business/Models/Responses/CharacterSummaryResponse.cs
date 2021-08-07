@@ -2,7 +2,7 @@
 
 namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
 {
-    public class CharacterSimpleResponse
+    public class CharacterSummaryResponse
     {
         public string Id { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
@@ -11,6 +11,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
         public string Name { get; set; }
         public int Level { get; set; }
         public int Experience { get; set; }
+        public int PreviousLevelExperienceRequirement { get; set; }
         public int NextLevelExperienceRequirement { get; set; }
         public bool IsAlive { get; set; }
     }

@@ -25,6 +25,11 @@ namespace OatMilk.Backend.Api.Modules.Characters.Data
 
         #region Attribute
 
+        public CharacterAttribute GetAttributeOrDefault(string id)
+        {
+            return Attributes.FirstOrDefault(attribute => attribute.Id == id);
+        }
+        
         /// <summary>
         /// Overload for <see cref="AddOrUpdateAttribute(string,CharacterAttributeRequest,bool)"/>.
         /// </summary>
@@ -81,6 +86,11 @@ namespace OatMilk.Backend.Api.Modules.Characters.Data
         
         #region Ability Score
 
+        public CharacterAbilityScore GetAbilityScoreOrDefault(string id)
+        {
+            return AbilityScores.FirstOrDefault(abilityScore => abilityScore.Id == id);
+        }
+        
         public bool AbilityScoreExists(string id)
         {
             return AbilityScores.Any(s => s.Id == id);
@@ -132,6 +142,14 @@ namespace OatMilk.Backend.Api.Modules.Characters.Data
 
         #region Ability Score Proficiency
 
+        public CharacterAbilityScoreProficiency GetAbilityScoreProficiencyOrDefault(string id, string abilityScoreId)
+        {
+            // Find parent
+            var abilityScore = AbilityScores.FirstOrDefault(s => s.Id == abilityScoreId) 
+                               ?? throw new NullReferenceException($"Ability score not found {abilityScoreId}");
+            return abilityScore.Proficiencies.FirstOrDefault(proficiency => proficiency.Id == id);
+        }
+        
         public bool AbilityScoreProficiencyExists(string id, string abilityScoreId)
         {
             // Find parent
@@ -199,6 +217,11 @@ namespace OatMilk.Backend.Api.Modules.Characters.Data
 
         #region Descriptions
 
+        public CharacterDescription GetDescriptionOrDefault(string id)
+        {
+            return Descriptions.FirstOrDefault(description => description.Id == id);
+        }
+        
         public bool DescriptionExists(string id)
         {
             return Descriptions.Any(s => s.Id == id);
@@ -239,53 +262,6 @@ namespace OatMilk.Backend.Api.Modules.Characters.Data
             {
                 Descriptions.Remove(description);
             }
-        }
-
-        #endregion
-
-        #region Mapping
-
-        public CharacterResponse AsResponse()
-        {
-            return new CharacterResponse()
-            {
-                Id = Id.ToString(),
-                Name = Name,
-                CreatedDateTimeUtc = CreatedDateTimeUtc,
-                UpdatedDateTimeUtc = UpdatedDateTimeUtc,
-                AbilityScores = AbilityScores
-                    .Select(abilityScore => new CharacterAbilityScoreResponse()
-                    {
-                        Id = abilityScore.Id,
-                        Name = abilityScore.Name,
-                        Value = abilityScore.Value,
-                        Expertise = abilityScore.Expertise,
-                        Proficient = abilityScore.Proficient,
-                        Proficiencies = abilityScore.Proficiencies
-                            .Select(proficiency => new CharacterAbilityScoreProficiencyResponse()
-                            {
-                                Id = proficiency.Id,
-                                Name = proficiency.Name,
-                                Expertise = proficiency.Expertise,
-                                Proficient = proficiency.Proficient
-                            }).ToList()
-                    }).ToList(),
-                Attributes = Attributes
-                    .Select(attribute => new CharacterAttributeResponse()
-                    {
-                        Id = attribute.Id,
-                        Name = attribute.Name,
-                        CurrentValue = attribute.CurrentValue,
-                        DefaultValue = attribute.DefaultValue
-                    }).ToList(),
-                Descriptions = Descriptions
-                    .Select(description => new CharacterDescriptionResponse()
-                    {
-                        Id = description.Id,
-                        Name = description.Name,
-                        Value = description.Value
-                    }).ToList()
-            };
         }
 
         #endregion
