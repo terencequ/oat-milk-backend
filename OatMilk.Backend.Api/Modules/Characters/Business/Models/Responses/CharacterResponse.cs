@@ -10,11 +10,26 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime UpdatedDateTimeUtc { get; set; }
         public string Name { get; set; }
+        public CharacterLevelResponse Level { get; set; }
         public List<CharacterAttributeResponse> Attributes { get; set; }
         public List<CharacterAbilityScoreResponse> AbilityScores { get; set; }
         public List<CharacterDescriptionResponse> Descriptions { get; set; }
     }
 
+    #region Calculated responses
+
+    public class CharacterLevelResponse
+    {
+        public int Level { get; set; }
+        public int Experience { get; set; }
+        public int PreviousLevelExperienceRequirement { get; set; }
+        public int NextLevelExperienceRequirement { get; set; }
+    }
+
+    #endregion
+    
+    #region Responses that mirror database structure
+    
     public class CharacterAttributeResponse
     {
         public string Id { get; set; }
@@ -47,4 +62,6 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
         public bool Proficient { get; set; }
         public bool Expertise { get; set; }
     }
+    
+    #endregion
 }
