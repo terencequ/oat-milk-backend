@@ -22,10 +22,6 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Restore Tool
       run: dotnet tool restore
-  
-  generate-swagger:
-    runs-on: ubuntu-latest
-    steps:
     - name: Setup .NET 3.0 for dotnet swagger
       uses: actions/setup-dotnet@v1
       with:
