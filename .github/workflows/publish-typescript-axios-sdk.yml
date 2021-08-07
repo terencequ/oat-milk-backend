@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  ARTIFACT_PATH: ./artifact 
+  WORKING_DIRECTORY: OatMilk.Backend.Api/Sdks/TypescriptAxios
 
 jobs:
   build:
@@ -16,13 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: cd to typescript axios sdk
-        run: cd OatMilk.Backend.Api/Sdks/TypescriptAxios
-      
       - name: npm install
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: npm install
       
       - name: npm publish
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
