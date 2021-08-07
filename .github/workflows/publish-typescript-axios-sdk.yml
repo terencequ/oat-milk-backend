@@ -17,7 +17,14 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-
+        
+    - name: create-json
+      id: create-json
+      uses: jsdaniell/create-json@1.1.2
+      with:
+        name: local.settings.json
+        json: '{ "Database__ConnectionString:${{secrets.DATABASE_CONNECTIONSTRING}}" }'
+        
     - name: Build - dotnet build
       run: dotnet build ./OatMilk.Backend.Api/OatMilk.Backend.Api.csproj --configuration Release
 
@@ -27,6 +34,12 @@ jobs:
     - name: dotnet publish
       run: dotnet publish ./OatMilk.Backend.Api/OatMilk.Backend.Api.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: .backend-spec
+        path: ${{env.DOTNET_ROOT}}/myapp
+
     - name: Restore Tool
       run: dotnet tool restore
 
@@ -34,14 +47,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.0.x
-
-    - name: create-json
-      id: create-json
-      uses: jsdaniell/create-json@1.1.2
-      with:
-        name: local.settings.json
-        json: '{ "Database__ConnectionString:${{secrets.DATABASE_CONNECTIONSTRING}}" }'
-        dir: ${{env.DOTNET__ROOT}}/myapp/
     
     - name: Create Swagger Spec - dotnet swagger
       run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.DOTNET_ROOT}}/myapp/OatMilk.Backend.Api.dll v1
