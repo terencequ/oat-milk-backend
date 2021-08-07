@@ -1,4 +1,4 @@
-name: .NET
+name: Publish Typescript Axios API SDK
 
 on:
   push:
