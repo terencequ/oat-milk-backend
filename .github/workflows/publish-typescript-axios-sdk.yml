@@ -1,25 +1,46 @@
-name: .NET
+name: Publish Typescript Axios API SDK
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+
+env:
+  ARTIFACT_LOCATION: artifact
+  DATABASE_CONNECTIONSTRING: ${{secrets.DATABASE_CONNECTIONSTRING}}
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
+
+    - name: Setup .NET 5.0
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
+
+    - name: Build - dotnet build
+      run: dotnet build ./OatMilk.Backend.Api/OatMilk.Backend.Api.csproj --configuration Release
+
+    - name: Test - dotnet test
       run: dotnet test --no-build --verbosity normal
+
+    - name: dotnet publish
+      run: dotnet publish ./OatMilk.Backend.Api/OatMilk.Backend.Api.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+    - name: Restore Tool
+      run: dotnet tool restore
+
+    - name: Setup .NET 3.0 for dotnet swagger
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.x
+
+    - name: Create Swagger Spec - dotnet swagger
+      run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.DOTNET_ROOT}}/myapp/OatMilk.Backend.Api.dll v1
+
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: .backend-spec
+        path: ${{env.ARTIFACT_LOCATION}}
