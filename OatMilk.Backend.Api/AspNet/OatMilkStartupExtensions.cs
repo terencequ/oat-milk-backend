@@ -23,7 +23,6 @@ namespace OatMilk.Backend.Api.AspNet
             services.AddScoped(typeof(IUserEntityRepository<>), typeof(UserEntityRepository<>));
 
             var databaseOptions = configuration.GetSection(DatabaseOptions.Database).Get<DatabaseOptions>();
-            Console.WriteLine(JsonSerializer.Serialize(databaseOptions));
             var client = new MongoClient(databaseOptions.ConnectionString);
             var database = client.GetDatabase(databaseOptions.Name);
 

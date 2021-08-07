@@ -7,7 +7,6 @@ namespace OatMilk.Backend.Api.AspNet
     {
         public static IHost CreateHost()
         {
-            Console.WriteLine("test");
             return Program.CreateHostBuilder(new string[0]).Build();
         }
     }
