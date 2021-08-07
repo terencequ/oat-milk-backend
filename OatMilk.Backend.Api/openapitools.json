@@ -1,0 +1,25 @@
+{
+    "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+    "spaces": 4,
+    "generator-cli": {
+        "version": "5.1.0",
+        "generators": {
+            "Backend": {
+                "generatorName": "typescript-axios",
+                "output": "./src/api/clients/backend",
+                "inputSpec": "./src/api/clients/backend.json",
+                "serverVariables": {
+                    "host": "https://localhost:5001"
+                },
+                "additionalProperties": {
+                    "apiModulePrefix": "Backend",
+                    "npmName": "oat-milk-backend-sdk",
+                    "npmVersion": "1.0.0",
+                    "snapshot": false,
+                    "supportsES6": false,
+                    "modelPropertyNaming": "original"
+                }
+            }
+        }
+    }
+}
