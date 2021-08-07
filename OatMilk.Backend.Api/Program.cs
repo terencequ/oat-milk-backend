@@ -24,7 +24,6 @@ namespace OatMilk.Backend.Api
                     webBuilder.ConfigureAppConfiguration(config =>
                     {
                         config.AddEnvironmentVariables();
-                        config.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location));
                         config.AddJsonFile("local.settings.json", true);
                     });
                     webBuilder.UseStartup<Startup>();

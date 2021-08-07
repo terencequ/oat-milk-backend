@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -36,7 +38,7 @@ namespace OatMilk.Backend.Api
 
             // HttpAccessor
             services.AddHttpContextAccessor();
-            
+
             // Register all business logic
             services.RegisterServices(Configuration);
 
@@ -52,13 +54,13 @@ namespace OatMilk.Backend.Api
                             .AllowAnyMethod();
                     });
             });
-
+ 
             // Security
             services.ConfigureSecurity(Configuration);
 
             // Controllers
             services.AddControllers();
-              
+
             // Swagger
             services.AddSwaggerGen(c =>
             {
@@ -69,6 +71,7 @@ namespace OatMilk.Backend.Api
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
