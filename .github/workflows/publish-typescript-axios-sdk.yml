@@ -18,8 +18,6 @@ jobs:
           
       - name: openapi-generator-generate-action
         uses: craicoverflow/openapi-generator-generate-action@v1.0.0
-        with:
-          generator: typescript-axios
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
