@@ -16,14 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: change to API directory
-        run: cd OatMilk.Backend.Api/
-          
-      - name: openapi-generator-generate-action
-        run: npx @openapitools/openapi-generator-cli generate
+      - name: cd to typescript axios sdk
+        run: cd OatMilk.Backend.Api/Sdks/TypescriptAxios
       
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: .code
-          path: ${{env.ARTIFACT_PATH}}
+      - name: npm install
+        run: npm install
+      
+      - name: npm publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
