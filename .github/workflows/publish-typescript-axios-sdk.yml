@@ -13,6 +13,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  ARTIFACT_PATH: ./artifact 
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -25,12 +28,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: openapi-generator-generate-action
+        # You may pin to the exact commit or the version.
+        # uses: craicoverflow/openapi-generator-generate-action@b9c2152934cd8ea4938eb2d8a3de7905b9086285
+        uses: craicoverflow/openapi-generator-generate-action@v1.0.0
+        with:
+          # The name of the generator to use
+          generator: typescript-axios
+          # OpenAPI specification file to use as the source for generation
+          input: ./OatMilk.Backend.Api/openapitools.json
+          # The output directory of the generated code
+          output: ${{env.ARTIFACT_PATH}}
+          
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .code
+          path: ${{env.ARTIFACT_PATH}}
