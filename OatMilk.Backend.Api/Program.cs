@@ -25,7 +25,7 @@ namespace OatMilk.Backend.Api
                     {
                         config.AddEnvironmentVariables();
                         config.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location));
-                        config.AddJsonFile("local.settings.json", false);
+                        config.AddJsonFile("local.settings.json", true);
                     });
                     webBuilder.UseStartup<Startup>();
                 });
