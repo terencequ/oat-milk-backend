@@ -38,7 +38,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business
         {
             var factory = AddOrUpdateCharacter(request, Repository.Get().FirstOrDefault(c => c.Id == id));
             var character = factory.Build();
-            await Repository.AddAsync(character);
+            await Repository.UpdateAsync(character);
             return Mapper.Map<CharacterResponse>(character);
         }
 
