@@ -9,13 +9,21 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Mapping
     {
         public static CharacterResponse AsResponse(this Character character)
         {
-            return new ()
+            var experience = character.GetAttributeOrDefault("experience")?.CurrentValue ?? -1;
+            return new CharacterResponse()
             {
                 Id = character.Id.ToString(),
                 Identifier = character.Identifier,
                 Name = character.Name,
                 CreatedDateTimeUtc = character.CreatedDateTimeUtc,
                 UpdatedDateTimeUtc = character.UpdatedDateTimeUtc,
+                Level = new CharacterLevelResponse()
+                {
+                    Level = LevelHelper.GetLevel(experience),
+                    Experience = experience,
+                    PreviousLevelExperienceRequirement = LevelHelper.GetPreviousLevelExperienceRequirement(experience),
+                    NextLevelExperienceRequirement = LevelHelper.GetNextLevelExperienceRequirement(experience),
+                },
                 AbilityScores = character.AbilityScores
                     .Select(abilityScore => new CharacterAbilityScoreResponse()
                     {
