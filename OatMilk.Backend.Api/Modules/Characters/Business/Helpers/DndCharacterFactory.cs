@@ -83,7 +83,6 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
                     {
                         existingRequest.Name = id.Humanize(LetterCasing.Sentence);
                     }
-                    existingRequest.Name = id.Humanize(LetterCasing.Sentence);
                     _character.AddOrUpdateAbilityScoreProficiency(id, abilityScoreId, existingRequest); // Override and replace
                 }
                 else
@@ -132,7 +131,6 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
                     {
                         existingRequest.Name = id.Humanize(LetterCasing.Sentence);
                     }
-                    existingRequest.Name = id.Humanize(LetterCasing.Sentence);
                     _character.AddOrUpdateAttribute(id, existingRequest); // Override and replace
                 }
                 else
