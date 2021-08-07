@@ -11,7 +11,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
 {
     [Authorize]
     [ApiController]
-    [Route("character/summary")]
+    [Route("Character/summary")]
     public class CharacterSummaryController
     {
         private readonly ICharacterService _service;

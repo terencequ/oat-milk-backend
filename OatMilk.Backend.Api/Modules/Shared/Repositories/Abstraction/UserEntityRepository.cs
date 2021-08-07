@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using OatMilk.Backend.Api.Configuration;
 using OatMilk.Backend.Api.Modules.Core.Security;
 using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
+using OatMilk.Backend.Api.Modules.Shared.Identifier;
 using OatMilk.Backend.Api.Modules.Users.Data;
 
 namespace OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction
@@ -48,6 +50,22 @@ namespace OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction
             entity.UserId = user?.Id ?? throw new AuthenticationException("Id is not valid!");
             entity.CreatedDateTimeUtc = DateTime.UtcNow;
             entity.UpdatedDateTimeUtc = DateTime.UtcNow;
+            entity.Id = entity.Id == ObjectId.Empty ? ObjectId.GenerateNewId() : entity.Id;
+            
+            // Insert ID and check dupe
+            const int attempts = 10;
+            var success = false;
+            for (var i = 0; i < attempts; i++)
+            { 
+                entity.Identifier = RandomIdGenerator.GetBase36(7);
+                if (!EntityCollection.AsQueryable().Any(e => e.Identifier == entity.Identifier))
+                {
+                    success = true; // no dupes, break
+                    break;
+                }
+            }
+            if (!success) { throw new Exception("Id could not be successfully inserted! Somehow we are running out of Id's!"); }
+
             return base.AddAsync(entity);
         }
 

@@ -5,6 +5,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
     public class CharacterSummaryResponse
     {
         public string Id { get; set; }
+        public string Identifier { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime UpdatedDateTimeUtc { get; set; }
         public string Classes { get; set; }

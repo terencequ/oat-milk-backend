@@ -29,9 +29,9 @@ namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
             return Task.FromResult(Mapper.Map<PageResponse<TResponse>>(page));
         }
 
-        public Task<TResponse> GetByName(string name)
+        public Task<TResponse> GetByIdentifier(string identifier)
         {
-            var effect = FindByName(name);
+            var effect = FindByIdentifier(identifier);
             return Task.FromResult(Mapper.Map<TResponse>(effect));
         }
         
@@ -46,12 +46,12 @@ namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
             }
         }
 
-        protected TEntity FindByName(string name)
+        protected TEntity FindByIdentifier(string identifier)
         {
-            var entity = Repository.Get().FirstOrDefault(a => a.Name == name);
+            var entity = Repository.Get().FirstOrDefault(a => a.Name == identifier);
             if (entity == null)
             {
-                throw new ArgumentException($"Entity with name '{name}' not found.", nameof(name));
+                throw new ArgumentException($"Entity with name '{identifier}' not found.", nameof(identifier));
             }
 
             return entity;
