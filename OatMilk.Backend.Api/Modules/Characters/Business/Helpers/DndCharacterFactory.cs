@@ -1,21 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Humanizer;
 using MongoDB.Bson;
-using OatMilk.Backend.Api.Modules.Characters.Business.Mapping;
 using OatMilk.Backend.Api.Modules.Characters.Business.Models.Requests;
-using OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses;
 using OatMilk.Backend.Api.Modules.Characters.Data;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
 {
     public class DndCharacterFactory
     {
-        const string Strength = "strength";
-        const string Dexterity = "dexterity";
-        const string Constitution = "constitution";
-        const string Intelligence = "intelligence";
-        const string Wisdom = "wisdom";
-        const string Charisma = "charisma";
+        private const string Strength = "strength";
+        private const string Dexterity = "dexterity";
+        private const string Constitution = "constitution";
+        private const string Intelligence = "intelligence";
+        private const string Wisdom = "wisdom";
+        private const string Charisma = "charisma";
         
         private Character _character;
         
@@ -34,13 +33,19 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
             _character.Name = name;
         }
         
-        public void WithAbilityScores(ICollection<CharacterAbilityScoreRequest> abilityScoreRequests)
+        public void WithAbilityScores(IEnumerable<CharacterAbilityScoreRequest> abilityScoreRequests)
         {
-            void WithAbilityScore(string id)
+            var requests = new List<CharacterAbilityScoreRequest>(abilityScoreRequests);
+            void WithAbilityScore(string id, bool generateName = true)
             {
-                var existingRequest = abilityScoreRequests?.FirstOrDefault(r => r.Id == id);
+                var existingRequest = requests?.FirstOrDefault(r => r.Id == id);
                 if (existingRequest != null)
                 {
+                    requests.Remove(existingRequest);
+                    if (generateName)
+                    {
+                        existingRequest.Name = id.Humanize(LetterCasing.Sentence);
+                    }
                     _character.AddOrUpdateAbilityScore(id, existingRequest); // Override and replace
                 }
                 else
@@ -56,22 +61,33 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
             WithAbilityScore(Intelligence);
             WithAbilityScore(Wisdom);
             WithAbilityScore(Charisma);
+
+            // All custom attributes
+            var customRequests = new List<CharacterAbilityScoreRequest>(requests);
+            foreach (var request in customRequests)
+            {
+                WithAbilityScore(request.Id, false);
+            }
         }
 
-        public void WithAbilityScoreProficiencies(ICollection<CharacterAbilityScoreProficiencyRequest> abilityScoreProficiencyRequests)
+        public void WithAbilityScoreProficiencies(IEnumerable<CharacterAbilityScoreProficiencyRequest> abilityScoreProficiencyRequests)
         {
-            var character = _character ?? new Character();
-
-            void WithAbilityScoreProficiency(string id, string abilityScoreId)
+            var requests = new List<CharacterAbilityScoreProficiencyRequest>(abilityScoreProficiencyRequests);
+            void WithAbilityScoreProficiency(string id, string abilityScoreId, bool generateName = true)
             {
-                var existingRequest = abilityScoreProficiencyRequests?.FirstOrDefault(asp => asp.Id == id && asp.AbilityScoreId == abilityScoreId);
+                var existingRequest = requests?.FirstOrDefault(asp => asp.Id == id && asp.AbilityScoreId == abilityScoreId);
                 if (existingRequest != null)
                 {
-                    character.AddOrUpdateAbilityScoreProficiency(id, abilityScoreId, existingRequest); // Override and replace
+                    requests.Remove(existingRequest);
+                    if (generateName)
+                    {
+                        existingRequest.Name = id.Humanize(LetterCasing.Sentence);
+                    }
+                    _character.AddOrUpdateAbilityScoreProficiency(id, abilityScoreId, existingRequest); // Override and replace
                 }
                 else
                 {
-                    character.AddOrUpdateAbilityScoreProficiency(id, abilityScoreId, null, true); // Create if doesn't exist (but don't override existing)
+                    _character.AddOrUpdateAbilityScoreProficiency(id, abilityScoreId, null, true); // Create if doesn't exist (but don't override existing)
                 }
             }
             
@@ -93,16 +109,29 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
             WithAbilityScoreProficiency("sleightOfHand", Dexterity);
             WithAbilityScoreProficiency("stealth", Dexterity);
             WithAbilityScoreProficiency("survival", Wisdom);
+            
+            // All custom attributes
+            var customRequests = new List<CharacterAbilityScoreProficiencyRequest>(requests);
+            foreach (var request in customRequests)
+            {
+                WithAbilityScoreProficiency(request.Id, request.AbilityScoreId, false);
+            }
         }
 
-        public void WithAttributes(ICollection<CharacterAttributeRequest> attributeRequests)
+        public void WithAttributes(IEnumerable<CharacterAttributeRequest> attributeRequests)
         {
-            void WithAttribute(string id, int defaultValue, int? currentValue = null)
+            var requests = new List<CharacterAttributeRequest>(attributeRequests);
+            void WithAttribute(string id, int defaultValue, int? currentValue = null, bool generateName = true)
             {
-                var existingRequest = attributeRequests?.FirstOrDefault(r => r.Id == id);
+                var existingRequest = requests?.FirstOrDefault(r => r.Id == id);
                 if (existingRequest != null)
                 {
-                    _character.AddOrUpdateAttribute(id, defaultValue, currentValue); // Override and replace
+                    requests.Remove(existingRequest);
+                    if (generateName)
+                    {
+                        existingRequest.Name = id.Humanize(LetterCasing.Sentence);
+                    }
+                    _character.AddOrUpdateAttribute(id, existingRequest); // Override and replace
                 }
                 else
                 {
@@ -116,15 +145,28 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
             WithAttribute("deathSaveSuccesses", 3, 0);
             WithAttribute("deathSaveFailures", 3, 0);
             WithAttribute("experience", 0, 0);
+            
+            // All custom attributes
+            var customRequests = new List<CharacterAttributeRequest>(requests);
+            foreach (var request in customRequests)
+            {
+                WithAttribute(request.Id, request.DefaultValue, request.CurrentValue, false);
+            }
         }
         
-        public void WithDescriptions(ICollection<CharacterDescriptionRequest> descriptions)
+        public void WithDescriptions(IEnumerable<CharacterDescriptionRequest> descriptionRequests)
         {
-            void WithDescription(string id)
+            var requests = new List<CharacterDescriptionRequest>(descriptionRequests);
+            void WithDescription(string id, bool generateName = true)
             {
-                var existingRequest = descriptions?.FirstOrDefault(r => r.Id == id);
+                var existingRequest = requests?.FirstOrDefault(r => r.Id == id);
                 if (existingRequest != null)
                 {
+                    requests.Remove(existingRequest);
+                    if (generateName)
+                    {
+                        existingRequest.Name = id.Humanize(LetterCasing.Sentence);
+                    }
                     _character.AddOrUpdateDescription(id, existingRequest); // Override and replace
                 }
                 else
@@ -139,16 +181,18 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
             WithDescription("flaws");
             WithDescription("alliesAndOrganisations");
             WithDescription("appearance");
+            
+            // All custom attributes
+            var customRequests = new List<CharacterDescriptionRequest>(requests);
+            foreach (var request in customRequests)
+            {
+                WithDescription(request.Id, false);
+            }
         }
 
         public Character Build()
         {
             return _character;
-        }
-        
-        public CharacterResponse BuildAsResponse()
-        {
-            return _character.AsResponse();
         }
     }
 }
