@@ -35,9 +35,11 @@ jobs:
       with:
         dotnet-version: 3.0.x
 
-    - name: Set env
-      run: echo "DATABASE_CONNECTIONSTRING=${{secrets.DATABASE_CONNECTIONSTRING}}" >> $GITHUB_ENV
-
+    - name: Set environment variables
+      uses: allenevans/set-env@v2.0.0
+      with:
+        DATABASE_CONNECTIONSTRING: ${{secrets.DATABASE_CONNECTIONSTRING}}
+        
     - name: Create Swagger Spec - dotnet swagger
       run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.DOTNET_ROOT}}/myapp/OatMilk.Backend.Api.dll v1
 
