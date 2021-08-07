@@ -20,7 +20,7 @@ jobs:
         run: cd OatMilk.Backend.Api/
           
       - name: openapi-generator-generate-action
-        run: npx openapi-generator-cli generate
+        run: npx @openapitools/openapi-generator-cli generate
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
