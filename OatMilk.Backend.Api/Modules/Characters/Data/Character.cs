@@ -16,6 +16,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Data
         public ObjectId Id { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime UpdatedDateTimeUtc { get; set; }
+        public string Identifier { get; set; }
         public string Name { get; set; }
         public ObjectId UserId { get; set; }
 

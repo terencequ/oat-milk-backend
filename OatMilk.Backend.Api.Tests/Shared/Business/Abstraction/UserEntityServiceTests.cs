@@ -30,7 +30,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
             const string expectedName = "test";
 
             var service = new Fixture(new TestUserEntity(){ Name = expectedName }).GetSut();
-            var result = await service.GetByName(expectedName);
+            var result = await service.GetByIdentifier(expectedName);
             Assert.AreEqual(expectedName, result.Name);
         }
         
@@ -40,7 +40,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
             const string expectedName = "test";
 
             var service = new Fixture().GetSut();
-            Assert.ThrowsAsync<ArgumentException>(async () => await service.GetByName(expectedName));
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.GetByIdentifier(expectedName));
         }
         
         #endregion

@@ -12,6 +12,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Mapping
             return new ()
             {
                 Id = character.Id.ToString(),
+                Identifier = character.Identifier,
                 Name = character.Name,
                 CreatedDateTimeUtc = character.CreatedDateTimeUtc,
                 UpdatedDateTimeUtc = character.UpdatedDateTimeUtc,
@@ -56,6 +57,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Mapping
             return new CharacterSummaryResponse
             {
                 Id = character.Id.ToString(),
+                Identifier = character.Identifier,
                 Name = character.Name,
                 Classes = "not implemented yet",
                 CreatedDateTimeUtc = character.CreatedDateTimeUtc,
