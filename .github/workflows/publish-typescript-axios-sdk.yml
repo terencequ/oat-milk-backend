@@ -35,11 +35,14 @@ jobs:
       with:
         dotnet-version: 3.0.x
 
-    - name: Set environment variables
-      uses: allenevans/set-env@v2.0.0
+    - name: create-json
+      id: create-json
+      uses: jsdaniell/create-json@1.1.2
       with:
-        DATABASE_CONNECTIONSTRING: ${{secrets.DATABASE_CONNECTIONSTRING}}
-        
+        name: local.settings.json
+        json: '{ "Database__ConnectionString:${{secrets.DATABASE_CONNECTIONSTRING}}" }'
+        dir: ${{env.DOTNET__ROOT}}/myapp/
+    
     - name: Create Swagger Spec - dotnet swagger
       run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.DOTNET_ROOT}}/myapp/OatMilk.Backend.Api.dll v1
 
