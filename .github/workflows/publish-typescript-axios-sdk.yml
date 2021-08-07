@@ -15,12 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: .code
-          path: ./
           
       - name: openapi-generator-generate-action
         uses: craicoverflow/openapi-generator-generate-action@v1.0.0
