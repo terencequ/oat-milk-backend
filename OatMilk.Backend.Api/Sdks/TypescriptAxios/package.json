@@ -1,14 +1,14 @@
 {
-  "name": "@oatmilk/oat-milk-backend-sdk",
+  "name": "@oatmilk/oat-milk-backend-typescript-axios-sdk",
   "version": "1.0.0",
-  "description": "OpenAPI client for @oatmilk/oat-milk-backend-sdk",
+  "description": "OpenAPI client for @oatmilk/oat-milk-backend-typescript-axios-sdk",
   "author": "OpenAPI-Generator Contributors",
   "keywords": [
     "axios",
     "typescript",
     "openapi-client",
     "openapi-generator",
-    "@oatmilk/oat-milk-backend-sdk"
+    "@oatmilk/oat-milk-backend-typescript-axios-sdk"
   ],
   "license": "Unlicense",
   "main": "./dist/index.js",
