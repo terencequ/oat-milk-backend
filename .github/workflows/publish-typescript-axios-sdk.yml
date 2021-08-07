@@ -16,6 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .code
+          path: ./
+          
       - name: openapi-generator-generate-action
         uses: craicoverflow/openapi-generator-generate-action@v1.0.0
         with:
@@ -23,7 +29,7 @@ jobs:
           input: OatMilk.Backend.Api/openapi.json
           output: ${{env.ARTIFACT_PATH}}
           package-name: oat-milk-backend-typescript-axios-sdk
-          
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
