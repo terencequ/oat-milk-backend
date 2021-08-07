@@ -15,14 +15,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name: change to API directory
+        run: cd OatMilk.Backend.Api/
           
       - name: openapi-generator-generate-action
-        uses: craicoverflow/openapi-generator-generate-action@v1.0.0
-        with:
-          generator: typescript-axios
-          input: OatMilk.Backend.Api/openapi.json
-          output: ${{env.ARTIFACT_PATH}}
-          config: OatMilk.Backend.Api/openapitools.json
+        run: npx @openapitools/openapi-generator-cli generate
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
