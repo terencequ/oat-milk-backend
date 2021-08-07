@@ -3,7 +3,7 @@ using System.Text;
 
 namespace OatMilk.Backend.Api.Modules.Shared.Identifier
 {
-    public static class RandomIdGenerator 
+    public static class RandomIdGenerator
     {
         private static readonly char[] Base36CharsWithoutVowels = 
             "0123456789BCDFGHJKLMNPQRSTVWXYZ"

@@ -48,10 +48,10 @@ namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
 
         protected TEntity FindByIdentifier(string identifier)
         {
-            var entity = Repository.Get().FirstOrDefault(a => a.Name == identifier);
+            var entity = Repository.Get().FirstOrDefault(a => a.Identifier == identifier);
             if (entity == null)
             {
-                throw new ArgumentException($"Entity with name '{identifier}' not found.", nameof(identifier));
+                throw new ArgumentException($"Entity with identifier '{identifier}' not found.", nameof(identifier));
             }
 
             return entity;

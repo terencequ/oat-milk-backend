@@ -17,6 +17,9 @@ namespace OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction
 {
     public class UserEntityRepository<TEntity> : Repository<TEntity>, IUserEntityRepository<TEntity> where TEntity : class, IUserEntity
     {
+        private const int IdGenerationAttempts = 10;
+        private const int IdLength = 7;
+        
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<User> _userRepository;
 
@@ -53,11 +56,10 @@ namespace OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction
             entity.Id = entity.Id == ObjectId.Empty ? ObjectId.GenerateNewId() : entity.Id;
             
             // Insert ID and check dupe
-            const int attempts = 10;
             var success = false;
-            for (var i = 0; i < attempts; i++)
+            for (var i = 0; i < IdGenerationAttempts; i++)
             { 
-                entity.Identifier = RandomIdGenerator.GetBase36(7);
+                entity.Identifier = RandomIdGenerator.GetBase36(IdLength);
                 if (!EntityCollection.AsQueryable().Any(e => e.Identifier == entity.Identifier))
                 {
                     success = true; // no dupes, break
