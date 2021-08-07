@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Humanizer;
 using MongoDB.Bson;
@@ -72,7 +73,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
 
         public void WithAbilityScoreProficiencies(IEnumerable<CharacterAbilityScoreProficiencyRequest> abilityScoreProficiencyRequests)
         {
-            var requests = new List<CharacterAbilityScoreProficiencyRequest>(abilityScoreProficiencyRequests);
+            var requests = new List<CharacterAbilityScoreProficiencyRequest>(abilityScoreProficiencyRequests ?? Array.Empty<CharacterAbilityScoreProficiencyRequest>());
             void WithAbilityScoreProficiency(string id, string abilityScoreId, bool generateName = true)
             {
                 var existingRequest = requests?.FirstOrDefault(asp => asp.Id == id && asp.AbilityScoreId == abilityScoreId);
@@ -120,7 +121,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
 
         public void WithAttributes(IEnumerable<CharacterAttributeRequest> attributeRequests)
         {
-            var requests = new List<CharacterAttributeRequest>(attributeRequests);
+            var requests = new List<CharacterAttributeRequest>(attributeRequests ?? Array.Empty<CharacterAttributeRequest>());
             void WithAttribute(string id, int defaultValue, int? currentValue = null, bool generateName = true)
             {
                 var existingRequest = requests?.FirstOrDefault(r => r.Id == id);
@@ -156,7 +157,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
         
         public void WithDescriptions(IEnumerable<CharacterDescriptionRequest> descriptionRequests)
         {
-            var requests = new List<CharacterDescriptionRequest>(descriptionRequests);
+            var requests = new List<CharacterDescriptionRequest>(descriptionRequests ?? Array.Empty<CharacterDescriptionRequest>());
             void WithDescription(string id, bool generateName = true)
             {
                 var existingRequest = requests?.FirstOrDefault(r => r.Id == id);
