@@ -20,6 +20,12 @@ jobs:
       run: dotnet build ./OatMilk.Backend.Api/OatMilk.Backend.Api.csproj --configuration Release
     - name: Test - dotnet test
       run: dotnet test --no-build --verbosity normal
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: .backend
+        path: ${{env.DOTNET_ROOT}}
+        
     - name: Restore Tool
       run: dotnet tool restore
     - name: Setup .NET 3.0 for dotnet swagger
