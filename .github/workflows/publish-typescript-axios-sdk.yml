@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  ARTIFACT_PATH: ./artifact 
+  WORKING_DIRECTORY: OatMilk.Backend.Api/Sdks/TypescriptAxios
 
 jobs:
   build:
@@ -16,14 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: change to API directory
-        run: cd OatMilk.Backend.Api/
-          
-      - name: openapi-generator-generate-action
-        run: npx @openapitools/openapi-generator-cli generate
+      - name: npm install
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: npm install
       
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: .code
-          path: ${{env.ARTIFACT_PATH}}
+      - name: npm publish
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
