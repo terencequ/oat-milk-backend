@@ -22,6 +22,8 @@ jobs:
       run: dotnet publish ./OatMilk.Backend.Api/OatMilk.Backend.Api.csproj -c Release -o ${{env.ARTIFACT_LOCATION}}
     - name: Test - dotnet test
       run: dotnet test --no-build --verbosity normal
+    - name: Restore Tool
+      run: dotnet tool restore
     - name: Create Swagger Spec - dotnet swagger
       run: dotnet swagger tofile --output ${{env.ARTIFACT_LOCATION}}/backend.json ${{env.ARTIFACT_LOCATION}}OatMilk.Backend.Api.dll v1
     - name: Publish Artifact
