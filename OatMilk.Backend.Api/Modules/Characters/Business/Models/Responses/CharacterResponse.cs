@@ -21,10 +21,10 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
 
     public class CharacterLevelResponse
     {
-        public int Level { get; set; }
-        public int Experience { get; set; }
-        public int PreviousLevelExperienceRequirement { get; set; }
-        public int NextLevelExperienceRequirement { get; set; }
+        [Required] public int Level { get; set; }
+        [Required] public int Experience { get; set; }
+        [Required] public int PreviousLevelExperienceRequirement { get; set; }
+        [Required] public int NextLevelExperienceRequirement { get; set; }
     }
 
     #endregion
@@ -35,33 +35,33 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
     {
         [Required] public string Id { get; set; }
         [Required] public string Name { get; set; }
-        public int CurrentValue { get; set; }
-        public int DefaultValue { get; set; }
+        [Required] public int CurrentValue { get; set; }
+        [Required] public int DefaultValue { get; set; }
     }
     
     public class CharacterDescriptionResponse
     {
         [Required] public string Id { get; set; }
         [Required] public string Name { get; set; }
-        public string Value { get; set; }
+        [Required] public string Value { get; set; }
     }
     
     public class CharacterAbilityScoreResponse
     {
         [Required] public string Id { get; set; }
         [Required] public string Name { get; set; }
-        public int Value { get; set; }
-        public bool Proficient { get; set; }
-        public bool Expertise { get; set; }
-        public List<CharacterAbilityScoreProficiencyResponse> Proficiencies { get; set; }
+        [Required] public int Value { get; set; }
+        [Required] public bool Proficient { get; set; }
+        [Required] public bool Expertise { get; set; }
+        [Required] public List<CharacterAbilityScoreProficiencyResponse> Proficiencies { get; set; }
     }
 
     public class CharacterAbilityScoreProficiencyResponse
     {
         [Required] public string Id { get; set; }
         [Required] public string Name { get; set; }
-        public bool Proficient { get; set; }
-        public bool Expertise { get; set; }
+        [Required] public bool Proficient { get; set; }
+        [Required] public bool Expertise { get; set; }
     }
     
     #endregion
