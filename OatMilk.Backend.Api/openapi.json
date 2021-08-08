@@ -683,17 +683,24 @@
   "components": {
     "schemas": {
       "CharacterAbilityScoreProficiencyRequest": {
+        "required": [
+          "abilityScoreId",
+          "id"
+        ],
         "type": "object",
         "properties": {
           "abilityScoreId": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 64,
+            "minLength": 1,
+            "type": "string"
           },
           "id": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 64,
+            "minLength": 1,
+            "type": "string"
           },
           "name": {
+            "maxLength": 64,
             "type": "string",
             "nullable": true
           },
@@ -727,13 +734,18 @@
         "additionalProperties": false
       },
       "CharacterAbilityScoreRequest": {
+        "required": [
+          "id"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 64,
+            "minLength": 1,
+            "type": "string"
           },
           "name": {
+            "maxLength": 64,
             "type": "string",
             "nullable": true
           },
@@ -782,13 +794,18 @@
         "additionalProperties": false
       },
       "CharacterAttributeRequest": {
+        "required": [
+          "id"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 64,
+            "minLength": 1,
+            "type": "string"
           },
           "name": {
+            "maxLength": 64,
             "type": "string",
             "nullable": true
           },
@@ -826,13 +843,18 @@
         "additionalProperties": false
       },
       "CharacterDescriptionRequest": {
+        "required": [
+          "id"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 64,
+            "minLength": 1,
+            "type": "string"
           },
           "name": {
+            "maxLength": 64,
             "type": "string",
             "nullable": true
           },
@@ -884,11 +906,15 @@
         "additionalProperties": false
       },
       "CharacterRequest": {
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 64,
+            "minLength": 1,
+            "type": "string"
           },
           "attributes": {
             "type": "array",
@@ -922,15 +948,18 @@
         "additionalProperties": false
       },
       "CharacterResponse": {
+        "required": [
+          "id",
+          "identifier",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "identifier": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "createdDateTimeUtc": {
             "type": "string",
@@ -941,8 +970,7 @@
             "format": "date-time"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "level": {
             "$ref": "#/components/schemas/CharacterLevelResponse"
@@ -1007,15 +1035,18 @@
         "additionalProperties": false
       },
       "CharacterSummaryResponse": {
+        "required": [
+          "id",
+          "identifier",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "identifier": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "createdDateTimeUtc": {
             "type": "string",
@@ -1030,8 +1061,7 @@
             "nullable": true
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "level": {
             "type": "integer",

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
 {
     public class CharacterResponse
     {
-        public string Id { get; set; }
-        public string Identifier { get; set; }
+        [Required] public string Id { get; set; }
+        [Required] public string Identifier { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime UpdatedDateTimeUtc { get; set; }
-        public string Name { get; set; }
+        [Required] public string Name { get; set; }
         public CharacterLevelResponse Level { get; set; }
         public List<CharacterAttributeResponse> Attributes { get; set; }
         public List<CharacterAbilityScoreResponse> AbilityScores { get; set; }
