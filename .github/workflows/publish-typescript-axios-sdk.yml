@@ -1,4 +1,4 @@
-name: Publish Typescript Axios Sdk
+name: Typescript Axios Sdk
 
 on:
   push:
