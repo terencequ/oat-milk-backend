@@ -59,25 +59,25 @@ export interface CharacterResponse {
      * @type {CharacterLevelResponse}
      * @memberof CharacterResponse
      */
-    level?: CharacterLevelResponse;
+    level: CharacterLevelResponse;
     /**
      * 
      * @type {Array<CharacterAttributeResponse>}
      * @memberof CharacterResponse
      */
-    attributes?: Array<CharacterAttributeResponse> | null;
+    attributes: Array<CharacterAttributeResponse>;
     /**
      * 
      * @type {Array<CharacterAbilityScoreResponse>}
      * @memberof CharacterResponse
      */
-    abilityScores?: Array<CharacterAbilityScoreResponse> | null;
+    abilityScores: Array<CharacterAbilityScoreResponse>;
     /**
      * 
      * @type {Array<CharacterDescriptionResponse>}
      * @memberof CharacterResponse
      */
-    descriptions?: Array<CharacterDescriptionResponse> | null;
+    descriptions: Array<CharacterDescriptionResponse>;
 }
 
 

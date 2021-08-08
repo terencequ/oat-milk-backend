@@ -969,8 +969,12 @@
       },
       "CharacterResponse": {
         "required": [
+          "abilityScores",
+          "attributes",
+          "descriptions",
           "id",
           "identifier",
+          "level",
           "name"
         ],
         "type": "object",
@@ -999,22 +1003,19 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CharacterAttributeResponse"
-            },
-            "nullable": true
+            }
           },
           "abilityScores": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CharacterAbilityScoreResponse"
-            },
-            "nullable": true
+            }
           },
           "descriptions": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CharacterDescriptionResponse"
-            },
-            "nullable": true
+            }
           }
         },
         "additionalProperties": false
