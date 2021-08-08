@@ -21,6 +21,10 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
             _service = service;
         }
         
+        /// <summary>
+        /// Get a paginated, filtered and sorted list of all existing characters, as summaries.
+        /// </summary>
+        /// <param name="filter">Allows for sorting and filtering.</param>
         [HttpGet]
         [ProducesResponseType(typeof(PageResponse<CharacterSummaryResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]

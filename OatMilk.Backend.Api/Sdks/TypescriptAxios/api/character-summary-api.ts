@@ -32,6 +32,7 @@ export const CharacterSummaryApiAxiosParamCreator = function (configuration?: Co
     return {
         /**
          * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, as summaries.
          * @param {string} [searchByName] 
          * @param {string} [sortColumnName] Name of the column to sort by.
          * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
@@ -96,6 +97,7 @@ export const CharacterSummaryApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, as summaries.
          * @param {string} [searchByName] 
          * @param {string} [sortColumnName] Name of the column to sort by.
          * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
@@ -120,6 +122,7 @@ export const CharacterSummaryApiFactory = function (configuration?: Configuratio
     return {
         /**
          * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, as summaries.
          * @param {string} [searchByName] 
          * @param {string} [sortColumnName] Name of the column to sort by.
          * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
@@ -143,6 +146,7 @@ export const CharacterSummaryApiFactory = function (configuration?: Configuratio
 export class CharacterSummaryApi extends BaseAPI {
     /**
      * 
+     * @summary Get a paginated, filtered and sorted list of all existing characters, as summaries.
      * @param {string} [searchByName] 
      * @param {string} [sortColumnName] Name of the column to sort by.
      * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
