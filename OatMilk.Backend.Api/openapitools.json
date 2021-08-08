@@ -14,7 +14,7 @@
                 "additionalProperties": {
                     "apiModulePrefix": "Backend",
                     "npmName": "@oatmilk/oat-milk-backend-typescript-axios-sdk",
-                    "npmVersion": "1.0.1",
+                    "npmVersion": "1.0.2",
                     "snapshot": false,
                     "supportsES6": false,
                     "withSeparateModelsAndApi": true,

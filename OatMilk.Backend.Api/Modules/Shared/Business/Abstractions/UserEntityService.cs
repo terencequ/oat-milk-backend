@@ -29,7 +29,7 @@ namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
             return Task.FromResult(Mapper.Map<PageResponse<TResponse>>(page));
         }
 
-        public Task<TResponse> GetByIdentifier(string identifier)
+        public virtual Task<TResponse> GetByIdentifier(string identifier)
         {
             var effect = FindByIdentifier(identifier);
             return Task.FromResult(Mapper.Map<TResponse>(effect));

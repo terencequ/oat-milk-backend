@@ -25,13 +25,13 @@ export interface CharacterAbilityScoreProficiencyResponse {
      * @type {string}
      * @memberof CharacterAbilityScoreProficiencyResponse
      */
-    id?: string | null;
+    id: string;
     /**
      * 
      * @type {string}
      * @memberof CharacterAbilityScoreProficiencyResponse
      */
-    name?: string | null;
+    name: string;
     /**
      * 
      * @type {boolean}

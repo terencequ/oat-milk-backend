@@ -10,6 +10,7 @@
         "tags": [
           "Character"
         ],
+        "summary": "Get a paginated, filtered and sorted list of all existing characters, with all details.",
         "parameters": [
           {
             "name": "SearchByName",
@@ -100,6 +101,7 @@
         ],
         "summary": "Create a character.",
         "requestBody": {
+          "description": "Details of new character.",
           "content": {
             "application/json": {
               "schema": {
@@ -167,10 +169,12 @@
         "tags": [
           "Character"
         ],
+        "summary": "Get an existing character by its human-readable identifier.",
         "parameters": [
           {
             "name": "identifier",
             "in": "path",
+            "description": "Human readable unique identifier.",
             "required": true,
             "schema": {
               "type": "string"
@@ -226,6 +230,7 @@
         "tags": [
           "Character"
         ],
+        "summary": "Update an existing character by ID.",
         "parameters": [
           {
             "name": "id",
@@ -237,6 +242,7 @@
           }
         ],
         "requestBody": {
+          "description": "Details of new character.",
           "content": {
             "application/json": {
               "schema": {
@@ -302,6 +308,7 @@
         "tags": [
           "Character"
         ],
+        "summary": "Delete an existing character by ID.",
         "parameters": [
           {
             "name": "id",
@@ -344,6 +351,7 @@
         "tags": [
           "CharacterSummary"
         ],
+        "summary": "Get a paginated, filtered and sorted list of all existing characters, as summaries.",
         "parameters": [
           {
             "name": "SearchByName",
@@ -714,15 +722,17 @@
         "additionalProperties": false
       },
       "CharacterAbilityScoreProficiencyResponse": {
+        "required": [
+          "id",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "proficient": {
             "type": "boolean"
@@ -763,15 +773,17 @@
         "additionalProperties": false
       },
       "CharacterAbilityScoreResponse": {
+        "required": [
+          "id",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "value": {
             "type": "integer",
@@ -821,15 +833,17 @@
         "additionalProperties": false
       },
       "CharacterAttributeResponse": {
+        "required": [
+          "id",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "currentValue": {
             "type": "integer",
@@ -866,15 +880,17 @@
         "additionalProperties": false
       },
       "CharacterDescriptionResponse": {
+        "required": [
+          "id",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "value": {
             "type": "string",
@@ -921,6 +937,7 @@
             "items": {
               "$ref": "#/components/schemas/CharacterAttributeRequest"
             },
+            "description": "A list of all attributes. If this is null, character's attributes won't be updated.",
             "nullable": true
           },
           "abilityScores": {
@@ -928,6 +945,7 @@
             "items": {
               "$ref": "#/components/schemas/CharacterAbilityScoreRequest"
             },
+            "description": "A list of all attributes. If this is null, character's ability scores won't be updated.",
             "nullable": true
           },
           "abilityScoreProficiencies": {
@@ -935,6 +953,7 @@
             "items": {
               "$ref": "#/components/schemas/CharacterAbilityScoreProficiencyRequest"
             },
+            "description": "A list of all ability score proficiencies. If this is null, character's proficiencies won't be updated.\r\nAll requests here will be parented under existing ability scores.",
             "nullable": true
           },
           "descriptions": {
@@ -942,6 +961,7 @@
             "items": {
               "$ref": "#/components/schemas/CharacterDescriptionRequest"
             },
+            "description": "A list of all attributes. If this is null, character's descriptions won't be updated.",
             "nullable": true
           }
         },

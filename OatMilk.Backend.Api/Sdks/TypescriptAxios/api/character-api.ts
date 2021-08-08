@@ -36,6 +36,7 @@ export const CharacterApiAxiosParamCreator = function (configuration?: Configura
     return {
         /**
          * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, with all details.
          * @param {string} [searchByName] 
          * @param {string} [sortColumnName] Name of the column to sort by.
          * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
@@ -90,6 +91,7 @@ export const CharacterApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @summary Delete an existing character by ID.
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -123,8 +125,9 @@ export const CharacterApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @summary Update an existing character by ID.
          * @param {string} id 
-         * @param {CharacterRequest} [characterRequest] 
+         * @param {CharacterRequest} [characterRequest] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -160,7 +163,8 @@ export const CharacterApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @param {string} identifier 
+         * @summary Get an existing character by its human-readable identifier.
+         * @param {string} identifier Human readable unique identifier.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -194,7 +198,7 @@ export const CharacterApiAxiosParamCreator = function (configuration?: Configura
         /**
          * 
          * @summary Create a character.
-         * @param {CharacterRequest} [characterRequest] 
+         * @param {CharacterRequest} [characterRequest] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -237,6 +241,7 @@ export const CharacterApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, with all details.
          * @param {string} [searchByName] 
          * @param {string} [sortColumnName] Name of the column to sort by.
          * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
@@ -251,6 +256,7 @@ export const CharacterApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Delete an existing character by ID.
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -261,8 +267,9 @@ export const CharacterApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Update an existing character by ID.
          * @param {string} id 
-         * @param {CharacterRequest} [characterRequest] 
+         * @param {CharacterRequest} [characterRequest] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -272,7 +279,8 @@ export const CharacterApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} identifier 
+         * @summary Get an existing character by its human-readable identifier.
+         * @param {string} identifier Human readable unique identifier.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -283,7 +291,7 @@ export const CharacterApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Create a character.
-         * @param {CharacterRequest} [characterRequest] 
+         * @param {CharacterRequest} [characterRequest] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -303,6 +311,7 @@ export const CharacterApiFactory = function (configuration?: Configuration, base
     return {
         /**
          * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, with all details.
          * @param {string} [searchByName] 
          * @param {string} [sortColumnName] Name of the column to sort by.
          * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
@@ -316,6 +325,7 @@ export const CharacterApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @summary Delete an existing character by ID.
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -325,8 +335,9 @@ export const CharacterApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @summary Update an existing character by ID.
          * @param {string} id 
-         * @param {CharacterRequest} [characterRequest] 
+         * @param {CharacterRequest} [characterRequest] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -335,7 +346,8 @@ export const CharacterApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @param {string} identifier 
+         * @summary Get an existing character by its human-readable identifier.
+         * @param {string} identifier Human readable unique identifier.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -345,7 +357,7 @@ export const CharacterApiFactory = function (configuration?: Configuration, base
         /**
          * 
          * @summary Create a character.
-         * @param {CharacterRequest} [characterRequest] 
+         * @param {CharacterRequest} [characterRequest] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -364,6 +376,7 @@ export const CharacterApiFactory = function (configuration?: Configuration, base
 export class CharacterApi extends BaseAPI {
     /**
      * 
+     * @summary Get a paginated, filtered and sorted list of all existing characters, with all details.
      * @param {string} [searchByName] 
      * @param {string} [sortColumnName] Name of the column to sort by.
      * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
@@ -379,6 +392,7 @@ export class CharacterApi extends BaseAPI {
 
     /**
      * 
+     * @summary Delete an existing character by ID.
      * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -390,8 +404,9 @@ export class CharacterApi extends BaseAPI {
 
     /**
      * 
+     * @summary Update an existing character by ID.
      * @param {string} id 
-     * @param {CharacterRequest} [characterRequest] 
+     * @param {CharacterRequest} [characterRequest] Details of new character.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CharacterApi
@@ -402,7 +417,8 @@ export class CharacterApi extends BaseAPI {
 
     /**
      * 
-     * @param {string} identifier 
+     * @summary Get an existing character by its human-readable identifier.
+     * @param {string} identifier Human readable unique identifier.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CharacterApi
@@ -414,7 +430,7 @@ export class CharacterApi extends BaseAPI {
     /**
      * 
      * @summary Create a character.
-     * @param {CharacterRequest} [characterRequest] 
+     * @param {CharacterRequest} [characterRequest] Details of new character.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CharacterApi

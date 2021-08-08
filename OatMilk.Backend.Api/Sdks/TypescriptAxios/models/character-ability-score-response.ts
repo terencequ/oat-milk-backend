@@ -26,13 +26,13 @@ export interface CharacterAbilityScoreResponse {
      * @type {string}
      * @memberof CharacterAbilityScoreResponse
      */
-    id?: string | null;
+    id: string;
     /**
      * 
      * @type {string}
      * @memberof CharacterAbilityScoreResponse
      */
-    name?: string | null;
+    name: string;
     /**
      * 
      * @type {number}

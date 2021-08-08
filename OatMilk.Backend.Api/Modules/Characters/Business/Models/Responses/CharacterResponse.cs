@@ -11,10 +11,10 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime UpdatedDateTimeUtc { get; set; }
         [Required] public string Name { get; set; }
-        public CharacterLevelResponse Level { get; set; }
-        public List<CharacterAttributeResponse> Attributes { get; set; }
-        public List<CharacterAbilityScoreResponse> AbilityScores { get; set; }
-        public List<CharacterDescriptionResponse> Descriptions { get; set; }
+        [Required] public CharacterLevelResponse Level { get; set; }
+        [Required] public List<CharacterAttributeResponse> Attributes { get; set; }
+        [Required] public List<CharacterAbilityScoreResponse> AbilityScores { get; set; }
+        [Required] public List<CharacterDescriptionResponse> Descriptions { get; set; }
     }
 
     #region Calculated responses
@@ -33,23 +33,23 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
     
     public class CharacterAttributeResponse
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        [Required] public string Id { get; set; }
+        [Required] public string Name { get; set; }
         public int CurrentValue { get; set; }
         public int DefaultValue { get; set; }
     }
     
     public class CharacterDescriptionResponse
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        [Required] public string Id { get; set; }
+        [Required] public string Name { get; set; }
         public string Value { get; set; }
     }
     
     public class CharacterAbilityScoreResponse
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        [Required] public string Id { get; set; }
+        [Required] public string Name { get; set; }
         public int Value { get; set; }
         public bool Proficient { get; set; }
         public bool Expertise { get; set; }
@@ -58,8 +58,8 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
 
     public class CharacterAbilityScoreProficiencyResponse
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        [Required] public string Id { get; set; }
+        [Required] public string Name { get; set; }
         public bool Proficient { get; set; }
         public bool Expertise { get; set; }
     }

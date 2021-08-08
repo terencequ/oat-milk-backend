@@ -25,13 +25,13 @@ export interface CharacterAttributeResponse {
      * @type {string}
      * @memberof CharacterAttributeResponse
      */
-    id?: string | null;
+    id: string;
     /**
      * 
      * @type {string}
      * @memberof CharacterAttributeResponse
      */
-    name?: string | null;
+    name: string;
     /**
      * 
      * @type {number}

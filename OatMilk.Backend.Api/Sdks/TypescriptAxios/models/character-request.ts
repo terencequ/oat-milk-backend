@@ -31,25 +31,25 @@ export interface CharacterRequest {
      */
     name: string;
     /**
-     * 
+     * A list of all attributes. If this is null, character\'s attributes won\'t be updated.
      * @type {Array<CharacterAttributeRequest>}
      * @memberof CharacterRequest
      */
     attributes?: Array<CharacterAttributeRequest> | null;
     /**
-     * 
+     * A list of all attributes. If this is null, character\'s ability scores won\'t be updated.
      * @type {Array<CharacterAbilityScoreRequest>}
      * @memberof CharacterRequest
      */
     abilityScores?: Array<CharacterAbilityScoreRequest> | null;
     /**
-     * 
+     * A list of all ability score proficiencies. If this is null, character\'s proficiencies won\'t be updated.  All requests here will be parented under existing ability scores.
      * @type {Array<CharacterAbilityScoreProficiencyRequest>}
      * @memberof CharacterRequest
      */
     abilityScoreProficiencies?: Array<CharacterAbilityScoreProficiencyRequest> | null;
     /**
-     * 
+     * A list of all attributes. If this is null, character\'s descriptions won\'t be updated.
      * @type {Array<CharacterDescriptionRequest>}
      * @memberof CharacterRequest
      */
