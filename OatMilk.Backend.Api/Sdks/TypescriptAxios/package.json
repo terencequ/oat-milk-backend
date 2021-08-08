@@ -1,6 +1,6 @@
 {
   "name": "@oatmilk/oat-milk-backend-typescript-axios-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "OpenAPI client for @oatmilk/oat-milk-backend-typescript-axios-sdk",
   "author": "OpenAPI-Generator Contributors",
   "keywords": [

@@ -13,6 +13,19 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+
+/**
+ * JWT Token DTO.  Passed as a response when they login or register.   Will contain the JWT token that is used to authenticate with the backend.
+ * @export
+ * @interface UserAuthTokenResponse
+ */
+export interface UserAuthTokenResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserAuthTokenResponse
+     */
+    authToken?: string | null;
+}
+
+
