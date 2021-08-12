@@ -37,13 +37,13 @@ export interface CharacterAttributeResponse {
      * @type {number}
      * @memberof CharacterAttributeResponse
      */
-    currentValue?: number;
+    currentValue: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterAttributeResponse
      */
-    defaultValue?: number;
+    defaultValue: number;
 }
 
 

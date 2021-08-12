@@ -25,25 +25,25 @@ export interface CharacterLevelResponse {
      * @type {number}
      * @memberof CharacterLevelResponse
      */
-    level?: number;
+    level: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterLevelResponse
      */
-    experience?: number;
+    experience: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterLevelResponse
      */
-    previousLevelExperienceRequirement?: number;
+    previousLevelExperienceRequirement: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterLevelResponse
      */
-    nextLevelExperienceRequirement?: number;
+    nextLevelExperienceRequirement: number;
 }
 
 

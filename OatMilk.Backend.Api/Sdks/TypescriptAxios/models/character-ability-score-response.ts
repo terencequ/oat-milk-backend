@@ -38,25 +38,25 @@ export interface CharacterAbilityScoreResponse {
      * @type {number}
      * @memberof CharacterAbilityScoreResponse
      */
-    value?: number;
+    value: number;
     /**
      * 
      * @type {boolean}
      * @memberof CharacterAbilityScoreResponse
      */
-    proficient?: boolean;
+    proficient: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof CharacterAbilityScoreResponse
      */
-    expertise?: boolean;
+    expertise: boolean;
     /**
      * 
      * @type {Array<CharacterAbilityScoreProficiencyResponse>}
      * @memberof CharacterAbilityScoreResponse
      */
-    proficiencies?: Array<CharacterAbilityScoreProficiencyResponse> | null;
+    proficiencies: Array<CharacterAbilityScoreProficiencyResponse>;
 }
 
 

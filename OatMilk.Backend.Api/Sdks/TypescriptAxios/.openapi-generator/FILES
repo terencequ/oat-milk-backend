@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-README.md
 api.ts
 api/character-api.ts
 api/character-summary-api.ts
@@ -31,5 +30,4 @@ models/user-auth-token-response.ts
 models/user-login-request.ts
 models/user-request.ts
 models/user-response.ts
-package.json
 tsconfig.json

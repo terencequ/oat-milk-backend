@@ -49,7 +49,7 @@ export interface CharacterSummaryResponse {
      * @type {string}
      * @memberof CharacterSummaryResponse
      */
-    classes?: string | null;
+    classes: string;
     /**
      * 
      * @type {string}
@@ -61,31 +61,31 @@ export interface CharacterSummaryResponse {
      * @type {number}
      * @memberof CharacterSummaryResponse
      */
-    level?: number;
+    level: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterSummaryResponse
      */
-    experience?: number;
+    experience: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterSummaryResponse
      */
-    previousLevelExperienceRequirement?: number;
+    previousLevelExperienceRequirement: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterSummaryResponse
      */
-    nextLevelExperienceRequirement?: number;
+    nextLevelExperienceRequirement: number;
     /**
      * 
      * @type {boolean}
      * @memberof CharacterSummaryResponse
      */
-    isAlive?: boolean;
+    isAlive: boolean;
 }
 
 

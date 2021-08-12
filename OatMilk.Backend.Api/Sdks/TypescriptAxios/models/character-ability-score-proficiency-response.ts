@@ -37,13 +37,13 @@ export interface CharacterAbilityScoreProficiencyResponse {
      * @type {boolean}
      * @memberof CharacterAbilityScoreProficiencyResponse
      */
-    proficient?: boolean;
+    proficient: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof CharacterAbilityScoreProficiencyResponse
      */
-    expertise?: boolean;
+    expertise: boolean;
 }
 
 

@@ -723,8 +723,10 @@
       },
       "CharacterAbilityScoreProficiencyResponse": {
         "required": [
+          "expertise",
           "id",
-          "name"
+          "name",
+          "proficient"
         ],
         "type": "object",
         "properties": {
@@ -774,8 +776,12 @@
       },
       "CharacterAbilityScoreResponse": {
         "required": [
+          "expertise",
           "id",
-          "name"
+          "name",
+          "proficiencies",
+          "proficient",
+          "value"
         ],
         "type": "object",
         "properties": {
@@ -799,8 +805,7 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CharacterAbilityScoreProficiencyResponse"
-            },
-            "nullable": true
+            }
           }
         },
         "additionalProperties": false
@@ -834,6 +839,8 @@
       },
       "CharacterAttributeResponse": {
         "required": [
+          "currentValue",
+          "defaultValue",
           "id",
           "name"
         ],
@@ -882,7 +889,8 @@
       "CharacterDescriptionResponse": {
         "required": [
           "id",
-          "name"
+          "name",
+          "value"
         ],
         "type": "object",
         "properties": {
@@ -893,13 +901,18 @@
             "type": "string"
           },
           "value": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "CharacterLevelResponse": {
+        "required": [
+          "experience",
+          "level",
+          "nextLevelExperienceRequirement",
+          "previousLevelExperienceRequirement"
+        ],
         "type": "object",
         "properties": {
           "level": {
@@ -1057,9 +1070,15 @@
       },
       "CharacterSummaryResponse": {
         "required": [
+          "classes",
+          "experience",
           "id",
           "identifier",
-          "name"
+          "isAlive",
+          "level",
+          "name",
+          "nextLevelExperienceRequirement",
+          "previousLevelExperienceRequirement"
         ],
         "type": "object",
         "properties": {
@@ -1078,8 +1097,7 @@
             "format": "date-time"
           },
           "classes": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "name": {
             "type": "string"

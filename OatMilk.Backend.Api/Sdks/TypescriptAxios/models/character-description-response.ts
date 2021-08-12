@@ -37,7 +37,7 @@ export interface CharacterDescriptionResponse {
      * @type {string}
      * @memberof CharacterDescriptionResponse
      */
-    value?: string | null;
+    value: string;
 }
 
 
