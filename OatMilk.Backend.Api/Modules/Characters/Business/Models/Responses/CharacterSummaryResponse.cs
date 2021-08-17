@@ -21,5 +21,14 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
         public int CurrentHitPoints { get; set; }
         public int MaxHitPoints { get; set; }
         public bool IsAlive { get; set; }
+        
+        // Flavour
+        [Required] public string Backstory { get; set; }
+        [Required] public string PersonalityTraits { get; set; }
+        [Required] public string Ideals { get; set; }
+        [Required] public string Bonds { get; set; }
+        [Required] public string Flaws { get; set; }
+        [Required] public string AlliesAndOrganisations { get; set; }
+        [Required] public string Appearance { get; set; }
     }
 }
