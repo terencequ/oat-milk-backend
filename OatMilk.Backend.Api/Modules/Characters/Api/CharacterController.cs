@@ -60,10 +60,11 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
         {
             return await _service.Create(request);
         }
-        
+
         /// <summary>
         /// Update an existing character by ID.
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="request">Details of new character.</param>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]

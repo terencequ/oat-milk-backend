@@ -13,9 +13,1668 @@
  */
 
 
+import { Configuration } from './configuration';
+import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
-export * from './api/character-api';
-export * from './api/character-summary-api';
-export * from './api/ping-api';
-export * from './api/user-api';
+/**
+ * 
+ * @export
+ * @interface CharacterAbilityScoreProficiencyRequest
+ */
+export interface CharacterAbilityScoreProficiencyRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAbilityScoreProficiencyRequest
+     */
+    abilityScoreId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAbilityScoreProficiencyRequest
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAbilityScoreProficiencyRequest
+     */
+    name?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterAbilityScoreProficiencyRequest
+     */
+    proficient?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterAbilityScoreProficiencyRequest
+     */
+    expertise?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterAbilityScoreProficiencyResponse
+ */
+export interface CharacterAbilityScoreProficiencyResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAbilityScoreProficiencyResponse
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAbilityScoreProficiencyResponse
+     */
+    name: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterAbilityScoreProficiencyResponse
+     */
+    proficient: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterAbilityScoreProficiencyResponse
+     */
+    expertise: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterAbilityScoreRequest
+ */
+export interface CharacterAbilityScoreRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAbilityScoreRequest
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAbilityScoreRequest
+     */
+    name?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterAbilityScoreRequest
+     */
+    value?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterAbilityScoreRequest
+     */
+    proficient?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterAbilityScoreRequest
+     */
+    expertise?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterAbilityScoreResponse
+ */
+export interface CharacterAbilityScoreResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAbilityScoreResponse
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAbilityScoreResponse
+     */
+    name: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterAbilityScoreResponse
+     */
+    value: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterAbilityScoreResponse
+     */
+    proficient: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterAbilityScoreResponse
+     */
+    expertise: boolean;
+    /**
+     * 
+     * @type {Array<CharacterAbilityScoreProficiencyResponse>}
+     * @memberof CharacterAbilityScoreResponse
+     */
+    proficiencies: Array<CharacterAbilityScoreProficiencyResponse>;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterAttributeRequest
+ */
+export interface CharacterAttributeRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAttributeRequest
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAttributeRequest
+     */
+    name?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterAttributeRequest
+     */
+    currentValue?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterAttributeRequest
+     */
+    defaultValue?: number;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterAttributeResponse
+ */
+export interface CharacterAttributeResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAttributeResponse
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterAttributeResponse
+     */
+    name: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterAttributeResponse
+     */
+    currentValue: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterAttributeResponse
+     */
+    defaultValue: number;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterDescriptionRequest
+ */
+export interface CharacterDescriptionRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterDescriptionRequest
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterDescriptionRequest
+     */
+    name?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterDescriptionRequest
+     */
+    value?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterDescriptionResponse
+ */
+export interface CharacterDescriptionResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterDescriptionResponse
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterDescriptionResponse
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterDescriptionResponse
+     */
+    value: string;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterLevelResponse
+ */
+export interface CharacterLevelResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterLevelResponse
+     */
+    level: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterLevelResponse
+     */
+    experience: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterLevelResponse
+     */
+    previousLevelExperienceRequirement: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterLevelResponse
+     */
+    nextLevelExperienceRequirement: number;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterRequest
+ */
+export interface CharacterRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterRequest
+     */
+    name: string;
+    /**
+     * A list of all attributes. If this is null, character\'s attributes won\'t be updated.
+     * @type {Array<CharacterAttributeRequest>}
+     * @memberof CharacterRequest
+     */
+    attributes?: Array<CharacterAttributeRequest> | null;
+    /**
+     * A list of all attributes. If this is null, character\'s ability scores won\'t be updated.
+     * @type {Array<CharacterAbilityScoreRequest>}
+     * @memberof CharacterRequest
+     */
+    abilityScores?: Array<CharacterAbilityScoreRequest> | null;
+    /**
+     * A list of all ability score proficiencies. If this is null, character\'s proficiencies won\'t be updated.  All requests here will be parented under existing ability scores.
+     * @type {Array<CharacterAbilityScoreProficiencyRequest>}
+     * @memberof CharacterRequest
+     */
+    abilityScoreProficiencies?: Array<CharacterAbilityScoreProficiencyRequest> | null;
+    /**
+     * A list of all attributes. If this is null, character\'s descriptions won\'t be updated.
+     * @type {Array<CharacterDescriptionRequest>}
+     * @memberof CharacterRequest
+     */
+    descriptions?: Array<CharacterDescriptionRequest> | null;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterResponse
+ */
+export interface CharacterResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterResponse
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterResponse
+     */
+    identifier: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterResponse
+     */
+    createdDateTimeUtc: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterResponse
+     */
+    updatedDateTimeUtc: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterResponse
+     */
+    name: string;
+    /**
+     * 
+     * @type {CharacterLevelResponse}
+     * @memberof CharacterResponse
+     */
+    level: CharacterLevelResponse;
+    /**
+     * 
+     * @type {Array<CharacterAttributeResponse>}
+     * @memberof CharacterResponse
+     */
+    attributes: Array<CharacterAttributeResponse>;
+    /**
+     * 
+     * @type {Array<CharacterAbilityScoreResponse>}
+     * @memberof CharacterResponse
+     */
+    abilityScores: Array<CharacterAbilityScoreResponse>;
+    /**
+     * 
+     * @type {Array<CharacterDescriptionResponse>}
+     * @memberof CharacterResponse
+     */
+    descriptions: Array<CharacterDescriptionResponse>;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterResponsePageResponse
+ */
+export interface CharacterResponsePageResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterResponsePageResponse
+     */
+    pageIndex?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterResponsePageResponse
+     */
+    pageSize?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterResponsePageResponse
+     */
+    totalCount?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterResponsePageResponse
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterResponsePageResponse
+     */
+    hasPreviousPage?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterResponsePageResponse
+     */
+    hasNextPage?: boolean;
+    /**
+     * 
+     * @type {Array<CharacterResponse>}
+     * @memberof CharacterResponsePageResponse
+     */
+    items?: Array<CharacterResponse> | null;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterSummaryResponse
+ */
+export interface CharacterSummaryResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    identifier: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    createdDateTimeUtc: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    updatedDateTimeUtc: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    name: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponse
+     */
+    level: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponse
+     */
+    experience: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponse
+     */
+    previousLevelExperienceRequirement: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponse
+     */
+    nextLevelExperienceRequirement: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponse
+     */
+    currentHitPoints: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponse
+     */
+    maxHitPoints: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterSummaryResponse
+     */
+    isAlive: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    backstory: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    personalityTraits: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    ideals: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    bonds: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    flaws: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    alliesAndOrganisations: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    appearance: string;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterSummaryResponsePageResponse
+ */
+export interface CharacterSummaryResponsePageResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponsePageResponse
+     */
+    pageIndex?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponsePageResponse
+     */
+    pageSize?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponsePageResponse
+     */
+    totalCount?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponsePageResponse
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterSummaryResponsePageResponse
+     */
+    hasPreviousPage?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterSummaryResponsePageResponse
+     */
+    hasNextPage?: boolean;
+    /**
+     * 
+     * @type {Array<CharacterSummaryResponse>}
+     * @memberof CharacterSummaryResponsePageResponse
+     */
+    items?: Array<CharacterSummaryResponse> | null;
+}
+/**
+ * 
+ * @export
+ * @interface ErrorResponse
+ */
+export interface ErrorResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ErrorResponse
+     */
+    type?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ErrorResponse
+     */
+    message?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ErrorResponse
+     */
+    stackTrace?: string | null;
+}
+/**
+ * JWT Token DTO.  Passed as a response when they login or register.   Will contain the JWT token that is used to authenticate with the backend.
+ * @export
+ * @interface UserAuthTokenResponse
+ */
+export interface UserAuthTokenResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserAuthTokenResponse
+     */
+    authToken?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface UserLoginRequest
+ */
+export interface UserLoginRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserLoginRequest
+     */
+    email: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserLoginRequest
+     */
+    password: string;
+}
+/**
+ * 
+ * @export
+ * @interface UserRequest
+ */
+export interface UserRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserRequest
+     */
+    displayName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserRequest
+     */
+    email: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserRequest
+     */
+    password: string;
+}
+/**
+ * User DTO.  Passed as a response when a user\'s details are requested.
+ * @export
+ * @interface UserResponse
+ */
+export interface UserResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserResponse
+     */
+    id?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserResponse
+     */
+    displayName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserResponse
+     */
+    email?: string | null;
+}
+
+/**
+ * CharacterApi - axios parameter creator
+ * @export
+ */
+export const CharacterApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, with all details.
+         * @param {string} [searchByName] 
+         * @param {string} [sortColumnName] Name of the column to sort by.
+         * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterFullGet: async (searchByName?: string, sortColumnName?: string, sortAscending?: boolean, pageIndex?: number, pageSize?: number, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Character/full`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (searchByName !== undefined) {
+                localVarQueryParameter['SearchByName'] = searchByName;
+            }
+
+            if (sortColumnName !== undefined) {
+                localVarQueryParameter['SortColumnName'] = sortColumnName;
+            }
+
+            if (sortAscending !== undefined) {
+                localVarQueryParameter['SortAscending'] = sortAscending;
+            }
+
+            if (pageIndex !== undefined) {
+                localVarQueryParameter['PageIndex'] = pageIndex;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['PageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete an existing character by ID.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterFullIdDelete: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('characterFullIdDelete', 'id', id)
+            const localVarPath = `/Character/full/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update an existing character by ID.
+         * @param {string} id 
+         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterFullIdPut: async (id: string, characterRequest?: CharacterRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('characterFullIdPut', 'id', id)
+            const localVarPath = `/Character/full/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(characterRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get an existing character by its human-readable identifier.
+         * @param {string} identifier Human readable unique identifier.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterFullIdentifierGet: async (identifier: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'identifier' is not null or undefined
+            assertParamExists('characterFullIdentifierGet', 'identifier', identifier)
+            const localVarPath = `/Character/full/{identifier}`
+                .replace(`{${"identifier"}}`, encodeURIComponent(String(identifier)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Create a character.
+         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterFullPost: async (characterRequest?: CharacterRequest, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Character/full`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(characterRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * CharacterApi - functional programming interface
+ * @export
+ */
+export const CharacterApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CharacterApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, with all details.
+         * @param {string} [searchByName] 
+         * @param {string} [sortColumnName] Name of the column to sort by.
+         * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async characterFullGet(searchByName?: string, sortColumnName?: string, sortAscending?: boolean, pageIndex?: number, pageSize?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CharacterResponsePageResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.characterFullGet(searchByName, sortColumnName, sortAscending, pageIndex, pageSize, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete an existing character by ID.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async characterFullIdDelete(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.characterFullIdDelete(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update an existing character by ID.
+         * @param {string} id 
+         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async characterFullIdPut(id: string, characterRequest?: CharacterRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CharacterResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.characterFullIdPut(id, characterRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get an existing character by its human-readable identifier.
+         * @param {string} identifier Human readable unique identifier.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async characterFullIdentifierGet(identifier: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CharacterResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.characterFullIdentifierGet(identifier, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Create a character.
+         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async characterFullPost(characterRequest?: CharacterRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CharacterResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.characterFullPost(characterRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * CharacterApi - factory interface
+ * @export
+ */
+export const CharacterApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CharacterApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, with all details.
+         * @param {string} [searchByName] 
+         * @param {string} [sortColumnName] Name of the column to sort by.
+         * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterFullGet(searchByName?: string, sortColumnName?: string, sortAscending?: boolean, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<CharacterResponsePageResponse> {
+            return localVarFp.characterFullGet(searchByName, sortColumnName, sortAscending, pageIndex, pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete an existing character by ID.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterFullIdDelete(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.characterFullIdDelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update an existing character by ID.
+         * @param {string} id 
+         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterFullIdPut(id: string, characterRequest?: CharacterRequest, options?: any): AxiosPromise<CharacterResponse> {
+            return localVarFp.characterFullIdPut(id, characterRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get an existing character by its human-readable identifier.
+         * @param {string} identifier Human readable unique identifier.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterFullIdentifierGet(identifier: string, options?: any): AxiosPromise<CharacterResponse> {
+            return localVarFp.characterFullIdentifierGet(identifier, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Create a character.
+         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterFullPost(characterRequest?: CharacterRequest, options?: any): AxiosPromise<CharacterResponse> {
+            return localVarFp.characterFullPost(characterRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * CharacterApi - object-oriented interface
+ * @export
+ * @class CharacterApi
+ * @extends {BaseAPI}
+ */
+export class CharacterApi extends BaseAPI {
+    /**
+     * 
+     * @summary Get a paginated, filtered and sorted list of all existing characters, with all details.
+     * @param {string} [searchByName] 
+     * @param {string} [sortColumnName] Name of the column to sort by.
+     * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
+     * @param {number} [pageIndex] 
+     * @param {number} [pageSize] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CharacterApi
+     */
+    public characterFullGet(searchByName?: string, sortColumnName?: string, sortAscending?: boolean, pageIndex?: number, pageSize?: number, options?: any) {
+        return CharacterApiFp(this.configuration).characterFullGet(searchByName, sortColumnName, sortAscending, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete an existing character by ID.
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CharacterApi
+     */
+    public characterFullIdDelete(id: string, options?: any) {
+        return CharacterApiFp(this.configuration).characterFullIdDelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update an existing character by ID.
+     * @param {string} id 
+     * @param {CharacterRequest} [characterRequest] Details of new character.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CharacterApi
+     */
+    public characterFullIdPut(id: string, characterRequest?: CharacterRequest, options?: any) {
+        return CharacterApiFp(this.configuration).characterFullIdPut(id, characterRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get an existing character by its human-readable identifier.
+     * @param {string} identifier Human readable unique identifier.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CharacterApi
+     */
+    public characterFullIdentifierGet(identifier: string, options?: any) {
+        return CharacterApiFp(this.configuration).characterFullIdentifierGet(identifier, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Create a character.
+     * @param {CharacterRequest} [characterRequest] Details of new character.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CharacterApi
+     */
+    public characterFullPost(characterRequest?: CharacterRequest, options?: any) {
+        return CharacterApiFp(this.configuration).characterFullPost(characterRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * CharacterSummaryApi - axios parameter creator
+ * @export
+ */
+export const CharacterSummaryApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, as summaries.
+         * @param {string} [searchByName] 
+         * @param {string} [sortColumnName] Name of the column to sort by.
+         * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterSummaryGet: async (searchByName?: string, sortColumnName?: string, sortAscending?: boolean, pageIndex?: number, pageSize?: number, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Character/summary`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (searchByName !== undefined) {
+                localVarQueryParameter['SearchByName'] = searchByName;
+            }
+
+            if (sortColumnName !== undefined) {
+                localVarQueryParameter['SortColumnName'] = sortColumnName;
+            }
+
+            if (sortAscending !== undefined) {
+                localVarQueryParameter['SortAscending'] = sortAscending;
+            }
+
+            if (pageIndex !== undefined) {
+                localVarQueryParameter['PageIndex'] = pageIndex;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['PageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * CharacterSummaryApi - functional programming interface
+ * @export
+ */
+export const CharacterSummaryApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CharacterSummaryApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, as summaries.
+         * @param {string} [searchByName] 
+         * @param {string} [sortColumnName] Name of the column to sort by.
+         * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async characterSummaryGet(searchByName?: string, sortColumnName?: string, sortAscending?: boolean, pageIndex?: number, pageSize?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CharacterSummaryResponsePageResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.characterSummaryGet(searchByName, sortColumnName, sortAscending, pageIndex, pageSize, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * CharacterSummaryApi - factory interface
+ * @export
+ */
+export const CharacterSummaryApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CharacterSummaryApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Get a paginated, filtered and sorted list of all existing characters, as summaries.
+         * @param {string} [searchByName] 
+         * @param {string} [sortColumnName] Name of the column to sort by.
+         * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
+         * @param {number} [pageIndex] 
+         * @param {number} [pageSize] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        characterSummaryGet(searchByName?: string, sortColumnName?: string, sortAscending?: boolean, pageIndex?: number, pageSize?: number, options?: any): AxiosPromise<CharacterSummaryResponsePageResponse> {
+            return localVarFp.characterSummaryGet(searchByName, sortColumnName, sortAscending, pageIndex, pageSize, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * CharacterSummaryApi - object-oriented interface
+ * @export
+ * @class CharacterSummaryApi
+ * @extends {BaseAPI}
+ */
+export class CharacterSummaryApi extends BaseAPI {
+    /**
+     * 
+     * @summary Get a paginated, filtered and sorted list of all existing characters, as summaries.
+     * @param {string} [searchByName] 
+     * @param {string} [sortColumnName] Name of the column to sort by.
+     * @param {boolean} [sortAscending] Whether or not to sort in ascending order.
+     * @param {number} [pageIndex] 
+     * @param {number} [pageSize] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CharacterSummaryApi
+     */
+    public characterSummaryGet(searchByName?: string, sortColumnName?: string, sortAscending?: boolean, pageIndex?: number, pageSize?: number, options?: any) {
+        return CharacterSummaryApiFp(this.configuration).characterSummaryGet(searchByName, sortColumnName, sortAscending, pageIndex, pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * PingApi - axios parameter creator
+ * @export
+ */
+export const PingApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Basic test endpoint. Requires user to be authenticated.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        pingAuthGet: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Ping/auth`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Basic test endpoint.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        pingGet: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Ping`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * PingApi - functional programming interface
+ * @export
+ */
+export const PingApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PingApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Basic test endpoint. Requires user to be authenticated.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async pingAuthGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.pingAuthGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Basic test endpoint.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async pingGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.pingGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * PingApi - factory interface
+ * @export
+ */
+export const PingApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PingApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Basic test endpoint. Requires user to be authenticated.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        pingAuthGet(options?: any): AxiosPromise<boolean> {
+            return localVarFp.pingAuthGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Basic test endpoint.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        pingGet(options?: any): AxiosPromise<boolean> {
+            return localVarFp.pingGet(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * PingApi - object-oriented interface
+ * @export
+ * @class PingApi
+ * @extends {BaseAPI}
+ */
+export class PingApi extends BaseAPI {
+    /**
+     * 
+     * @summary Basic test endpoint. Requires user to be authenticated.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PingApi
+     */
+    public pingAuthGet(options?: any) {
+        return PingApiFp(this.configuration).pingAuthGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Basic test endpoint.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PingApi
+     */
+    public pingGet(options?: any) {
+        return PingApiFp(this.configuration).pingGet(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * UserApi - axios parameter creator
+ * @export
+ */
+export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Login with existing user credentials.
+         * @param {UserLoginRequest} [userLoginRequest] Existing user credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userLoginPost: async (userLoginRequest?: UserLoginRequest, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/User/login`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userLoginRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get this user\'s profile.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userProfileGet: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/User/profile`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Register with new user credentials.
+         * @param {UserRequest} [userRequest] New user credentials.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userRegisterPost: async (userRequest?: UserRequest, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/User/register`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserApi - functional programming interface
+ * @export
+ */
+export const UserApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Login with existing user credentials.
+         * @param {UserLoginRequest} [userLoginRequest] Existing user credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userLoginPost(userLoginRequest?: UserLoginRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserAuthTokenResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userLoginPost(userLoginRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get this user\'s profile.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userProfileGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userProfileGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Register with new user credentials.
+         * @param {UserRequest} [userRequest] New user credentials.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userRegisterPost(userRequest?: UserRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserAuthTokenResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userRegisterPost(userRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * UserApi - factory interface
+ * @export
+ */
+export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Login with existing user credentials.
+         * @param {UserLoginRequest} [userLoginRequest] Existing user credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userLoginPost(userLoginRequest?: UserLoginRequest, options?: any): AxiosPromise<UserAuthTokenResponse> {
+            return localVarFp.userLoginPost(userLoginRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get this user\'s profile.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userProfileGet(options?: any): AxiosPromise<UserResponse> {
+            return localVarFp.userProfileGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Register with new user credentials.
+         * @param {UserRequest} [userRequest] New user credentials.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userRegisterPost(userRequest?: UserRequest, options?: any): AxiosPromise<UserAuthTokenResponse> {
+            return localVarFp.userRegisterPost(userRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UserApi - object-oriented interface
+ * @export
+ * @class UserApi
+ * @extends {BaseAPI}
+ */
+export class UserApi extends BaseAPI {
+    /**
+     * 
+     * @summary Login with existing user credentials.
+     * @param {UserLoginRequest} [userLoginRequest] Existing user credentials
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public userLoginPost(userLoginRequest?: UserLoginRequest, options?: any) {
+        return UserApiFp(this.configuration).userLoginPost(userLoginRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get this user\'s profile.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public userProfileGet(options?: any) {
+        return UserApiFp(this.configuration).userProfileGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Register with new user credentials.
+     * @param {UserRequest} [userRequest] New user credentials.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public userRegisterPost(userRequest?: UserRequest, options?: any) {
+        return UserApiFp(this.configuration).userRegisterPost(userRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 

@@ -7,20 +7,20 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
     {
         [Required] public string Id { get; set; }
         [Required] public string Identifier { get; set; }
-        public DateTime CreatedDateTimeUtc { get; set; }
-        public DateTime UpdatedDateTimeUtc { get; set; }
+        [Required] public DateTime CreatedDateTimeUtc { get; set; }
+        [Required] public DateTime UpdatedDateTimeUtc { get; set; }
         [Required] public string Name { get; set; }
         
         // Level
-        public int Level { get; set; }
-        public int Experience { get; set; }
-        public int PreviousLevelExperienceRequirement { get; set; }
-        public int NextLevelExperienceRequirement { get; set; }
+        [Required] public int Level { get; set; }
+        [Required] public int Experience { get; set; }
+        [Required] public int PreviousLevelExperienceRequirement { get; set; }
+        [Required] public int NextLevelExperienceRequirement { get; set; }
         
         // Health
-        public int CurrentHitPoints { get; set; }
-        public int MaxHitPoints { get; set; }
-        public bool IsAlive { get; set; }
+        [Required] public int CurrentHitPoints { get; set; }
+        [Required] public int MaxHitPoints { get; set; }
+        [Required] public bool IsAlive { get; set; }
         
         // Flavour
         [Required] public string Backstory { get; set; }

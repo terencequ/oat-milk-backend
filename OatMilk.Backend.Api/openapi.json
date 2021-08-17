@@ -105,29 +105,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CharacterRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/CharacterRequest"
               }
             },
             "text/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CharacterRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/CharacterRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CharacterRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/CharacterRequest"
               }
             }
           }
@@ -247,6 +235,7 @@
           {
             "name": "id",
             "in": "path",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -258,29 +247,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CharacterRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/CharacterRequest"
               }
             },
             "text/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CharacterRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/CharacterRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CharacterRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/CharacterRequest"
               }
             }
           }
@@ -532,29 +509,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/UserLoginRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/UserLoginRequest"
               }
             },
             "text/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/UserLoginRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/UserLoginRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/UserLoginRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/UserLoginRequest"
               }
             }
           }
@@ -614,29 +579,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/UserRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/UserRequest"
               }
             },
             "text/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/UserRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/UserRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/UserRequest"
-                  }
-                ]
+                "$ref": "#/components/schemas/UserRequest"
               }
             }
           }
@@ -741,10 +694,7 @@
       "CharacterAbilityScoreProficiencyRequest": {
         "required": [
           "abilityScoreId",
-          "expertise",
-          "id",
-          "name",
-          "proficient"
+          "id"
         ],
         "type": "object",
         "properties": {
@@ -798,11 +748,7 @@
       },
       "CharacterAbilityScoreRequest": {
         "required": [
-          "expertise",
-          "id",
-          "name",
-          "proficient",
-          "value"
+          "id"
         ],
         "type": "object",
         "properties": {
@@ -867,10 +813,7 @@
       },
       "CharacterAttributeRequest": {
         "required": [
-          "currentValue",
-          "defaultValue",
-          "id",
-          "name"
+          "id"
         ],
         "type": "object",
         "properties": {
@@ -923,9 +866,7 @@
       },
       "CharacterDescriptionRequest": {
         "required": [
-          "id",
-          "name",
-          "value"
+          "id"
         ],
         "type": "object",
         "properties": {
@@ -996,10 +937,6 @@
       },
       "CharacterRequest": {
         "required": [
-          "abilityScoreProficiencies",
-          "abilityScores",
-          "attributes",
-          "descriptions",
           "name"
         ],
         "type": "object",
@@ -1076,11 +1013,7 @@
             "type": "string"
           },
           "level": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CharacterLevelResponse"
-              }
-            ]
+            "$ref": "#/components/schemas/CharacterLevelResponse"
           },
           "attributes": {
             "type": "array",
@@ -1104,15 +1037,6 @@
         "additionalProperties": false
       },
       "CharacterResponsePageResponse": {
-        "required": [
-          "hasNextPage",
-          "hasPreviousPage",
-          "items",
-          "pageIndex",
-          "pageSize",
-          "totalCount",
-          "totalPages"
-        ],
         "type": "object",
         "properties": {
           "pageIndex": {
@@ -1240,15 +1164,6 @@
         "additionalProperties": false
       },
       "CharacterSummaryResponsePageResponse": {
-        "required": [
-          "hasNextPage",
-          "hasPreviousPage",
-          "items",
-          "pageIndex",
-          "pageSize",
-          "totalCount",
-          "totalPages"
-        ],
         "type": "object",
         "properties": {
           "pageIndex": {
@@ -1284,11 +1199,6 @@
         "additionalProperties": false
       },
       "ErrorResponse": {
-        "required": [
-          "message",
-          "stackTrace",
-          "type"
-        ],
         "type": "object",
         "properties": {
           "type": {
@@ -1307,9 +1217,6 @@
         "additionalProperties": false
       },
       "UserAuthTokenResponse": {
-        "required": [
-          "authToken"
-        ],
         "type": "object",
         "properties": {
           "authToken": {
@@ -1362,11 +1269,6 @@
         "additionalProperties": false
       },
       "UserResponse": {
-        "required": [
-          "displayName",
-          "email",
-          "id"
-        ],
         "type": "object",
         "properties": {
           "id": {

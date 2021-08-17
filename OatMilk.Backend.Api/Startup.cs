@@ -73,8 +73,6 @@ namespace OatMilk.Backend.Api
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
-                c.UseAllOfToExtendReferenceSchemas();
-                c.SchemaFilter<OatMilkSchemaFilter>();
             });
 
         }
