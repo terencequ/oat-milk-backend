@@ -59,7 +59,10 @@ namespace OatMilk.Backend.Api
             services.ConfigureSecurity(Configuration);
 
             // Controllers
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opts =>
+            {
+                opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             // Swagger
             services.AddSwaggerGen(c =>
@@ -70,6 +73,8 @@ namespace OatMilk.Backend.Api
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+                c.UseAllOfToExtendReferenceSchemas();
+                c.SchemaFilter<OatMilkSchemaFilter>();
             });
 
         }
