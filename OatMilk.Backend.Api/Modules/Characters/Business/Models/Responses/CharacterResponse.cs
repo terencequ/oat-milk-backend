@@ -21,10 +21,10 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
 
     public class CharacterLevelResponse
     {
-        [Required] public int Level { get; set; }
-        [Required] public int Experience { get; set; }
-        [Required] public int PreviousLevelExperienceRequirement { get; set; }
-        [Required] public int NextLevelExperienceRequirement { get; set; }
+        public int Level { get; set; }
+        public int Experience { get; set; }
+        public int PreviousLevelExperienceRequirement { get; set; }
+        public int NextLevelExperienceRequirement { get; set; }
     }
 
     #endregion
@@ -35,8 +35,8 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
     {
         [Required] public string Id { get; set; }
         [Required] public string Name { get; set; }
-        [Required] public int CurrentValue { get; set; }
-        [Required] public int DefaultValue { get; set; }
+        public int CurrentValue { get; set; }
+        public int DefaultValue { get; set; }
     }
     
     public class CharacterDescriptionResponse
@@ -51,8 +51,8 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
         [Required] public string Id { get; set; }
         [Required] public string Name { get; set; }
         [Required] public int Value { get; set; }
-        [Required] public bool Proficient { get; set; }
-        [Required] public bool Expertise { get; set; }
+        public bool Proficient { get; set; }
+        public bool Expertise { get; set; }
         [Required] public List<CharacterAbilityScoreProficiencyResponse> Proficiencies { get; set; }
     }
 
@@ -60,8 +60,8 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
     {
         [Required] public string Id { get; set; }
         [Required] public string Name { get; set; }
-        [Required] public bool Proficient { get; set; }
-        [Required] public bool Expertise { get; set; }
+        public bool Proficient { get; set; }
+        public bool Expertise { get; set; }
     }
     
     #endregion

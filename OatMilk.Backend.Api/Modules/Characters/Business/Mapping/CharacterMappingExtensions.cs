@@ -62,19 +62,21 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Mapping
         public static CharacterSummaryResponse AsSummaryResponse(this Character character)
         {
             var experience = character.GetAttributeOrDefault("experience")?.CurrentValue ?? -1;
+            var hitPointsAttribute = character.GetAttributeOrDefault("hitPoints");
             return new CharacterSummaryResponse
             {
                 Id = character.Id.ToString(),
                 Identifier = character.Identifier,
                 Name = character.Name,
-                Classes = "not implemented yet",
                 CreatedDateTimeUtc = character.CreatedDateTimeUtc,
                 UpdatedDateTimeUtc = character.UpdatedDateTimeUtc,
                 Level = LevelHelper.GetLevel(experience),
                 Experience = experience,
                 PreviousLevelExperienceRequirement = LevelHelper.GetPreviousLevelExperienceRequirement(experience),
                 NextLevelExperienceRequirement = LevelHelper.GetNextLevelExperienceRequirement(experience),
-                IsAlive = character.GetAttributeOrDefault("hitPoints").CurrentValue > 0,
+                CurrentHitPoints = hitPointsAttribute.CurrentValue,
+                MaxHitPoints = hitPointsAttribute.DefaultValue,
+                IsAlive = hitPointsAttribute.CurrentValue > 0,
             };
         }
     }
