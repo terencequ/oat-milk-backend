@@ -176,6 +176,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
                 }
             }
             
+            WithDescription("backstory");
             WithDescription("personalityTraits");
             WithDescription("ideals");
             WithDescription("bonds");

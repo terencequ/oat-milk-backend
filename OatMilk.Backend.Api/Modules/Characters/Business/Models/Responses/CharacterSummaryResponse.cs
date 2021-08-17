@@ -9,12 +9,26 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
         [Required] public string Identifier { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime UpdatedDateTimeUtc { get; set; }
-        [Required] public string Classes { get; set; }
         [Required] public string Name { get; set; }
-        [Required] public int Level { get; set; }
-        [Required] public int Experience { get; set; }
-        [Required] public int PreviousLevelExperienceRequirement { get; set; }
-        [Required] public int NextLevelExperienceRequirement { get; set; }
-        [Required] public bool IsAlive { get; set; }
+        
+        // Level
+        public int Level { get; set; }
+        public int Experience { get; set; }
+        public int PreviousLevelExperienceRequirement { get; set; }
+        public int NextLevelExperienceRequirement { get; set; }
+        
+        // Health
+        public int CurrentHitPoints { get; set; }
+        public int MaxHitPoints { get; set; }
+        public bool IsAlive { get; set; }
+        
+        // Flavour
+        [Required] public string Backstory { get; set; }
+        [Required] public string PersonalityTraits { get; set; }
+        [Required] public string Ideals { get; set; }
+        [Required] public string Bonds { get; set; }
+        [Required] public string Flaws { get; set; }
+        [Required] public string AlliesAndOrganisations { get; set; }
+        [Required] public string Appearance { get; set; }
     }
 }
