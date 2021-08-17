@@ -36,7 +36,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
         
         public void WithAbilityScores(IEnumerable<CharacterAbilityScoreRequest> abilityScoreRequests)
         {
-            var requests = new List<CharacterAbilityScoreRequest>(abilityScoreRequests);
+            var requests = new List<CharacterAbilityScoreRequest>(abilityScoreRequests ?? Array.Empty<CharacterAbilityScoreRequest>());
             void WithAbilityScore(string id, bool generateName = true)
             {
                 var existingRequest = requests?.FirstOrDefault(r => r.Id == id);

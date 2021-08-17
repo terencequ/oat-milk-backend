@@ -52,6 +52,10 @@ namespace OatMilk.Backend.Api
                             .AllowCredentials()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
+                        builder.WithOrigins("http://localhost:3000")
+                            .AllowCredentials()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
                     });
             });
  
