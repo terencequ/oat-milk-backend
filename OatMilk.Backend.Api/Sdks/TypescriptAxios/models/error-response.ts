@@ -25,19 +25,19 @@ export interface ErrorResponse {
      * @type {string}
      * @memberof ErrorResponse
      */
-    type?: string | null;
+    type: string | null;
     /**
      * 
      * @type {string}
      * @memberof ErrorResponse
      */
-    message?: string | null;
+    message: string | null;
     /**
      * 
      * @type {string}
      * @memberof ErrorResponse
      */
-    stackTrace?: string | null;
+    stackTrace: string | null;
 }
 
 

@@ -31,19 +31,19 @@ export interface CharacterAttributeRequest {
      * @type {string}
      * @memberof CharacterAttributeRequest
      */
-    name?: string | null;
+    name: string | null;
     /**
      * 
      * @type {number}
      * @memberof CharacterAttributeRequest
      */
-    currentValue?: number;
+    currentValue: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterAttributeRequest
      */
-    defaultValue?: number;
+    defaultValue: number;
 }
 
 

@@ -37,19 +37,19 @@ export interface CharacterAbilityScoreProficiencyRequest {
      * @type {string}
      * @memberof CharacterAbilityScoreProficiencyRequest
      */
-    name?: string | null;
+    name: string | null;
     /**
      * 
      * @type {boolean}
      * @memberof CharacterAbilityScoreProficiencyRequest
      */
-    proficient?: boolean;
+    proficient: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof CharacterAbilityScoreProficiencyRequest
      */
-    expertise?: boolean;
+    expertise: boolean;
 }
 
 

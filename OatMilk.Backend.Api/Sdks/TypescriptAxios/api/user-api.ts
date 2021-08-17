@@ -23,6 +23,8 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { ErrorResponse } from '../models';
 // @ts-ignore
+import { UNKNOWN_BASE_TYPE } from '../models';
+// @ts-ignore
 import { UserAuthTokenResponse } from '../models';
 // @ts-ignore
 import { UserLoginRequest } from '../models';
@@ -39,11 +41,11 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * 
          * @summary Login with existing user credentials.
-         * @param {UserLoginRequest} [userLoginRequest] Existing user credentials
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Existing user credentials
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        userLoginPost: async (userLoginRequest?: UserLoginRequest, options: any = {}): Promise<RequestArgs> => {
+        userLoginPost: async (uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/User/login`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -63,7 +65,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(userLoginRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(uNKNOWNBASETYPE, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -103,11 +105,11 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * 
          * @summary Register with new user credentials.
-         * @param {UserRequest} [userRequest] New user credentials.
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] New user credentials.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        userRegisterPost: async (userRequest?: UserRequest, options: any = {}): Promise<RequestArgs> => {
+        userRegisterPost: async (uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/User/register`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -127,7 +129,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(userRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(uNKNOWNBASETYPE, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -147,12 +149,12 @@ export const UserApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Login with existing user credentials.
-         * @param {UserLoginRequest} [userLoginRequest] Existing user credentials
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Existing user credentials
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async userLoginPost(userLoginRequest?: UserLoginRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserAuthTokenResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.userLoginPost(userLoginRequest, options);
+        async userLoginPost(uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserAuthTokenResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userLoginPost(uNKNOWNBASETYPE, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -168,12 +170,12 @@ export const UserApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Register with new user credentials.
-         * @param {UserRequest} [userRequest] New user credentials.
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] New user credentials.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async userRegisterPost(userRequest?: UserRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserAuthTokenResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.userRegisterPost(userRequest, options);
+        async userRegisterPost(uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserAuthTokenResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userRegisterPost(uNKNOWNBASETYPE, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -189,12 +191,12 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         /**
          * 
          * @summary Login with existing user credentials.
-         * @param {UserLoginRequest} [userLoginRequest] Existing user credentials
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Existing user credentials
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        userLoginPost(userLoginRequest?: UserLoginRequest, options?: any): AxiosPromise<UserAuthTokenResponse> {
-            return localVarFp.userLoginPost(userLoginRequest, options).then((request) => request(axios, basePath));
+        userLoginPost(uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any): AxiosPromise<UserAuthTokenResponse> {
+            return localVarFp.userLoginPost(uNKNOWNBASETYPE, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -208,12 +210,12 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         /**
          * 
          * @summary Register with new user credentials.
-         * @param {UserRequest} [userRequest] New user credentials.
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] New user credentials.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        userRegisterPost(userRequest?: UserRequest, options?: any): AxiosPromise<UserAuthTokenResponse> {
-            return localVarFp.userRegisterPost(userRequest, options).then((request) => request(axios, basePath));
+        userRegisterPost(uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any): AxiosPromise<UserAuthTokenResponse> {
+            return localVarFp.userRegisterPost(uNKNOWNBASETYPE, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -228,13 +230,13 @@ export class UserApi extends BaseAPI {
     /**
      * 
      * @summary Login with existing user credentials.
-     * @param {UserLoginRequest} [userLoginRequest] Existing user credentials
+     * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Existing user credentials
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public userLoginPost(userLoginRequest?: UserLoginRequest, options?: any) {
-        return UserApiFp(this.configuration).userLoginPost(userLoginRequest, options).then((request) => request(this.axios, this.basePath));
+    public userLoginPost(uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any) {
+        return UserApiFp(this.configuration).userLoginPost(uNKNOWNBASETYPE, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -251,12 +253,12 @@ export class UserApi extends BaseAPI {
     /**
      * 
      * @summary Register with new user credentials.
-     * @param {UserRequest} [userRequest] New user credentials.
+     * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] New user credentials.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public userRegisterPost(userRequest?: UserRequest, options?: any) {
-        return UserApiFp(this.configuration).userRegisterPost(userRequest, options).then((request) => request(this.axios, this.basePath));
+    public userRegisterPost(uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any) {
+        return UserApiFp(this.configuration).userRegisterPost(uNKNOWNBASETYPE, options).then((request) => request(this.axios, this.basePath));
     }
 }

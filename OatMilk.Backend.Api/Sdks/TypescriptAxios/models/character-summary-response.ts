@@ -37,19 +37,13 @@ export interface CharacterSummaryResponse {
      * @type {string}
      * @memberof CharacterSummaryResponse
      */
-    createdDateTimeUtc?: string;
+    createdDateTimeUtc: string;
     /**
      * 
      * @type {string}
      * @memberof CharacterSummaryResponse
      */
-    updatedDateTimeUtc?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CharacterSummaryResponse
-     */
-    classes: string;
+    updatedDateTimeUtc: string;
     /**
      * 
      * @type {string}
@@ -82,10 +76,64 @@ export interface CharacterSummaryResponse {
     nextLevelExperienceRequirement: number;
     /**
      * 
+     * @type {number}
+     * @memberof CharacterSummaryResponse
+     */
+    currentHitPoints: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSummaryResponse
+     */
+    maxHitPoints: number;
+    /**
+     * 
      * @type {boolean}
      * @memberof CharacterSummaryResponse
      */
     isAlive: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    backstory: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    personalityTraits: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    ideals: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    bonds: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    flaws: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    alliesAndOrganisations: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSummaryResponse
+     */
+    appearance: string;
 }
 
 

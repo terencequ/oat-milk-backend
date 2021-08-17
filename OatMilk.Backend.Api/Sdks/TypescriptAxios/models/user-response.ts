@@ -25,19 +25,19 @@ export interface UserResponse {
      * @type {string}
      * @memberof UserResponse
      */
-    id?: string | null;
+    id: string | null;
     /**
      * 
      * @type {string}
      * @memberof UserResponse
      */
-    displayName?: string | null;
+    displayName: string | null;
     /**
      * 
      * @type {string}
      * @memberof UserResponse
      */
-    email?: string | null;
+    email: string | null;
 }
 
 

@@ -28,6 +28,8 @@ import { CharacterResponse } from '../models';
 import { CharacterResponsePageResponse } from '../models';
 // @ts-ignore
 import { ErrorResponse } from '../models';
+// @ts-ignore
+import { UNKNOWN_BASE_TYPE } from '../models';
 /**
  * CharacterApi - axios parameter creator
  * @export
@@ -127,11 +129,11 @@ export const CharacterApiAxiosParamCreator = function (configuration?: Configura
          * 
          * @summary Update an existing character by ID.
          * @param {string} id 
-         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        characterFullIdPut: async (id: string, characterRequest?: CharacterRequest, options: any = {}): Promise<RequestArgs> => {
+        characterFullIdPut: async (id: string, uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('characterFullIdPut', 'id', id)
             const localVarPath = `/Character/full/{id}`
@@ -154,7 +156,7 @@ export const CharacterApiAxiosParamCreator = function (configuration?: Configura
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(characterRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(uNKNOWNBASETYPE, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -198,11 +200,11 @@ export const CharacterApiAxiosParamCreator = function (configuration?: Configura
         /**
          * 
          * @summary Create a character.
-         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        characterFullPost: async (characterRequest?: CharacterRequest, options: any = {}): Promise<RequestArgs> => {
+        characterFullPost: async (uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/Character/full`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -222,7 +224,7 @@ export const CharacterApiAxiosParamCreator = function (configuration?: Configura
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(characterRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(uNKNOWNBASETYPE, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -269,12 +271,12 @@ export const CharacterApiFp = function(configuration?: Configuration) {
          * 
          * @summary Update an existing character by ID.
          * @param {string} id 
-         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async characterFullIdPut(id: string, characterRequest?: CharacterRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CharacterResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.characterFullIdPut(id, characterRequest, options);
+        async characterFullIdPut(id: string, uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CharacterResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.characterFullIdPut(id, uNKNOWNBASETYPE, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -291,12 +293,12 @@ export const CharacterApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Create a character.
-         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async characterFullPost(characterRequest?: CharacterRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CharacterResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.characterFullPost(characterRequest, options);
+        async characterFullPost(uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CharacterResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.characterFullPost(uNKNOWNBASETYPE, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -337,12 +339,12 @@ export const CharacterApiFactory = function (configuration?: Configuration, base
          * 
          * @summary Update an existing character by ID.
          * @param {string} id 
-         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        characterFullIdPut(id: string, characterRequest?: CharacterRequest, options?: any): AxiosPromise<CharacterResponse> {
-            return localVarFp.characterFullIdPut(id, characterRequest, options).then((request) => request(axios, basePath));
+        characterFullIdPut(id: string, uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any): AxiosPromise<CharacterResponse> {
+            return localVarFp.characterFullIdPut(id, uNKNOWNBASETYPE, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -357,12 +359,12 @@ export const CharacterApiFactory = function (configuration?: Configuration, base
         /**
          * 
          * @summary Create a character.
-         * @param {CharacterRequest} [characterRequest] Details of new character.
+         * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Details of new character.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        characterFullPost(characterRequest?: CharacterRequest, options?: any): AxiosPromise<CharacterResponse> {
-            return localVarFp.characterFullPost(characterRequest, options).then((request) => request(axios, basePath));
+        characterFullPost(uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any): AxiosPromise<CharacterResponse> {
+            return localVarFp.characterFullPost(uNKNOWNBASETYPE, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -406,13 +408,13 @@ export class CharacterApi extends BaseAPI {
      * 
      * @summary Update an existing character by ID.
      * @param {string} id 
-     * @param {CharacterRequest} [characterRequest] Details of new character.
+     * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Details of new character.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CharacterApi
      */
-    public characterFullIdPut(id: string, characterRequest?: CharacterRequest, options?: any) {
-        return CharacterApiFp(this.configuration).characterFullIdPut(id, characterRequest, options).then((request) => request(this.axios, this.basePath));
+    public characterFullIdPut(id: string, uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any) {
+        return CharacterApiFp(this.configuration).characterFullIdPut(id, uNKNOWNBASETYPE, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -430,12 +432,12 @@ export class CharacterApi extends BaseAPI {
     /**
      * 
      * @summary Create a character.
-     * @param {CharacterRequest} [characterRequest] Details of new character.
+     * @param {UNKNOWN_BASE_TYPE} [uNKNOWNBASETYPE] Details of new character.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CharacterApi
      */
-    public characterFullPost(characterRequest?: CharacterRequest, options?: any) {
-        return CharacterApiFp(this.configuration).characterFullPost(characterRequest, options).then((request) => request(this.axios, this.basePath));
+    public characterFullPost(uNKNOWNBASETYPE?: UNKNOWN_BASE_TYPE, options?: any) {
+        return CharacterApiFp(this.configuration).characterFullPost(uNKNOWNBASETYPE, options).then((request) => request(this.axios, this.basePath));
     }
 }

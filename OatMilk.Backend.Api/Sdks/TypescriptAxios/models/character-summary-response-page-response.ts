@@ -26,43 +26,43 @@ export interface CharacterSummaryResponsePageResponse {
      * @type {number}
      * @memberof CharacterSummaryResponsePageResponse
      */
-    pageIndex?: number;
+    pageIndex: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterSummaryResponsePageResponse
      */
-    pageSize?: number;
+    pageSize: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterSummaryResponsePageResponse
      */
-    totalCount?: number;
+    totalCount: number;
     /**
      * 
      * @type {number}
      * @memberof CharacterSummaryResponsePageResponse
      */
-    totalPages?: number;
+    totalPages: number;
     /**
      * 
      * @type {boolean}
      * @memberof CharacterSummaryResponsePageResponse
      */
-    hasPreviousPage?: boolean;
+    hasPreviousPage: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof CharacterSummaryResponsePageResponse
      */
-    hasNextPage?: boolean;
+    hasNextPage: boolean;
     /**
      * 
      * @type {Array<CharacterSummaryResponse>}
      * @memberof CharacterSummaryResponsePageResponse
      */
-    items?: Array<CharacterSummaryResponse> | null;
+    items: Array<CharacterSummaryResponse> | null;
 }
 
 

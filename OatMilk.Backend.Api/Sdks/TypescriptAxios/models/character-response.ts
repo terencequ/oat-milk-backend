@@ -41,13 +41,13 @@ export interface CharacterResponse {
      * @type {string}
      * @memberof CharacterResponse
      */
-    createdDateTimeUtc?: string;
+    createdDateTimeUtc: string;
     /**
      * 
      * @type {string}
      * @memberof CharacterResponse
      */
-    updatedDateTimeUtc?: string;
+    updatedDateTimeUtc: string;
     /**
      * 
      * @type {string}

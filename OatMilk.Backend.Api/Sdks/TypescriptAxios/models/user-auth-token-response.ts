@@ -25,7 +25,7 @@ export interface UserAuthTokenResponse {
      * @type {string}
      * @memberof UserAuthTokenResponse
      */
-    authToken?: string | null;
+    authToken: string | null;
 }
 
 

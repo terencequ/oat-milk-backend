@@ -31,25 +31,25 @@ export interface CharacterAbilityScoreRequest {
      * @type {string}
      * @memberof CharacterAbilityScoreRequest
      */
-    name?: string | null;
+    name: string | null;
     /**
      * 
      * @type {number}
      * @memberof CharacterAbilityScoreRequest
      */
-    value?: number;
+    value: number;
     /**
      * 
      * @type {boolean}
      * @memberof CharacterAbilityScoreRequest
      */
-    proficient?: boolean;
+    proficient: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof CharacterAbilityScoreRequest
      */
-    expertise?: boolean;
+    expertise: boolean;
 }
 
 

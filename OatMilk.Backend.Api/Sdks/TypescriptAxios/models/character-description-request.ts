@@ -31,13 +31,13 @@ export interface CharacterDescriptionRequest {
      * @type {string}
      * @memberof CharacterDescriptionRequest
      */
-    name?: string | null;
+    name: string | null;
     /**
      * 
      * @type {string}
      * @memberof CharacterDescriptionRequest
      */
-    value?: string | null;
+    value: string | null;
 }
 
 
