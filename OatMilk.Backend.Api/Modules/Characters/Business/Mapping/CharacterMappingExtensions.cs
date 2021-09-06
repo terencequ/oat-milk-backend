@@ -23,6 +23,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Business.Mapping
                     Experience = experience,
                     PreviousLevelExperienceRequirement = LevelHelper.GetPreviousLevelExperienceRequirement(experience),
                     NextLevelExperienceRequirement = LevelHelper.GetNextLevelExperienceRequirement(experience),
+                    ProficiencyBonus = LevelHelper.GetProficiencyBonus(experience)
                 },
                 AbilityScores = character.AbilityScores
                     .Select(abilityScore => new CharacterAbilityScoreResponse()
