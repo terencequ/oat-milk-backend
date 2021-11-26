@@ -13,8 +13,6 @@ using OatMilk.Backend.Api.AspNet;
 using OatMilk.Backend.Api.Configuration;
 using OatMilk.Backend.Api.Modules;
 using OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction;
-using OatMilk.Backend.Api.Modules.Users.Business;
-using OatMilk.Backend.Api.Modules.Users.Business.Abstractions;
 
 namespace OatMilk.Backend.Api
 {

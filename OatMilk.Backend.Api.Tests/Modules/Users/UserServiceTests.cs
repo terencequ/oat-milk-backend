@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using NUnit.Framework;
 using OatMilk.Backend.Api.Modules.Core.Security;
-using OatMilk.Backend.Api.Modules.Users.Business;
-using OatMilk.Backend.Api.Modules.Users.Business.Models.Requests;
 using OatMilk.Backend.Api.Modules.Users.Data;
+using OatMilk.Backend.Api.Modules.Users.Domain;
+using OatMilk.Backend.Api.Modules.Users.Domain.Models.Requests;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
 
 namespace OatMilk.Backend.Api.Tests.Modules.Users

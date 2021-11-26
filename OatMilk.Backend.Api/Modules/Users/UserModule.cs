@@ -2,10 +2,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using OatMilk.Backend.Api.AspNet;
-using OatMilk.Backend.Api.Modules.Users.Business;
-using OatMilk.Backend.Api.Modules.Users.Business.Abstractions;
-using OatMilk.Backend.Api.Modules.Users.Business.Automapper;
 using OatMilk.Backend.Api.Modules.Users.Data;
+using OatMilk.Backend.Api.Modules.Users.Domain;
+using OatMilk.Backend.Api.Modules.Users.Domain.Abstractions;
+using OatMilk.Backend.Api.Modules.Users.Domain.Automapper;
 
 namespace OatMilk.Backend.Api.Modules.Users
 {

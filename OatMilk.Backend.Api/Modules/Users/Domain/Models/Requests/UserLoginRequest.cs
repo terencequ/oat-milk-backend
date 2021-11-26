@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OatMilk.Backend.Api.Modules.Users.Business.Models.Requests
+namespace OatMilk.Backend.Api.Modules.Users.Domain.Models.Requests
 {
     public class UserLoginRequest
     {

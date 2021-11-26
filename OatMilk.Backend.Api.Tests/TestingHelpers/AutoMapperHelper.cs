@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Mapping;
-using OatMilk.Backend.Api.Modules.Users.Business.Automapper;
+using OatMilk.Backend.Api.Modules.Users.Domain.Automapper;
 
 namespace OatMilk.Backend.Api.Tests.TestingHelpers
 {

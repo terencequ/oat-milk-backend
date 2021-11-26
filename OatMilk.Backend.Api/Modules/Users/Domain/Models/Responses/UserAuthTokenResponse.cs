@@ -1,4 +1,4 @@
-﻿namespace OatMilk.Backend.Api.Modules.Users.Business.Models.Responses
+﻿namespace OatMilk.Backend.Api.Modules.Users.Domain.Models.Responses
 {
     /// <summary>
     /// JWT Token DTO.
