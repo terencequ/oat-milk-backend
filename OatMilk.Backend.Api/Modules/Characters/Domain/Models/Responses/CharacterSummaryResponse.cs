@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses
+namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
 {
     public class CharacterSummaryResponse
     {

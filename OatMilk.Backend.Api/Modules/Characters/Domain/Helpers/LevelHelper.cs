@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
+namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
 {
     public static class LevelHelper
     {

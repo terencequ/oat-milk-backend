@@ -6,7 +6,7 @@ using MongoDB.Bson;
 using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
 using OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction;
 
-namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
+namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
 {
     public class EntityService<TRequest, TEntity, TResponse> : IEntityService<TRequest, TResponse>
         where TEntity : IEntity

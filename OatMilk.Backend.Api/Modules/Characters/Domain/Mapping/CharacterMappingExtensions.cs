@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using OatMilk.Backend.Api.Modules.Characters.Business.Helpers;
-using OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses;
 using OatMilk.Backend.Api.Modules.Characters.Data;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Helpers;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Business.Mapping
+namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
 {
     public static class CharacterMappingExtensions
     {

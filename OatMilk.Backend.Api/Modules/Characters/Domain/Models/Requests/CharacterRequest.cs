@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MongoDB.Bson;
 using OatMilk.Backend.Api.Configuration;
-using OatMilk.Backend.Api.Modules.Characters.Data;
-using OatMilk.Backend.Api.Modules.Shared.Business.Models.Abstraction;
+using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Business.Models.Requests
+namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
 {
     public class CharacterRequest : INamedRequest
     {

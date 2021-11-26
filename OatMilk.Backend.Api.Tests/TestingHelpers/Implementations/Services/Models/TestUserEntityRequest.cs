@@ -1,4 +1,4 @@
-﻿using OatMilk.Backend.Api.Modules.Shared.Business.Models.Abstraction;
+﻿using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
 
 namespace OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Models
 {

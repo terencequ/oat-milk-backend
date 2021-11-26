@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MongoDB.Bson;
 
-namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
+namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
 {
     public interface IEntityService<in TRequest, TResponse>
     {

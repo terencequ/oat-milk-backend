@@ -4,8 +4,7 @@ using System.Linq;
 using Humanizer;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using OatMilk.Backend.Api.Modules.Characters.Business.Models.Requests;
-using OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
 using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Data

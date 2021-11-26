@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MongoDB.Bson;
-using OatMilk.Backend.Api.Modules.Characters.Business.Abstractions;
-using OatMilk.Backend.Api.Modules.Characters.Business.Helpers;
-using OatMilk.Backend.Api.Modules.Characters.Business.Models.Requests;
-using OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses;
 using OatMilk.Backend.Api.Modules.Characters.Data;
-using OatMilk.Backend.Api.Modules.Shared.Business.Abstractions;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Abstractions;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Helpers;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
+using OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions;
 using OatMilk.Backend.Api.Modules.Shared.Pagination;
 using OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Business
+namespace OatMilk.Backend.Api.Modules.Characters.Domain
 {
     public class CharacterService : UserEntityService<CharacterRequest, Character, CharacterResponse>, ICharacterService
     {

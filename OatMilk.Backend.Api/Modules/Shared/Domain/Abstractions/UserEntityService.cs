@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using OatMilk.Backend.Api.Modules.Shared.Business.Models.Abstraction;
 using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
+using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
 using OatMilk.Backend.Api.Modules.Shared.Pagination;
 using OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction;
 
-namespace OatMilk.Backend.Api.Modules.Shared.Business.Abstractions
+namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
 {
     public class UserEntityService<TRequest, TEntity, TResponse> : EntityService<TRequest, TEntity, TResponse>, IUserEntityService<TRequest, TResponse>
         where TRequest : INamedRequest

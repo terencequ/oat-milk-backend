@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Humanizer;
 using MongoDB.Bson;
-using OatMilk.Backend.Api.Modules.Characters.Business.Models.Requests;
 using OatMilk.Backend.Api.Modules.Characters.Data;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Business.Helpers
+namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
 {
     public class DndCharacterFactory
     {

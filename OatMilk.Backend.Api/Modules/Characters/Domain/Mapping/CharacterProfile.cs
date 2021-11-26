@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses;
 using OatMilk.Backend.Api.Modules.Characters.Data;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
 using OatMilk.Backend.Api.Modules.Shared.Pagination;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Business.Mapping
+namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
 {
     public class CharacterProfile : Profile
     {

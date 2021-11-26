@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using OatMilk.Backend.Api.Modules.Characters.Business.Abstractions;
-using OatMilk.Backend.Api.Modules.Characters.Business.Models.Requests;
-using OatMilk.Backend.Api.Modules.Characters.Business.Models.Responses;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Abstractions;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
 using OatMilk.Backend.Api.Modules.Core.Api.Models;
 using OatMilk.Backend.Api.Modules.Shared.Pagination;
 
