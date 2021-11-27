@@ -33,7 +33,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
                 .GetSut();
             
             var result = sut.GetUser(expectedId);
-            Assert.AreEqual(expectedId, result.Id);
+            Assert.AreEqual(expectedId.ToString(), result.Id);
         }
 
         [Test]
