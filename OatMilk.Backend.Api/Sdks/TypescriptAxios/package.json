@@ -1,6 +1,6 @@
 {
   "name": "@oatmilk/oat-milk-backend-typescript-axios-sdk",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Typescript Axios SDK for Oat Milk's Backend",
   "author": "Terence Qu",
   "keywords": [

@@ -909,14 +909,14 @@
       },
       "CharacterLevelResponse": {
         "required": [
+          "currentLevelExperienceRequirement",
           "experience",
-          "level",
           "nextLevelExperienceRequirement",
-          "previousLevelExperienceRequirement"
+          "number"
         ],
         "type": "object",
         "properties": {
-          "level": {
+          "number": {
             "type": "integer",
             "format": "int32"
           },
@@ -924,7 +924,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "previousLevelExperienceRequirement": {
+          "currentLevelExperienceRequirement": {
             "type": "integer",
             "format": "int32"
           },
@@ -977,6 +977,14 @@
             },
             "description": "A list of all attributes. If this is null, character's descriptions won't be updated.",
             "nullable": true
+          },
+          "spells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacterSpellRequest"
+            },
+            "description": "A list of all spells. If this is null, character's spells won't be updated.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -991,6 +999,7 @@
           "identifier",
           "level",
           "name",
+          "spells",
           "updatedDateTimeUtc"
         ],
         "type": "object",
@@ -1032,6 +1041,12 @@
             "items": {
               "$ref": "#/components/schemas/CharacterDescriptionResponse"
             }
+          },
+          "spells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacterSpellResponse"
+            }
           }
         },
         "additionalProperties": false
@@ -1067,6 +1082,49 @@
               "$ref": "#/components/schemas/CharacterResponse"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CharacterSpellRequest": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 64,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CharacterSpellResponse": {
+        "required": [
+          "description",
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
           }
         },
         "additionalProperties": false

@@ -292,7 +292,7 @@ export interface CharacterLevelResponse {
      * @type {number}
      * @memberof CharacterLevelResponse
      */
-    level: number;
+    number: number;
     /**
      * 
      * @type {number}
@@ -304,7 +304,7 @@ export interface CharacterLevelResponse {
      * @type {number}
      * @memberof CharacterLevelResponse
      */
-    previousLevelExperienceRequirement: number;
+    currentLevelExperienceRequirement: number;
     /**
      * 
      * @type {number}
@@ -348,6 +348,12 @@ export interface CharacterRequest {
      * @memberof CharacterRequest
      */
     descriptions?: Array<CharacterDescriptionRequest> | null;
+    /**
+     * A list of all spells. If this is null, character\'s spells won\'t be updated.
+     * @type {Array<CharacterSpellRequest>}
+     * @memberof CharacterRequest
+     */
+    spells?: Array<CharacterSpellRequest> | null;
 }
 /**
  * 
@@ -409,6 +415,12 @@ export interface CharacterResponse {
      * @memberof CharacterResponse
      */
     descriptions: Array<CharacterDescriptionResponse>;
+    /**
+     * 
+     * @type {Array<CharacterSpellResponse>}
+     * @memberof CharacterResponse
+     */
+    spells: Array<CharacterSpellResponse>;
 }
 /**
  * 
@@ -458,6 +470,56 @@ export interface CharacterResponsePageResponse {
      * @memberof CharacterResponsePageResponse
      */
     items?: Array<CharacterResponse> | null;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterSpellRequest
+ */
+export interface CharacterSpellRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellRequest
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellRequest
+     */
+    name?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellRequest
+     */
+    description?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterSpellResponse
+ */
+export interface CharacterSpellResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellResponse
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellResponse
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellResponse
+     */
+    description: string;
 }
 /**
  * 
