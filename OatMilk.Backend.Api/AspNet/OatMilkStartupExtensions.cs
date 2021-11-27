@@ -40,14 +40,14 @@ namespace OatMilk.Backend.Api.AspNet
             {
                 options.TokenValidationParameters = JWTHelper.GetTokenValidationParameters(configuration);
             });
+            services.AddSingleton<IAuthorizationHandler, UserAuthorizationHandler>();
             services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder()
-                    .RequireClaim(JWTClaimTypes.UserId)
+                    .RequireClaim(JWTClaimTypes.UserId) 
                     .RequireAuthenticatedUser()
                     .Build();
             });
-            services.AddTransient<IAuthorizationHandler, UserAuthorizationHandler>();
             return services;
         }
     }
