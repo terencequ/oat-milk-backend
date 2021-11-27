@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using OatMilk.Backend.Api.Modules.Characters.Data;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
 {
@@ -15,15 +16,16 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
         [Required] public List<CharacterAttributeResponse> Attributes { get; set; }
         [Required] public List<CharacterAbilityScoreResponse> AbilityScores { get; set; }
         [Required] public List<CharacterDescriptionResponse> Descriptions { get; set; }
+        [Required] public List<CharacterSpellResponse> Spells { get; set; }
     }
 
     #region Calculated responses
 
     public class CharacterLevelResponse
     {
-        [Required] public int Level { get; set; }
+        [Required] public int Number { get; set; }
         [Required] public int Experience { get; set; }
-        [Required] public int PreviousLevelExperienceRequirement { get; set; }
+        [Required] public int CurrentLevelExperienceRequirement { get; set; }
         [Required] public int NextLevelExperienceRequirement { get; set; }
     }
 

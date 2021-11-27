@@ -8,6 +8,6 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Abstractions
 {
     public interface ICharacterService : IUserEntityService<CharacterRequest, CharacterResponse>
     {
-        Task<PageResponse<CharacterSummaryResponse>> GetMultipleAsSummary(SearchableSortedPageFilter filter);
+        Task<PageResponse<CharacterSummaryResponse>> GetMultipleAsSummaryAsync(SearchableSortedPageFilter filter);
     }
 }

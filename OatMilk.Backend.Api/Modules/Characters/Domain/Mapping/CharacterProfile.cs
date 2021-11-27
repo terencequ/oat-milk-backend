@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using OatMilk.Backend.Api.Modules.Characters.Data;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
 using OatMilk.Backend.Api.Modules.Shared.Pagination;
 
@@ -9,12 +10,16 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
     {
         public CharacterProfile()
         {
+            CreateMap<CharacterAbilityScoreRequest, CharacterAbilityScore>();
+            CreateMap<CharacterAbilityScoreProficiencyRequest, CharacterAbilityScoreProficiency>();
+            CreateMap<CharacterAttributeRequest, CharacterAttribute>();
+            CreateMap<CharacterDescriptionRequest, CharacterDescription>();
+            CreateMap<CharacterSpellRequest, CharacterSpell>();
+            
             CreateMap<Character, CharacterSummaryResponse>()
                 .ConvertUsing(c => c.AsSummaryResponse());
             CreateMap<Character, CharacterResponse>()
                 .ConvertUsing(c => c.AsResponse());
-            CreateMap<PageResponse<Character>, PageResponse<CharacterResponse>>();
-            CreateMap<PageResponse<Character>, PageResponse<CharacterSummaryResponse>>();
         }
     }
 }

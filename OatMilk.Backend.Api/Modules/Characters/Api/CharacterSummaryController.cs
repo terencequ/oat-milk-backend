@@ -30,7 +30,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<PageResponse<CharacterSummaryResponse>> GetMultiple([FromQuery] SearchableSortedPageFilter filter)
         {
-            return await _service.GetMultipleAsSummary(filter);
+            return await _service.GetMultipleAsSummaryAsync(filter);
         }
     }
 }

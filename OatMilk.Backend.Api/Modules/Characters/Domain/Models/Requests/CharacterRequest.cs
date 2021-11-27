@@ -11,7 +11,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
         [MinLength(DataConstants.MinLengthName)]
         [MaxLength(DataConstants.MaxLengthName)]
         public string Name { get; set; }
-        
+
         /// <summary>
         /// A list of all attributes. If this is null, character's attributes won't be updated.
         /// </summary>

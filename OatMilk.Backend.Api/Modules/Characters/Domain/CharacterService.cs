@@ -21,10 +21,11 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain
         {
         }
         
-        public Task<PageResponse<CharacterSummaryResponse>> GetMultipleAsSummary(SearchableSortedPageFilter filter)
+        public Task<PageResponse<CharacterSummaryResponse>> GetMultipleAsSummaryAsync(SearchableSortedPageFilter filter)
         {
             var characterPage = GetEntitiesByPage(filter);
-            return Task.FromResult(Mapper.Map<PageResponse<CharacterSummaryResponse>>(characterPage));
+            var result = Mapper.Map<PageResponse<CharacterSummaryResponse>>(characterPage);
+            return Task.FromResult(result);
         }
         
         public override async Task<CharacterResponse> CreateAsync(CharacterRequest request)

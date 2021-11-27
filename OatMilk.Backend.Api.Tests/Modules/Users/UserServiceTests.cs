@@ -41,9 +41,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
         {
             var sut = new Fixture() // Empty user list
                 .GetSut();
-
-            async void Code() => await sut.GetByIdAsync(ObjectId.GenerateNewId());
-            Assert.Throws<ArgumentException>(Code);
+            Assert.ThrowsAsync<ArgumentException>(async () => await sut.GetByIdAsync(ObjectId.GenerateNewId()));
         }
 
         #endregion
@@ -99,13 +97,12 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
             const string expectedEmail = "test@test.com";
             var sut = new Fixture(new User(){ Id = ObjectId.GenerateNewId(), Email = expectedEmail, Password = SecurePasswordHasher.Hash("wrong")})
                 .GetSut();
-
-            async void Code() => await sut.LoginAsync(new UserLoginRequest()
+            
+            var exception = Assert.ThrowsAsync<ArgumentException>(async () => await sut.LoginAsync(new UserLoginRequest()
             {
                 Email = expectedEmail, 
                 Password = SecurePasswordHasher.Hash("wrongpassword")
-            });
-            var exception = Assert.Throws<ArgumentException>(Code);
+            }));
             Assert.AreEqual("Password", exception?.ParamName);
         }
         

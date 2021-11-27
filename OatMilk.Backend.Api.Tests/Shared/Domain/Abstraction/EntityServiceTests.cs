@@ -45,7 +45,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Domain.Abstraction
             var expectedId = ObjectId.GenerateNewId();
 
             var service = new Fixture(new TestEntity(){ Id = expectedId }).GetSut();
-            var result = await service.GetById(expectedId);
+            var result = await service.GetByIdAsync(expectedId);
             Assert.AreEqual(expectedId, result.Id);
         }
         
@@ -55,7 +55,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Domain.Abstraction
             var expectedId = ObjectId.GenerateNewId();
 
             var service = new Fixture().GetSut();
-            Assert.ThrowsAsync<ArgumentException>(async () => await service.GetById(expectedId));
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.GetByIdAsync(expectedId));
         }
 
         #endregion

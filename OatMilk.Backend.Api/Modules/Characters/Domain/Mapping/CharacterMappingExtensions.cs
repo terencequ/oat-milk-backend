@@ -10,7 +10,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
     {
         public static CharacterResponse AsResponse(this Character character)
         {
-            var experience = character.Attributes.GetById("experience")?.CurrentValue ?? -1;
+            var experience = character.Attributes.GetByIdOrDefault("experience")?.CurrentValue ?? -1;
             return new CharacterResponse()
             {
                 Id = character.Id.ToString(),
@@ -20,12 +20,12 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                 UpdatedDateTimeUtc = character.UpdatedDateTimeUtc,
                 Level = new CharacterLevelResponse()
                 {
-                    Level = LevelHelper.GetLevel(experience),
+                    Number = LevelHelper.GetLevel(experience),
                     Experience = experience,
-                    PreviousLevelExperienceRequirement = LevelHelper.GetPreviousLevelExperienceRequirement(experience),
+                    CurrentLevelExperienceRequirement = LevelHelper.GetPreviousLevelExperienceRequirement(experience),
                     NextLevelExperienceRequirement = LevelHelper.GetNextLevelExperienceRequirement(experience),
                 },
-                AbilityScores = character.AbilityScores
+                AbilityScores = character.AbilityScores?
                     .Select(abilityScore => new CharacterAbilityScoreResponse()
                     {
                         Id = abilityScore.Id,
@@ -33,7 +33,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                         Value = abilityScore.Value,
                         Expertise = abilityScore.Expertise,
                         Proficient = abilityScore.Proficient,
-                        Proficiencies = abilityScore.Proficiencies
+                        Proficiencies = abilityScore.Proficiencies?
                             .Select(proficiency => new CharacterAbilityScoreProficiencyResponse()
                             {
                                 Id = proficiency.Id,
@@ -42,7 +42,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                                 Proficient = proficiency.Proficient
                             }).ToList()
                     }).ToList(),
-                Attributes = character.Attributes
+                Attributes = character.Attributes?
                     .Select(attribute => new CharacterAttributeResponse()
                     {
                         Id = attribute.Id,
@@ -50,20 +50,27 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                         CurrentValue = attribute.CurrentValue,
                         DefaultValue = attribute.DefaultValue
                     }).ToList(),
-                Descriptions = character.Descriptions
+                Descriptions = character.Descriptions?
                     .Select(description => new CharacterDescriptionResponse()
                     {
                         Id = description.Id,
                         Name = description.Name,
                         Value = description.Value
+                    }).ToList(),
+                Spells = character.Spells?
+                    .Select(spell => new CharacterSpellResponse()
+                    {
+                        Id = spell.Id,
+                        Name = spell.Name,
+                        Description = spell.Description
                     }).ToList()
             };
         }
 
         public static CharacterSummaryResponse AsSummaryResponse(this Character character)
         {
-            var experience = character.Attributes.GetById("experience")?.CurrentValue ?? -1;
-            var hitPointsAttribute = character.Attributes.GetById("hitPoints");
+            var experience = character.Attributes.GetByIdOrDefault("experience")?.CurrentValue ?? -1;
+            var hitPointsAttribute = character.Attributes.GetByIdOrDefault("hitPoints");
             return new CharacterSummaryResponse
             {
                 Id = character.Id.ToString(),
@@ -78,13 +85,13 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                 CurrentHitPoints = hitPointsAttribute.CurrentValue,
                 MaxHitPoints = hitPointsAttribute.DefaultValue,
                 IsAlive = hitPointsAttribute.CurrentValue > 0,
-                Backstory = character.Descriptions.GetById("backstory")?.Value ?? "",
-                PersonalityTraits = character.Descriptions.GetById("personalityTraits")?.Value ?? "",
-                Ideals = character.Descriptions.GetById("ideals")?.Value ?? "",
-                Bonds = character.Descriptions.GetById("bonds")?.Value ?? "",
-                Flaws = character.Descriptions.GetById("flaws")?.Value ?? "",
-                AlliesAndOrganisations = character.Descriptions.GetById("alliesAndOrganisations")?.Value ?? "",
-                Appearance = character.Descriptions.GetById("appearance")?.Value ?? "",
+                Backstory = character.Descriptions.GetByIdOrDefault("backstory")?.Value ?? "",
+                PersonalityTraits = character.Descriptions.GetByIdOrDefault("personalityTraits")?.Value ?? "",
+                Ideals = character.Descriptions.GetByIdOrDefault("ideals")?.Value ?? "",
+                Bonds = character.Descriptions.GetByIdOrDefault("bonds")?.Value ?? "",
+                Flaws = character.Descriptions.GetByIdOrDefault("flaws")?.Value ?? "",
+                AlliesAndOrganisations = character.Descriptions.GetByIdOrDefault("alliesAndOrganisations")?.Value ?? "",
+                Appearance = character.Descriptions.GetByIdOrDefault("appearance")?.Value ?? "",
             };
         }
     }

@@ -6,7 +6,7 @@ namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
     public interface IEntityService<in TRequest, TResponse>
     {
         Task<TResponse> CreateAsync(TRequest request);
-        Task<TResponse> GetById(ObjectId id);
+        Task<TResponse> GetByIdAsync(ObjectId id);
         Task<TResponse> UpdateAsync(ObjectId id, TRequest request);
         Task DeleteAsync(ObjectId id);
     }
