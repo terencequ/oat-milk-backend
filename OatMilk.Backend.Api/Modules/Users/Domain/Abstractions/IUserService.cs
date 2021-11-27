@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using MongoDB.Bson;
-using OatMilk.Backend.Api.Modules.Users.Business.Models.Requests;
-using OatMilk.Backend.Api.Modules.Users.Business.Models.Responses;
+using OatMilk.Backend.Api.Modules.Users.Domain.Models.Requests;
+using OatMilk.Backend.Api.Modules.Users.Domain.Models.Responses;
 
-namespace OatMilk.Backend.Api.Modules.Users.Business.Abstractions
+namespace OatMilk.Backend.Api.Modules.Users.Domain.Abstractions
 {
     public interface IUserService
     {

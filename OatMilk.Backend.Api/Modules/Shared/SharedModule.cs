@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using OatMilk.Backend.Api.AspNet;
+using OatMilk.Backend.Api.Modules.Shared.Domain.Automapper;
 
 namespace OatMilk.Backend.Api.Modules.Shared
 {
@@ -12,7 +13,7 @@ namespace OatMilk.Backend.Api.Modules.Shared
 
         public override void Register()
         {
-            
+            RegisterAutoMapperProfiles(typeof(PaginationProfile));
         }
     }
 }

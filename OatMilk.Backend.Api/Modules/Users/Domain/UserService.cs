@@ -6,12 +6,12 @@ using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using OatMilk.Backend.Api.Modules.Core.Security;
 using OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction;
-using OatMilk.Backend.Api.Modules.Users.Business.Abstractions;
-using OatMilk.Backend.Api.Modules.Users.Business.Models.Requests;
-using OatMilk.Backend.Api.Modules.Users.Business.Models.Responses;
 using OatMilk.Backend.Api.Modules.Users.Data;
+using OatMilk.Backend.Api.Modules.Users.Domain.Abstractions;
+using OatMilk.Backend.Api.Modules.Users.Domain.Models.Requests;
+using OatMilk.Backend.Api.Modules.Users.Domain.Models.Responses;
 
-namespace OatMilk.Backend.Api.Modules.Users.Business
+namespace OatMilk.Backend.Api.Modules.Users.Domain
 {
     public class UserService : IUserService
     {

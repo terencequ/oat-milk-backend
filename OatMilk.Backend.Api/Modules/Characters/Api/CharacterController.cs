@@ -34,7 +34,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<PageResponse<CharacterResponse>> GetMultiple([FromQuery] SearchableSortedPageFilter filter)
         {
-            return await _service.GetMultiple(filter);
+            return await _service.GetMultipleAsync(filter);
         }
         
         /// <summary>
@@ -46,7 +46,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<CharacterResponse> GetByIdentifier(string identifier)
         {
-            return await _service.GetByIdentifier(identifier);
+            return await _service.GetByIdentifierAsync(identifier);
         }
         
         /// <summary>
@@ -58,7 +58,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<CharacterResponse> Create(CharacterRequest request)
         {
-            return await _service.Create(request);
+            return await _service.CreateAsync(request);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<CharacterResponse> Update(string id, CharacterRequest request)
         {
-            return await _service.Update(ObjectId.Parse(id), request);
+            return await _service.UpdateAsync(ObjectId.Parse(id), request);
         }
         
         /// <summary>
@@ -82,7 +82,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task Delete([FromRoute] string id)
         {
-            await _service.Delete(ObjectId.Parse(id));
+            await _service.DeleteAsync(ObjectId.Parse(id));
         }
 
         #endregion

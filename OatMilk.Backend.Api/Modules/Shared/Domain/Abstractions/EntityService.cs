@@ -20,7 +20,7 @@ namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
             Mapper = mapper;
         }
 
-        public virtual async Task<TResponse> Create(TRequest request)
+        public virtual async Task<TResponse> CreateAsync(TRequest request)
         {
             var entity = Mapper.Map<TEntity>(request);
             if (entity is IAuditableEntity auditableEntity)
@@ -39,7 +39,7 @@ namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
             return Task.FromResult(Mapper.Map<TResponse>(entity));
         }
 
-        public virtual async Task<TResponse> Update(ObjectId id, TRequest request)
+        public virtual async Task<TResponse> UpdateAsync(ObjectId id, TRequest request)
         {
             var entity = FindById(id);
             Mapper.Map(request, entity);
@@ -53,7 +53,7 @@ namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
             return Mapper.Map<TResponse>(entity);
         }
 
-        public virtual async Task Delete(ObjectId id)
+        public virtual async Task DeleteAsync(ObjectId id)
         {
             var entity = FindById(id);
 

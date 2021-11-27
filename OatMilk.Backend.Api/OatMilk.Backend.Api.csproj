@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Shared\Domain" />
     <Folder Include="Modules\Shared\Data" />
   </ItemGroup>
 

@@ -7,7 +7,7 @@ using OatMilk.Backend.Api.Tests.TestingHelpers;
 using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services;
 using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Models;
 
-namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
+namespace OatMilk.Backend.Api.Tests.Shared.Domain.Abstraction
 {
     [TestFixture]
     public class UserEntityServiceTests
@@ -27,20 +27,20 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
         [Test]
         public async Task GetByName_EntityExists_ShouldReturnResponse()
         {
-            const string expectedName = "test";
+            const string expectedIdentifier = "test";
 
-            var service = new Fixture(new TestUserEntity(){ Name = expectedName }).GetSut();
-            var result = await service.GetByIdentifier(expectedName);
-            Assert.AreEqual(expectedName, result.Name);
+            var service = new Fixture(new TestUserEntity(){ Identifier = expectedIdentifier }).GetSut();
+            var result = await service.GetByIdentifierAsync(expectedIdentifier);
+            Assert.AreEqual(expectedIdentifier, result.Identifier);
         }
         
         [Test]
         public void GetByName_EntityDoesntExist_ShouldThrowArgumentException()
         {
-            const string expectedName = "test";
+            const string expectedIdentifier = "test";
 
             var service = new Fixture().GetSut();
-            Assert.ThrowsAsync<ArgumentException>(async () => await service.GetByIdentifier(expectedName));
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.GetByIdentifierAsync(expectedIdentifier));
         }
         
         #endregion
@@ -58,7 +58,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
                     new TestUserEntity() { Name = expectedName2 },
                     new TestUserEntity() { Name = expectedName3 })
                 .GetSut();
-            var result = await service.GetMultiple(new SearchableSortedPageFilter() {SearchByName = "test"});
+            var result = await service.GetMultipleAsync(new SearchableSortedPageFilter() {SearchByName = "test"});
             Assert.IsTrue(result.Items.Any(ability => ability.Name == expectedName1));
             Assert.IsTrue(result.Items.Any(ability => ability.Name == expectedName2));
             Assert.IsFalse(result.Items.Any(ability => ability.Name == expectedName3));
@@ -75,7 +75,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
                 new TestUserEntity() { Name = expectedName2 },
                 new TestUserEntity() { Name = expectedName3 })
                 .GetSut();
-            var result = await service.GetMultiple(new SearchableSortedPageFilter() {SortColumnName = "name", SortAscending = true});
+            var result = await service.GetMultipleAsync(new SearchableSortedPageFilter() {SortColumnName = "name", SortAscending = true});
             Assert.AreEqual(expectedName3, result.Items.ElementAt(0).Name);
             Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
             Assert.AreEqual(expectedName2, result.Items.ElementAt(2).Name);
@@ -92,7 +92,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
                     new TestUserEntity() { Name = expectedName2 },
                     new TestUserEntity() { Name = expectedName3 })
                 .GetSut();
-            var result = await service.GetMultiple(new SearchableSortedPageFilter() {SortColumnName = "name", SortAscending = false});
+            var result = await service.GetMultipleAsync(new SearchableSortedPageFilter() {SortColumnName = "name", SortAscending = false});
             Assert.AreEqual(expectedName2, result.Items.ElementAt(0).Name);
             Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
             Assert.AreEqual(expectedName3, result.Items.ElementAt(2).Name);
@@ -114,7 +114,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
                     Name = expectedName2,
                     CreatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }).GetSut();
-            var result = await service.GetMultiple(new SearchableSortedPageFilter()
+            var result = await service.GetMultipleAsync(new SearchableSortedPageFilter()
             {
                 SortColumnName = "createddatetimeutc",
                 SortAscending = true
@@ -139,7 +139,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
                     Name = expectedName2,
                     CreatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }).GetSut();
-            var result = await service.GetMultiple(new SearchableSortedPageFilter()
+            var result = await service.GetMultipleAsync(new SearchableSortedPageFilter()
             {
                 SortColumnName = "createddatetimeutc",
                 SortAscending = false
@@ -148,7 +148,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
             Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
         }
         
-                [Test]
+        [Test]
         public async Task GetMultiple_FilterUpdatedDateTimeUtcAscending_ShouldReturnAscendingCreatedDateTimeUtc()
         {
             var expectedName1 = "test1";
@@ -164,7 +164,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
                     Name = expectedName2,
                     UpdatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }).GetSut();
-            var result = await service.GetMultiple(new SearchableSortedPageFilter()
+            var result = await service.GetMultipleAsync(new SearchableSortedPageFilter()
             {
                 SortColumnName = "updateddatetimeutc",
                 SortAscending = true
@@ -189,7 +189,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
                     Name = expectedName2,
                     UpdatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }).GetSut();
-            var result = await service.GetMultiple(new SearchableSortedPageFilter()
+            var result = await service.GetMultipleAsync(new SearchableSortedPageFilter()
             {
                 SortColumnName = "updateddatetimeutc",
                 SortAscending = false
@@ -214,7 +214,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
                     Name = expectedName2,
                     CreatedDateTimeUtc = new DateTime(2010, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }).GetSut();
-            var result = await service.GetMultiple(new SearchableSortedPageFilter());
+            var result = await service.GetMultipleAsync(new SearchableSortedPageFilter());
             Assert.AreEqual(expectedName2, result.Items.ElementAt(0).Name);
             Assert.AreEqual(expectedName1, result.Items.ElementAt(1).Name);
         }

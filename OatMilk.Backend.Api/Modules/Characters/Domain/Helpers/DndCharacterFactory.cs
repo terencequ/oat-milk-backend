@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
+using System.Text.Json;
+using AutoMapper;
 using Humanizer;
 using MongoDB.Bson;
 using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
+using OatMilk.Backend.Api.Modules.Shared.Domain.Helpers;
+using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
 {
     public class DndCharacterFactory
     {
+
         private const string Strength = "strength";
         private const string Dexterity = "dexterity";
         private const string Constitution = "constitution";
@@ -17,10 +23,12 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
         private const string Wisdom = "wisdom";
         private const string Charisma = "charisma";
         
-        private Character _character;
+        private readonly IMapper _mapper;
+        private readonly Character _character;
         
-        public DndCharacterFactory(Character character = null)
+        public DndCharacterFactory(IMapper mapper, Character character = null)
         {
+            _mapper = mapper;
             _character = character ?? new Character();
         }
 
@@ -37,58 +45,53 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
         public void WithAbilityScores(IEnumerable<CharacterAbilityScoreRequest> abilityScoreRequests)
         {
             var requests = new List<CharacterAbilityScoreRequest>(abilityScoreRequests ?? Array.Empty<CharacterAbilityScoreRequest>());
-            void WithAbilityScore(string id, bool generateName = true)
+            void WithAbilityScore(string id)
             {
-                var existingRequest = requests?.FirstOrDefault(r => r.Id == id);
-                if (existingRequest != null)
+                if (requests.All(r => r.Id != id))
                 {
-                    requests.Remove(existingRequest);
-                    if (generateName)
+                    requests.Add(new CharacterAbilityScoreRequest()
                     {
-                        existingRequest.Name = id.Humanize(LetterCasing.Sentence);
-                    }
-                    _character.AddOrUpdateAbilityScore(id, existingRequest); // Override and replace
-                }
-                else
-                {
-                    _character.AddOrUpdateAbilityScore(id, null, true); // Create if doesn't exist (but don't override existing)
+                        Id = id,
+                        Name = id.Humanize(LetterCasing.Sentence),
+                        Value = 10,
+                        Proficient = false,
+                        Expertise = false,
+                    });
                 }
             }
 
-            // Create DnD properties if they don't exist in character, override if exist in requests
+            // Create DnD requests if they don't exist
             WithAbilityScore(Strength);
             WithAbilityScore(Dexterity);
             WithAbilityScore(Constitution);
             WithAbilityScore(Intelligence);
             WithAbilityScore(Wisdom);
             WithAbilityScore(Charisma);
-
-            // All custom attributes
-            var customRequests = new List<CharacterAbilityScoreRequest>(requests);
-            foreach (var request in customRequests)
-            {
-                WithAbilityScore(request.Id, false);
-            }
+            
+            _character.AbilityScores.UpdateWithRequests(requests,
+                (e, r) =>
+                {
+                    e ??= new CharacterAbilityScore();
+                    _mapper.Map(r, e);
+                    return e;
+                });
         }
 
         public void WithAbilityScoreProficiencies(IEnumerable<CharacterAbilityScoreProficiencyRequest> abilityScoreProficiencyRequests)
         {
             var requests = new List<CharacterAbilityScoreProficiencyRequest>(abilityScoreProficiencyRequests ?? Array.Empty<CharacterAbilityScoreProficiencyRequest>());
-            void WithAbilityScoreProficiency(string id, string abilityScoreId, bool generateName = true)
+            void WithAbilityScoreProficiency(string id, string abilityScoreId)
             {
-                var existingRequest = requests?.FirstOrDefault(asp => asp.Id == id && asp.AbilityScoreId == abilityScoreId);
-                if (existingRequest != null)
+                if (requests.All(r => r.Id != id))
                 {
-                    requests.Remove(existingRequest);
-                    if (generateName)
+                    requests.Add(new CharacterAbilityScoreProficiencyRequest()
                     {
-                        existingRequest.Name = id.Humanize(LetterCasing.Sentence);
-                    }
-                    _character.AddOrUpdateAbilityScoreProficiency(id, abilityScoreId, existingRequest); // Override and replace
-                }
-                else
-                {
-                    _character.AddOrUpdateAbilityScoreProficiency(id, abilityScoreId, null, true); // Create if doesn't exist (but don't override existing)
+                        AbilityScoreId = abilityScoreId,
+                        Id = id,
+                        Name = id.Humanize(LetterCasing.Sentence),
+                        Proficient = false,
+                        Expertise = false,
+                    });
                 }
             }
             
@@ -110,33 +113,48 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
             WithAbilityScoreProficiency("sleightOfHand", Dexterity);
             WithAbilityScoreProficiency("stealth", Dexterity);
             WithAbilityScoreProficiency("survival", Wisdom);
-            
-            // All custom attributes
-            var customRequests = new List<CharacterAbilityScoreProficiencyRequest>(requests);
-            foreach (var request in customRequests)
+
+            // Check for any requests not relevant to any ability score
+            var abilityScoreIds = _character.AbilityScores.Select(e => e.Id);
+            var nonParentedRequests = requests
+                .Where(r => !abilityScoreIds.Contains(r.AbilityScoreId))
+                .ToList();
+            if (nonParentedRequests.Any())
             {
-                WithAbilityScoreProficiency(request.Id, request.AbilityScoreId, false);
+                throw new ArgumentException(
+                    $"There are ability score proficiencies in the request which do not relate to an existing ability score, " +
+                    $"({JsonSerializer.Serialize(nonParentedRequests)})", nameof(CharacterRequest.AbilityScoreProficiencies));
+            }
+            
+            foreach (var abilityScore in _character.AbilityScores)
+            {
+                var relevantRequests = requests
+                    .Where(r => r.AbilityScoreId == abilityScore.Id)
+                    .ToList();
+                abilityScore.Proficiencies.UpdateWithRequests(relevantRequests,
+                    (e, r) =>
+                    {
+                        e ??= new CharacterAbilityScoreProficiency();
+                        _mapper.Map(r, e);
+                        return e;
+                    });
             }
         }
 
         public void WithAttributes(IEnumerable<CharacterAttributeRequest> attributeRequests)
         {
             var requests = new List<CharacterAttributeRequest>(attributeRequests ?? Array.Empty<CharacterAttributeRequest>());
-            void WithAttribute(string id, int defaultValue, int? currentValue = null, bool generateName = true)
+            void WithAttribute(string id, int defaultValue, int? currentValue = null)
             {
-                var existingRequest = requests?.FirstOrDefault(r => r.Id == id);
-                if (existingRequest != null)
+                if (requests.All(r => r.Id != id))
                 {
-                    requests.Remove(existingRequest);
-                    if (generateName)
+                    requests.Add(new CharacterAttributeRequest()
                     {
-                        existingRequest.Name = id.Humanize(LetterCasing.Sentence);
-                    }
-                    _character.AddOrUpdateAttribute(id, existingRequest); // Override and replace
-                }
-                else
-                {
-                    _character.AddOrUpdateAttribute(id, defaultValue, currentValue, true); // Create if doesn't exist (but don't override existing)
+                        Id = id,
+                        Name = id.Humanize(LetterCasing.Sentence),
+                        CurrentValue = currentValue ?? defaultValue,
+                        DefaultValue = defaultValue
+                    });
                 }
             }
             
@@ -147,32 +165,28 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
             WithAttribute("deathSaveFailures", 3, 0);
             WithAttribute("experience", 0, 0);
             
-            // All custom attributes
-            var customRequests = new List<CharacterAttributeRequest>(requests);
-            foreach (var request in customRequests)
-            {
-                WithAttribute(request.Id, request.DefaultValue, request.CurrentValue, false);
-            }
+            _character.Attributes.UpdateWithRequests(requests,
+                (e, r) =>
+                {
+                    e ??= new CharacterAttribute();
+                    _mapper.Map(r, e);
+                    return e;
+                });
         }
         
         public void WithDescriptions(IEnumerable<CharacterDescriptionRequest> descriptionRequests)
         {
             var requests = new List<CharacterDescriptionRequest>(descriptionRequests ?? Array.Empty<CharacterDescriptionRequest>());
-            void WithDescription(string id, bool generateName = true)
+            void WithDescription(string id)
             {
-                var existingRequest = requests?.FirstOrDefault(r => r.Id == id);
-                if (existingRequest != null)
+                if (requests.All(r => r.Id != id))
                 {
-                    requests.Remove(existingRequest);
-                    if (generateName)
+                    requests.Add(new CharacterDescriptionRequest()
                     {
-                        existingRequest.Name = id.Humanize(LetterCasing.Sentence);
-                    }
-                    _character.AddOrUpdateDescription(id, existingRequest); // Override and replace
-                }
-                else
-                {
-                    _character.AddOrUpdateDescription(id, null, true); // Create if doesn't exist (but don't override existing)
+                        Id = id,
+                        Name = id.Humanize(LetterCasing.Sentence),
+                        Value = null
+                    });
                 }
             }
             
@@ -184,14 +198,28 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
             WithDescription("alliesAndOrganisations");
             WithDescription("appearance");
             
-            // All custom attributes
-            var customRequests = new List<CharacterDescriptionRequest>(requests);
-            foreach (var request in customRequests)
-            {
-                WithDescription(request.Id, false);
-            }
+            _character.Descriptions.UpdateWithRequests(requests,
+                (e, r) =>
+                {
+                    e ??= new CharacterDescription();
+                    _mapper.Map(r, e);
+                    return e;
+                });
         }
 
+        public void WithSpells(IEnumerable<CharacterSpellRequest> spellRequests)
+        {
+            var requests = new List<CharacterSpellRequest>(spellRequests ?? Array.Empty<CharacterSpellRequest>());
+            // All custom attributes
+            _character.Spells.UpdateWithRequests(requests,
+                (e, r) =>
+                {
+                    e ??= new CharacterSpell();
+                    _mapper.Map(r, e);
+                    return e;
+                });
+        }
+        
         public Character Build()
         {
             return _character;

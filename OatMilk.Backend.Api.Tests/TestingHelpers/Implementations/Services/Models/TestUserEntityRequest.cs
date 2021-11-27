@@ -4,6 +4,7 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Mode
 {
     public class TestUserEntityRequest : INamedRequest
     {
+        public string Identifier { get; set; }
         public string Name { get; set; }
         public string TestString { get; set; }
     }

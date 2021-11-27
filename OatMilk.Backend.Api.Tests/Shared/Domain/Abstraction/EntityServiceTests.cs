@@ -6,7 +6,7 @@ using OatMilk.Backend.Api.Tests.TestingHelpers;
 using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services;
 using OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Models;
 
-namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
+namespace OatMilk.Backend.Api.Tests.Shared.Domain.Abstraction
 {
     [TestFixture]
     public class EntityServiceTests
@@ -28,7 +28,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
         {
             var expectedString = "test";
             var service = new Fixture().GetSut();
-            var result = await service.Create(new TestEntityRequest()
+            var result = await service.CreateAsync(new TestEntityRequest()
             {
                 TestString = expectedString
             });
@@ -73,7 +73,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
                 Id = expectedId,
                 TestString = "name"
             }).GetSut();
-            var result = await service.Update(expectedId, new TestEntityRequest()
+            var result = await service.UpdateAsync(expectedId, new TestEntityRequest()
             {
                 TestString = expectedString
             });
@@ -87,7 +87,7 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
             const string expectedString = "new name";
             var service = new Fixture().GetSut();
 
-            Assert.ThrowsAsync<ArgumentException>(async () => await service.Update(ObjectId.GenerateNewId(), new TestEntityRequest()
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.UpdateAsync(ObjectId.GenerateNewId(), new TestEntityRequest()
             {
                 TestString = expectedString
             }));
@@ -106,14 +106,14 @@ namespace OatMilk.Backend.Api.Tests.Shared.Business.Abstraction
                 Id = expectedGuid
             }).GetSut();
 
-            Assert.DoesNotThrowAsync(async () => await service.Delete(expectedGuid));
+            Assert.DoesNotThrowAsync(async () => await service.DeleteAsync(expectedGuid));
         }
         
         [Test]
         public void DeleteEntity_EntityDoesntExist_ThrowsArgumentException()
         {
             var service = new Fixture().GetSut();
-            Assert.ThrowsAsync<ArgumentException>(async () => await service.Delete(ObjectId.GenerateNewId()));
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.DeleteAsync(ObjectId.GenerateNewId()));
         }
         
         #endregion

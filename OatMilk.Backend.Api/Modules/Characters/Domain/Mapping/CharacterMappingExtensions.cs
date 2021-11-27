@@ -2,6 +2,7 @@
 using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Helpers;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
+using OatMilk.Backend.Api.Modules.Shared.Domain.Helpers;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
 {
@@ -9,7 +10,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
     {
         public static CharacterResponse AsResponse(this Character character)
         {
-            var experience = character.GetAttributeOrDefault("experience")?.CurrentValue ?? -1;
+            var experience = character.Attributes.GetById("experience")?.CurrentValue ?? -1;
             return new CharacterResponse()
             {
                 Id = character.Id.ToString(),
@@ -61,8 +62,8 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
 
         public static CharacterSummaryResponse AsSummaryResponse(this Character character)
         {
-            var experience = character.GetAttributeOrDefault("experience")?.CurrentValue ?? -1;
-            var hitPointsAttribute = character.GetAttributeOrDefault("hitPoints");
+            var experience = character.Attributes.GetById("experience")?.CurrentValue ?? -1;
+            var hitPointsAttribute = character.Attributes.GetById("hitPoints");
             return new CharacterSummaryResponse
             {
                 Id = character.Id.ToString(),
@@ -77,13 +78,13 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                 CurrentHitPoints = hitPointsAttribute.CurrentValue,
                 MaxHitPoints = hitPointsAttribute.DefaultValue,
                 IsAlive = hitPointsAttribute.CurrentValue > 0,
-                Backstory = character.GetDescriptionOrDefault("backstory")?.Value ?? "",
-                PersonalityTraits = character.GetDescriptionOrDefault("personalityTraits")?.Value ?? "",
-                Ideals = character.GetDescriptionOrDefault("ideals")?.Value ?? "",
-                Bonds = character.GetDescriptionOrDefault("bonds")?.Value ?? "",
-                Flaws = character.GetDescriptionOrDefault("flaws")?.Value ?? "",
-                AlliesAndOrganisations = character.GetDescriptionOrDefault("alliesAndOrganisations")?.Value ?? "",
-                Appearance = character.GetDescriptionOrDefault("appearance")?.Value ?? "",
+                Backstory = character.Descriptions.GetById("backstory")?.Value ?? "",
+                PersonalityTraits = character.Descriptions.GetById("personalityTraits")?.Value ?? "",
+                Ideals = character.Descriptions.GetById("ideals")?.Value ?? "",
+                Bonds = character.Descriptions.GetById("bonds")?.Value ?? "",
+                Flaws = character.Descriptions.GetById("flaws")?.Value ?? "",
+                AlliesAndOrganisations = character.Descriptions.GetById("alliesAndOrganisations")?.Value ?? "",
+                Appearance = character.Descriptions.GetById("appearance")?.Value ?? "",
             };
         }
     }

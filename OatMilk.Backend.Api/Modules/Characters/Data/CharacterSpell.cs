@@ -2,11 +2,10 @@
 
 namespace OatMilk.Backend.Api.Modules.Characters.Data
 {
-    public class CharacterAbilityScoreProficiency : IChildEntity
+    public class CharacterSpell : IChildEntity
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public bool Proficient { get; set; }
-        public bool Expertise { get; set; }
+        public string Description { get; set; }
     }
 }

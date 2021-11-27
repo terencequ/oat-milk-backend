@@ -17,22 +17,24 @@ namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
         {
         }
         
-        public override async Task<TResponse> Create(TRequest request)
+        public override async Task<TResponse> CreateAsync(TRequest request)
         {
             ThrowIfNameExists(request.Name);
-            return await base.Create(request);
+            return await base.CreateAsync(request);
         }
 
-        public virtual Task<PageResponse<TResponse>> GetMultiple(SearchableSortedPageFilter filter)
+        public virtual Task<PageResponse<TResponse>> GetMultipleAsync(SearchableSortedPageFilter filter)
         {
             var page = GetEntitiesByPage(filter);
-            return Task.FromResult(Mapper.Map<PageResponse<TResponse>>(page));
+            var result = Mapper.Map<PageResponse<TResponse>>(page);
+            return Task.FromResult(result);
         }
 
-        public virtual Task<TResponse> GetByIdentifier(string identifier)
+        public virtual Task<TResponse> GetByIdentifierAsync(string identifier)
         {
             var effect = FindByIdentifier(identifier);
-            return Task.FromResult(Mapper.Map<TResponse>(effect));
+            var result = Mapper.Map<TResponse>(effect);
+            return Task.FromResult(result);
         }
         
         #region Helpers

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using MongoDB.Bson;
 using OatMilk.Backend.Api.Modules.Core.Security.Requirements;
-using OatMilk.Backend.Api.Modules.Users.Business.Abstractions;
+using OatMilk.Backend.Api.Modules.Users.Domain.Abstractions;
 
 namespace OatMilk.Backend.Api.Modules.Core.Security.Handlers
 {

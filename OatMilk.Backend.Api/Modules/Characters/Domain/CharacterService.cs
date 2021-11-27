@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MongoDB.Bson;
@@ -25,45 +27,44 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain
             return Task.FromResult(Mapper.Map<PageResponse<CharacterSummaryResponse>>(characterPage));
         }
         
-        public override async Task<CharacterResponse> Create(CharacterRequest request)
+        public override async Task<CharacterResponse> CreateAsync(CharacterRequest request)
         {
-            var factory = AddOrUpdateCharacter(request);
-            var character = factory.Build();
+            var character = AddOrUpdateCharacter(request);
             await Repository.AddAsync(character);
             return Mapper.Map<CharacterResponse>(character);
         }
 
-        public override async Task<CharacterResponse> Update(ObjectId id, CharacterRequest request)
+        public override async Task<CharacterResponse> UpdateAsync(ObjectId id, CharacterRequest request)
         {
-            var factory = AddOrUpdateCharacter(request, Repository.Get().FirstOrDefault(c => c.Id == id));
-            var character = factory.Build();
+            var character = AddOrUpdateCharacter(request, Repository.Get().FirstOrDefault(c => c.Id == id));
             await Repository.UpdateAsync(character);
             return Mapper.Map<CharacterResponse>(character);
         }
 
-        private DndCharacterFactory AddOrUpdateCharacter(CharacterRequest request, Character existingCharacter = null)
+        private Character AddOrUpdateCharacter(CharacterRequest request, Character existingCharacter = null)
         {
-            var factory = new DndCharacterFactory(existingCharacter);
+            var factory = new DndCharacterFactory(Mapper, existingCharacter);
             factory.WithId(existingCharacter?.Id ?? ObjectId.GenerateNewId());
             factory.WithName(request.Name);
-            if (request.AbilityScores != null || existingCharacter == null)
-            {
-                factory.WithAbilityScores(request.AbilityScores);
-            }
-            if (request.AbilityScoreProficiencies != null || existingCharacter == null)
-            {
-                factory.WithAbilityScoreProficiencies(request.AbilityScoreProficiencies);
-            }
-            if (request.Attributes != null || existingCharacter == null)
-            {
-                factory.WithAttributes(request.Attributes);
-            }
-            if (request.Descriptions != null || existingCharacter == null)
-            {
-                factory.WithDescriptions(request.Descriptions);
-            }
 
-            return factory;
+            void PerformRequestAction<TRequest>(ICollection<TRequest> requests, Action<ICollection<TRequest>> requestAction)
+            {
+                // Only perform action if:
+                // a) Requests are not null (null request collections should be ignored)
+                // b) OR Existing character is null (this is a new character, they should start with at least a basic template)
+                if (requests != null || existingCharacter == null)
+                {
+                    requestAction(requests);
+                }
+            }
+            
+            PerformRequestAction(request.AbilityScores, factory.WithAbilityScores);
+            PerformRequestAction(request.AbilityScoreProficiencies, factory.WithAbilityScoreProficiencies);
+            PerformRequestAction(request.Attributes, factory.WithAttributes);
+            PerformRequestAction(request.Descriptions, factory.WithDescriptions);
+            PerformRequestAction(request.Spells, factory.WithSpells);
+            
+            return factory.Build();
         }
     }
 }

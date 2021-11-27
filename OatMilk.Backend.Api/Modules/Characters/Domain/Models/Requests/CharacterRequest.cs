@@ -32,9 +32,14 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
         /// A list of all attributes. If this is null, character's descriptions won't be updated.
         /// </summary>
         public List<CharacterDescriptionRequest> Descriptions { get; set; }
+        
+        /// <summary>
+        /// A list of all spells. If this is null, character's spells won't be updated.
+        /// </summary>
+        public List<CharacterSpellRequest> Spells { get; set; }
     }
 
-    public class CharacterAttributeRequest
+    public class CharacterAttributeRequest : INamedRequest, IUniqueRequest
     {
         [Required]
         [MinLength(DataConstants.MinLengthId)]
@@ -47,7 +52,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
         public int DefaultValue { get; set; }
     }
     
-    public class CharacterDescriptionRequest
+    public class CharacterDescriptionRequest : INamedRequest, IUniqueRequest
     {
         [Required]
         [MinLength(DataConstants.MinLengthId)]
@@ -59,7 +64,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
         public string Value { get; set; }
     }
     
-    public class CharacterAbilityScoreRequest
+    public class CharacterAbilityScoreRequest : INamedRequest, IUniqueRequest
     {
         [Required]
         [MinLength(DataConstants.MinLengthId)]
@@ -73,7 +78,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
         public bool Expertise { get; set; }
     }
 
-    public class CharacterAbilityScoreProficiencyRequest
+    public class CharacterAbilityScoreProficiencyRequest : INamedRequest, IUniqueRequest
     {
         [Required]
         [MinLength(DataConstants.MinLengthId)]
@@ -89,5 +94,17 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
         public string Name { get; set; }
         public bool Proficient { get; set; }
         public bool Expertise { get; set; }
+    }
+    
+    public class CharacterSpellRequest : INamedRequest, IUniqueRequest
+    {
+        [Required]
+        [MinLength(DataConstants.MinLengthId)]
+        [MaxLength(DataConstants.MaxLengthId)]
+        public string Id { get; set; }
+        
+        [MaxLength(DataConstants.MaxLengthName)]
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -1,6 +1,9 @@
-﻿namespace OatMilk.Backend.Api.Modules.Characters.Data
+﻿using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
+using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
+
+namespace OatMilk.Backend.Api.Modules.Characters.Data
 {
-    public class CharacterAttribute
+    public class CharacterAttribute : IChildEntity
     {
         public string Id { get; set; }
         public string Name { get; set; }

@@ -63,6 +63,13 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
         [Required] public bool Proficient { get; set; }
         [Required] public bool Expertise { get; set; }
     }
-    
+
+    public class CharacterSpellResponse
+    {
+        [Required] public string Id { get; set; }
+        [Required] public string Name { get; set; }
+        [Required] public string Description { get; set; }
+    }
+
     #endregion
 }
