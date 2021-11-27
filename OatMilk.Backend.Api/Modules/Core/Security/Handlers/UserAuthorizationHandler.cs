@@ -31,6 +31,8 @@ namespace OatMilk.Backend.Api.Modules.Core.Security.Handlers
             {
                 context.Fail();
             }
+            
+            return Task.CompletedTask;
         }
     }
 }
