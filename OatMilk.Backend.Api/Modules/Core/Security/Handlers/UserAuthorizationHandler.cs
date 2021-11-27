@@ -18,12 +18,12 @@ namespace OatMilk.Backend.Api.Modules.Core.Security.Handlers
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, UserAuthorizationRequirement requirement)
         {
-            bool ValidUserIdPredicate(Claim c)
+            bool ValidUserIdPredicateAsync(Claim c)
             {
-                return c.Type == JWTClaimTypes.UserId && _userService.ExistsByIdAsync(ObjectId.Parse(c.Value));
+                return c.Type == JWTClaimTypes.UserId && _userService.ExistsByIdAsync(ObjectId.Parse(c.Value)).Result;
             }
 
-            if (context.User.HasClaim(ValidUserIdPredicate))
+            if (context.User.HasClaim(ValidUserIdPredicateAsync))
             {
                 context.Succeed(requirement);
             }
@@ -31,7 +31,6 @@ namespace OatMilk.Backend.Api.Modules.Core.Security.Handlers
             {
                 context.Fail();
             }
-            return Task.CompletedTask;
         }
     }
 }
