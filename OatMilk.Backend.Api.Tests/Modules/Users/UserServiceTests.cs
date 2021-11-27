@@ -32,7 +32,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
             var sut = new Fixture(new User(){Id = expectedId}, new User(){Id = ObjectId.GenerateNewId()})
                 .GetSut();
             
-            var result = sut.GetUser(expectedId);
+            var result = sut.GetByIdAsync(expectedId);
             Assert.AreEqual(expectedId.ToString(), result.Id);
         }
 
@@ -41,7 +41,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
         {
             var sut = new Fixture() // Empty user list
                 .GetSut();
-            Assert.Throws<ArgumentException>(()=> sut.GetUser(ObjectId.GenerateNewId()));
+            Assert.Throws<ArgumentException>(()=> sut.GetByIdAsync(ObjectId.GenerateNewId()));
         }
 
         #endregion
@@ -62,7 +62,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
                         Password = SecurePasswordHasher.Hash(expectedPassword)
                     })
                 .GetSut();
-            var result = sut.Login(
+            var result = sut.LoginAsync(
                 new UserLoginRequest()
                 {
                     Email = expectedEmail, 
@@ -82,7 +82,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
                         Password = "wrong"
                     })
                 .GetSut();
-            var exception = Assert.Throws<ArgumentException>(()=> sut.Login(
+            var exception = Assert.Throws<ArgumentException>(()=> sut.LoginAsync(
                 new UserLoginRequest()
                 {
                     Email = "test@test.com", 
@@ -97,7 +97,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
             const string expectedEmail = "test@test.com";
             var sut = new Fixture(new User(){ Id = ObjectId.GenerateNewId(), Email = expectedEmail, Password = SecurePasswordHasher.Hash("wrong")})
                 .GetSut();
-            var exception = Assert.Throws<ArgumentException>(()=> sut.Login(
+            var exception = Assert.Throws<ArgumentException>(()=> sut.LoginAsync(
                 new UserLoginRequest()
                 {
                     Email = expectedEmail, 
@@ -118,7 +118,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
             const string expectedPassword = "Password12";
             
             var sut = new Fixture().GetSut();
-            var result = await sut.Register(
+            var result = await sut.RegisterAsync(
                 new UserRequest()
                 {
                     DisplayName = expectedDisplayName,
@@ -137,7 +137,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
             
             var sut = new Fixture(new User(){Id = ObjectId.GenerateNewId(), Email = expectedEmail, Password = "test123456778"}).GetSut();
 
-            var exception = Assert.ThrowsAsync<ArgumentException>(async () => await sut.Register(
+            var exception = Assert.ThrowsAsync<ArgumentException>(async () => await sut.RegisterAsync(
                 new UserRequest()
                 {
                     DisplayName = expectedDisplayName,
@@ -157,7 +157,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
         {
             var expectedId = ObjectId.GenerateNewId();
             var sut = new Fixture(new User(){Id = expectedId}).GetSut();
-            var result = sut.UserExistsById(expectedId);
+            var result = sut.UserExistsByIdAsync(expectedId);
             Assert.IsTrue(result);
         }
         
@@ -165,7 +165,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
         public void UserExistsById_UserDoesntExists_ShouldReturnFalse()
         {
             var sut = new Fixture(new User(){Id = ObjectId.GenerateNewId()}).GetSut();
-            var result = sut.UserExistsById(ObjectId.GenerateNewId());
+            var result = sut.UserExistsByIdAsync(ObjectId.GenerateNewId());
             Assert.IsFalse(result);
         }
         

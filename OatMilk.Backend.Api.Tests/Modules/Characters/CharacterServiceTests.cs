@@ -16,5 +16,9 @@ namespace OatMilk.Backend.Api.Tests.Modules.Characters
                 return new(MockUserRepository.Object, Mapper);
             }
         }
+        
+        #region Create
+        
+        #endregion
     }
 }

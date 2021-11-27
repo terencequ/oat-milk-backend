@@ -8,6 +8,11 @@ using OatMilk.Backend.Api.Modules.Characters.Domain.Mapping;
 
 namespace OatMilk.Backend.Api.Modules.Characters
 {
+    /// <summary>
+    /// This Module represents:
+    /// - A user managing their own character sheets.
+    /// - A user viewing other people's character sheets.
+    /// </summary>
     public class CharactersModule : Module
     {
         public CharactersModule(IServiceCollection serviceCollection, IMongoDatabase database) : base(serviceCollection, database)

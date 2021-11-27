@@ -26,18 +26,19 @@ namespace OatMilk.Backend.Api.Modules.Users.Domain
             _mapper = mapper;
         }
 
-        public UserResponse GetUser(ObjectId userId)
+        public Task<UserResponse> GetByIdAsync(ObjectId userId)
         {
             var user = _repository.Get().FirstOrDefault(u => userId == u.Id);
             if (user == null) // Email check
             {
                 throw new ArgumentException("User could not be found.", nameof(userId));
             }
-            
-            return _mapper.Map<User, UserResponse>(user); 
+
+            var result = _mapper.Map<User, UserResponse>(user);
+            return Task.FromResult(result); 
         }
 
-        public UserAuthTokenResponse Login(UserLoginRequest request)
+        public Task<UserAuthTokenResponse> LoginAsync(UserLoginRequest request)
         {
             var user = _repository.Get().FirstOrDefault(u => request.Email.ToLower() == u.Email.ToLower());
             
@@ -52,13 +53,14 @@ namespace OatMilk.Backend.Api.Modules.Users.Domain
             }
 
             // Create token for user
-            return new UserAuthTokenResponse()
+            var result = new UserAuthTokenResponse()
             {
                 AuthToken = JWTHelper.GenerateToken(_configuration, user.Id)
             };
+            return Task.FromResult(result);
         }
 
-        public async Task<UserAuthTokenResponse> Register(UserRequest request)
+        public async Task<UserAuthTokenResponse> RegisterAsync(UserRequest request)
         {
             if(_repository.Get().Any(u => request.Email.ToLower() == u.Email.ToLower()))
             {
@@ -82,9 +84,9 @@ namespace OatMilk.Backend.Api.Modules.Users.Domain
             };
         }
 
-        public bool UserExistsById(ObjectId userId)
+        public Task<bool> UserExistsByIdAsync(ObjectId userId)
         {
-            return _repository.Get().Any(user => user.Id == userId);
+            return 6_repository.Get().Any(user => user.Id == userId);
         }
     }
 }

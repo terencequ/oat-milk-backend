@@ -20,7 +20,7 @@ namespace OatMilk.Backend.Api.Modules.Core.Security.Handlers
         {
             bool ValidUserIdPredicate(Claim c)
             {
-                return c.Type == JWTClaimTypes.UserId && _userService.UserExistsById(ObjectId.Parse(c.Value));
+                return c.Type == JWTClaimTypes.UserId && _userService.UserExistsByIdAsync(ObjectId.Parse(c.Value));
             }
 
             if (context.User.HasClaim(ValidUserIdPredicate))

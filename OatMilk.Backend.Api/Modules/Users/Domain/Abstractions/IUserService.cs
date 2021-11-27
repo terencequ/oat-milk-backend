@@ -11,14 +11,14 @@ namespace OatMilk.Backend.Api.Modules.Users.Domain.Abstractions
         /// Get user profile.
         /// </summary>
         /// <returns></returns>
-        UserResponse GetUser(ObjectId userId);
+        Task<UserResponse> GetByIdAsync(ObjectId userId);
 
         /// <summary>
         /// Login to a user account.
         /// </summary>
         /// <param name="request"></param>
         /// <returns>Auth JWT to use for other endpoints.</returns>
-        UserAuthTokenResponse Login(UserLoginRequest request);
+        Task<UserAuthTokenResponse> LoginAsync(UserLoginRequest request);
 
         /// <summary>
         /// Register a new user account.
@@ -26,13 +26,13 @@ namespace OatMilk.Backend.Api.Modules.Users.Domain.Abstractions
         /// </summary>
         /// <param name="request"></param>
         /// <returns>Auth JWT to use for other endpoints.</returns>
-        Task<UserAuthTokenResponse> Register(UserRequest request);
+        Task<UserAuthTokenResponse> RegisterAsync(UserRequest request);
 
         /// <summary>
         /// Check if a user of id <paramref name="userId"/> exists.
         /// </summary>
         /// <param name="userId">Id of user</param>
         /// <returns>True if user exists, false otherwise.</returns>
-        bool UserExistsById(ObjectId userId);
+        Task<bool> UserExistsByIdAsync(ObjectId userId);
     }
 }

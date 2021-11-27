@@ -9,6 +9,14 @@ using OatMilk.Backend.Api.Modules.Users.Domain.Automapper;
 
 namespace OatMilk.Backend.Api.Modules.Users
 {
+    /// <summary>
+    /// This Module represents:
+    /// - Registering as a user.
+    /// - Logging in as a user.
+    /// - Managing your own user info.
+    /// - User auth.
+    /// - Managing users as an admin.
+    /// </summary>
     public class UserModule : Module
     {
         public UserModule(IServiceCollection serviceCollection, IMongoDatabase database) : base(serviceCollection, database)

@@ -34,7 +34,7 @@ namespace OatMilk.Backend.Api.Modules.Users.Api
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public ActionResult<UserAuthTokenResponse> Login([FromBody] UserLoginRequest request)
         {
-            return _userService.Login(request);
+            return _userService.LoginAsync(request);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace OatMilk.Backend.Api.Modules.Users.Api
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserAuthTokenResponse>> Register([FromBody] UserRequest request)
         {
-            return await _userService.Register(request);
+            return await _userService.RegisterAsync(request);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace OatMilk.Backend.Api.Modules.Users.Api
         public ActionResult<UserResponse> GetProfile()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            return _userService.GetUser(identity.GetUserIdOrDefault().GetValueOrDefault());
+            return _userService.GetByIdAsync(identity.GetUserIdOrDefault().GetValueOrDefault());
         }
     }
 }
