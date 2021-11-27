@@ -84,9 +84,10 @@ namespace OatMilk.Backend.Api.Modules.Users.Domain
             };
         }
 
-        public Task<bool> UserExistsByIdAsync(ObjectId userId)
+        public Task<bool> ExistsByIdAsync(ObjectId userId)
         {
-            return 6_repository.Get().Any(user => user.Id == userId);
+            var result = _repository.Get().Any(user => user.Id == userId);
+            return Task.FromResult(result);
         }
     }
 }

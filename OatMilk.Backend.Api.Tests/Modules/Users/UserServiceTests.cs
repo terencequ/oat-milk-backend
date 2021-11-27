@@ -23,33 +23,35 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
             }
         }
         
-        #region GetUser
+        #region GetByIdAsync
 
         [Test]
-        public void GetUser_ValidId_ShouldReturnUserProfile()
+        public async Task GetByIdAsync_ValidId_ShouldReturnUserProfile()
         {
             var expectedId = ObjectId.GenerateNewId();
             var sut = new Fixture(new User(){Id = expectedId}, new User(){Id = ObjectId.GenerateNewId()})
                 .GetSut();
             
-            var result = sut.GetByIdAsync(expectedId);
+            var result = await sut.GetByIdAsync(expectedId);
             Assert.AreEqual(expectedId.ToString(), result.Id);
         }
 
         [Test]
-        public void GetUser_Invalid_ShouldThrowArgumentException()
+        public void GetByIdAsync_Invalid_ShouldThrowArgumentException()
         {
             var sut = new Fixture() // Empty user list
                 .GetSut();
-            Assert.Throws<ArgumentException>(()=> sut.GetByIdAsync(ObjectId.GenerateNewId()));
+
+            async void Code() => await sut.GetByIdAsync(ObjectId.GenerateNewId());
+            Assert.Throws<ArgumentException>(Code);
         }
 
         #endregion
 
-        #region Login
+        #region LoginAsync
 
         [Test]
-        public void Login_Valid_ShouldReturnJWT()
+        public async Task LoginAsync_Valid_ShouldReturnJWT()
         {
             const string expectedEmail = "test@test.com";
             const string expectedPassword = "Password12";
@@ -62,7 +64,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
                         Password = SecurePasswordHasher.Hash(expectedPassword)
                     })
                 .GetSut();
-            var result = sut.LoginAsync(
+            var result = await sut.LoginAsync(
                 new UserLoginRequest()
                 {
                     Email = expectedEmail, 
@@ -72,7 +74,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
         }
         
         [Test]
-        public void Login_InvalidEmail_ShouldThrowArgumentExceptionWithEmailParamName()
+        public void LoginAsync_InvalidEmail_ShouldThrowArgumentExceptionWithEmailParamName()
         {
             var sut = new Fixture(
                     new User()
@@ -92,26 +94,27 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
         }
         
         [Test]
-        public void Login_InvalidPassword_ShouldThrowArgumentExceptionWithPasswordParamName()
+        public void LoginAsync_InvalidPassword_ShouldThrowArgumentExceptionWithPasswordParamName()
         {
             const string expectedEmail = "test@test.com";
             var sut = new Fixture(new User(){ Id = ObjectId.GenerateNewId(), Email = expectedEmail, Password = SecurePasswordHasher.Hash("wrong")})
                 .GetSut();
-            var exception = Assert.Throws<ArgumentException>(()=> sut.LoginAsync(
-                new UserLoginRequest()
-                {
-                    Email = expectedEmail, 
-                    Password = SecurePasswordHasher.Hash("wrongpassword")
-                }));
+
+            async void Code() => await sut.LoginAsync(new UserLoginRequest()
+            {
+                Email = expectedEmail, 
+                Password = SecurePasswordHasher.Hash("wrongpassword")
+            });
+            var exception = Assert.Throws<ArgumentException>(Code);
             Assert.AreEqual("Password", exception?.ParamName);
         }
         
         #endregion
 
-        #region Register
+        #region RegisterAsync
 
         [Test]
-        public async Task Register_Valid_ShouldReturnJWT()
+        public async Task RegisterAsync_Valid_ShouldReturnJWT()
         {
             const string expectedDisplayName = "test123";
             const string expectedEmail = "test@test.com";
@@ -129,7 +132,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
         }
         
         [Test]
-        public void Register_EmailAlreadyExists_ShouldThrowArgumentExceptionWithEmailParamName()
+        public void RegisterAsync_EmailAlreadyExists_ShouldThrowArgumentExceptionWithEmailParamName()
         {
             const string expectedDisplayName = "test123";
             const string expectedEmail = "test@test.com";
@@ -150,22 +153,22 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
 
         #endregion
 
-        #region UserExistsById
+        #region ExistsByIdAsync
 
         [Test]
-        public void UserExistsById_UserExists_ShouldReturnTrue()
+        public async Task ExistsByIdAsync_UserExists_ShouldReturnTrue()
         {
             var expectedId = ObjectId.GenerateNewId();
             var sut = new Fixture(new User(){Id = expectedId}).GetSut();
-            var result = sut.UserExistsByIdAsync(expectedId);
+            var result = await sut.ExistsByIdAsync(expectedId);
             Assert.IsTrue(result);
         }
         
         [Test]
-        public void UserExistsById_UserDoesntExists_ShouldReturnFalse()
+        public async Task ExistsByIdAsync_UserDoesntExists_ShouldReturnFalse()
         {
             var sut = new Fixture(new User(){Id = ObjectId.GenerateNewId()}).GetSut();
-            var result = sut.UserExistsByIdAsync(ObjectId.GenerateNewId());
+            var result = await sut.ExistsByIdAsync(ObjectId.GenerateNewId());
             Assert.IsFalse(result);
         }
         

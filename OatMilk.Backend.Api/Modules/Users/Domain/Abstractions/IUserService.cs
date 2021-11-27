@@ -33,6 +33,6 @@ namespace OatMilk.Backend.Api.Modules.Users.Domain.Abstractions
         /// </summary>
         /// <param name="userId">Id of user</param>
         /// <returns>True if user exists, false otherwise.</returns>
-        Task<bool> UserExistsByIdAsync(ObjectId userId);
+        Task<bool> ExistsByIdAsync(ObjectId userId);
     }
 }
