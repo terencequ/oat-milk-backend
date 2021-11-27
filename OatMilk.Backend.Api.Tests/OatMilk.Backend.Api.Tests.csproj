@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Characters" />
     <Folder Include="Shared\Domain" />
   </ItemGroup>
 

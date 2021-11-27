@@ -88,7 +88,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
                     Email = "test@test.com", 
                     Password = SecurePasswordHasher.Hash("Test123456")
                 }));
-            Assert.AreEqual("Email", exception.ParamName);
+            Assert.AreEqual("Email", exception?.ParamName);
         }
         
         [Test]
@@ -103,7 +103,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
                     Email = expectedEmail, 
                     Password = SecurePasswordHasher.Hash("wrongpassword")
                 }));
-            Assert.AreEqual("Password", exception.ParamName);
+            Assert.AreEqual("Password", exception?.ParamName);
         }
         
         #endregion
@@ -145,7 +145,7 @@ namespace OatMilk.Backend.Api.Tests.Modules.Users
                     Password = expectedPassword
                 }));
             
-            Assert.AreEqual("Email", exception.ParamName);
+            Assert.AreEqual("Email", exception?.ParamName);
         }
 
         #endregion
