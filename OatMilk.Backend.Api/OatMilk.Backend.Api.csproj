@@ -19,10 +19,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
   </ItemGroup>
 
-  <Target Name="Generate OpenAPI" BeforeTargets="BeforeBuild">
-    <Exec Command="generate-openapi.sh" /> 
-  </Target>
-
   <ItemGroup>
     <Folder Include="Modules\Shared\Data" />
   </ItemGroup>
