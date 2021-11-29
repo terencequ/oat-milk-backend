@@ -62,7 +62,13 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                     {
                         Id = spell.Id,
                         Name = spell.Name,
-                        Description = spell.Description
+                        Description = spell.Description,
+                        Level = spell.Level,
+                        CastingTime = spell.CastingTime,
+                        RangeOrArea = spell.RangeOrArea,
+                        Components = spell.Components,
+                        Duration = spell.Duration,
+                        School = spell.School
                     }).ToList()
             };
         }
