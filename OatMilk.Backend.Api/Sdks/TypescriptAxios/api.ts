@@ -495,6 +495,42 @@ export interface CharacterSpellRequest {
      * @memberof CharacterSpellRequest
      */
     description?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSpellRequest
+     */
+    level?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellRequest
+     */
+    castingTime?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellRequest
+     */
+    rangeOrArea?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellRequest
+     */
+    components?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellRequest
+     */
+    duration?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellRequest
+     */
+    school?: string | null;
 }
 /**
  * 
@@ -520,6 +556,42 @@ export interface CharacterSpellResponse {
      * @memberof CharacterSpellResponse
      */
     description: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSpellResponse
+     */
+    level: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellResponse
+     */
+    castingTime: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellResponse
+     */
+    rangeOrArea: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellResponse
+     */
+    components: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellResponse
+     */
+    duration: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellResponse
+     */
+    school: string;
 }
 /**
  * 

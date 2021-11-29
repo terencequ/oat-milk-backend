@@ -71,6 +71,12 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
         [Required] public string Id { get; set; }
         [Required] public string Name { get; set; }
         [Required] public string Description { get; set; }
+        [Required] public int Level { get; set; }
+        [Required] public string CastingTime { get; set; }
+        [Required] public string RangeOrArea { get; set; }
+        [Required] public string Components { get; set; }
+        [Required] public string Duration { get; set; }
+        [Required] public string School { get; set; }
     }
 
     #endregion

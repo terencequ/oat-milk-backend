@@ -1105,15 +1105,45 @@
           "description": {
             "type": "string",
             "nullable": true
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "castingTime": {
+            "type": "string",
+            "nullable": true
+          },
+          "rangeOrArea": {
+            "type": "string",
+            "nullable": true
+          },
+          "components": {
+            "type": "string",
+            "nullable": true
+          },
+          "duration": {
+            "type": "string",
+            "nullable": true
+          },
+          "school": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
       "CharacterSpellResponse": {
         "required": [
+          "castingTime",
+          "components",
           "description",
+          "duration",
           "id",
-          "name"
+          "level",
+          "name",
+          "rangeOrArea",
+          "school"
         ],
         "type": "object",
         "properties": {
@@ -1124,6 +1154,25 @@
             "type": "string"
           },
           "description": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "castingTime": {
+            "type": "string"
+          },
+          "rangeOrArea": {
+            "type": "string"
+          },
+          "components": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "school": {
             "type": "string"
           }
         },

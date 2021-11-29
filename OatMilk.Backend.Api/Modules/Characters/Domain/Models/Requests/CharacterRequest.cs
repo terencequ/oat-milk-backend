@@ -106,5 +106,11 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
         [MaxLength(DataConstants.MaxLengthName)]
         public string Name { get; set; }
         public string Description { get; set; }
+        public int Level { get; set; }
+        public string CastingTime { get; set; }
+        public string RangeOrArea { get; set; }
+        public string Components { get; set; }
+        public string Duration { get; set; }
+        public string School { get; set; }
     }
 }
