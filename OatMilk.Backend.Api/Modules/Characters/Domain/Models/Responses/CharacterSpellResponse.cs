@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
+using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Responses;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells
+namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
 {
     /// <summary>
     /// Character spell response DTO.
@@ -12,10 +13,10 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells
         [Required] public string Name { get; set; }
         [Required] public string Description { get; set; }
         [Required] public int Level { get; set; }
-        [Required] public string CastingTime { get; set; }
-        [Required] public string RangeOrArea { get; set; }
-        [Required] public CharacterSpellComponentsResponse Components { get; set; }
-        [Required] public CharacterSpellDurationResponse Duration { get; set; }
+        [Required] public SpellCastingTimeResponse CastingTime { get; set; }
+        [Required] public SpellRangeResponse Range { get; set; }
+        [Required] public SpellComponentsResponse Components { get; set; }
+        [Required] public SpellDurationResponse Duration { get; set; }
         [Required] public SpellSchool School { get; set; }
     }
 }

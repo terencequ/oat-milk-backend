@@ -9,10 +9,9 @@ using NUnit.Framework;
 using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
-using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests.Spells;
-using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells;
 using OatMilk.Backend.Api.Modules.Shared.Pagination;
 using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
+using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Requests;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
 
 namespace OatMilk.Backend.Api.Tests.Modules.Characters
@@ -152,14 +151,14 @@ namespace OatMilk.Backend.Api.Tests.Modules.Characters
                     Description = "This is a spell",
                     Name = "Spell 1",
                     ShouldCreateNewId = false,
-                    Duration = new CharacterSpellDurationRequest()
+                    Duration = new SpellDurationRequest()
                     {
                         Value = 1,
                         Type = SpellDurationType.Action,
                         Description = null,
                     },
                     School = SpellSchool.Divination,
-                    Components = new CharacterSpellComponentsRequest()
+                    Components = new SpellComponentsRequest()
                     {
                         Verbal = true,
                         Somatic = true,

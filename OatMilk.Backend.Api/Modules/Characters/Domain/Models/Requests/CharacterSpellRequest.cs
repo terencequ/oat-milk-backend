@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using OatMilk.Backend.Api.Configuration;
-using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells;
 using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
 using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
+using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Requests;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests.Spells
+namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
 {
     /// <summary>
     /// Request model for spell creation.
@@ -28,10 +28,10 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests.Spells
         public string Name { get; set; }
         public string Description { get; set; }
         public int Level { get; set; }
-        public string CastingTime { get; set; }
-        public string RangeOrArea { get; set; }
-        public CharacterSpellComponentsRequest Components { get; set; }
-        public CharacterSpellDurationRequest Duration { get; set; }
+        public SpellCastingTimeRequest CastingTime { get; set; }
+        public string Range { get; set; }
+        public SpellComponentsRequest Components { get; set; }
+        public SpellDurationRequest Duration { get; set; }
         public SpellSchool School { get; set; }
     }
 }

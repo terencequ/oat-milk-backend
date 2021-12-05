@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells
+namespace OatMilk.Backend.Api.Modules.Spells.Domain.Models.Responses
 {
-    public class CharacterSpellComponentsResponse
+    public class SpellComponentsResponse
     {
         [Required] public bool Verbal { get; set; }
         [Required] public string VerbalDescription { get; set; }

@@ -1,6 +1,6 @@
-﻿namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests.Spells
+﻿namespace OatMilk.Backend.Api.Modules.Spells.Domain.Models.Requests
 {
-    public class CharacterSpellComponentsRequest
+    public class SpellComponentsRequest
     {
         public bool Verbal { get; set; }
         public string VerbalDescription { get; set; }

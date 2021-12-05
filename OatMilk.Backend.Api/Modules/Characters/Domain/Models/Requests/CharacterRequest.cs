@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using OatMilk.Backend.Api.Configuration;
-using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests.Spells;
 using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
+using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Requests;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
 {

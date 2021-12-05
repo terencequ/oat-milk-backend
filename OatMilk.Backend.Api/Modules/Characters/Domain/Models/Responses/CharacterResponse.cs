@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using OatMilk.Backend.Api.Modules.Characters.Data;
-using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells;
+using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Responses;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
 {

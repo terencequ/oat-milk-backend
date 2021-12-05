@@ -2,9 +2,9 @@
 using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Helpers;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
-using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells;
 using OatMilk.Backend.Api.Modules.Shared.Domain.Helpers;
 using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
+using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Responses;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
 {
@@ -66,9 +66,21 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                         Name = spell.Name,
                         Description = spell.Description,
                         Level = spell.Level,
-                        CastingTime = spell.CastingTime,
-                        RangeOrArea = spell.RangeOrArea,
-                        Components = new CharacterSpellComponentsResponse()
+                        CastingTime = new SpellCastingTimeResponse()
+                        {
+                            Value = spell.CastingTime?.Value ?? 0,
+                            Type = spell.CastingTime?.Type ?? SpellCastingTimeType.Unspecified,
+                            IsRitual = spell.CastingTime?.IsRitual ?? false,
+                            Description = spell.CastingTime?.Description
+                        },
+                        Range = new SpellRangeResponse()
+                        {
+                            TargetValue = spell.Range?.TargetValue ?? 0,
+                            TargetType = spell.Range?.TargetType ?? SpellRangeTargetType.Ranged,
+                            EffectValue = spell.Range?.EffectValue ?? 0,
+                            EffectType = spell.Range?.EffectType ?? SpellRangeEffectType.Target,
+                        },
+                        Components = new SpellComponentsResponse()
                         {
                             Verbal = spell.Components?.Verbal ?? false,
                             VerbalDescription = spell.Components?.VerbalDescription,
@@ -77,7 +89,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                             Material = spell.Components?.Material ?? false,
                             MaterialDescription = spell.Components?.MaterialDescription,
                         },
-                        Duration = new CharacterSpellDurationResponse()
+                        Duration = new SpellDurationResponse()
                         {
                             Value = spell.Duration?.Value ?? 0,
                             Type = spell.Duration?.Type ?? SpellDurationType.Unspecified,

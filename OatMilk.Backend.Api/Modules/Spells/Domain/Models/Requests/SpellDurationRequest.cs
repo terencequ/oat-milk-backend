@@ -1,8 +1,8 @@
 ﻿using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
 
-namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells
+namespace OatMilk.Backend.Api.Modules.Spells.Domain.Models.Requests
 {
-    public class CharacterSpellDurationResponse
+    public class SpellDurationRequest
     {
         public int Value { get; set; }
         public SpellDurationType Type { get; set; }
