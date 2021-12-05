@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using OatMilk.Backend.Api.Modules.Characters.Data;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
 {
+    /// <summary>
+    /// Character response DTO.
+    /// </summary>
     public class CharacterResponse
     {
         [Required] public string Id { get; set; }
@@ -18,66 +22,4 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
         [Required] public List<CharacterDescriptionResponse> Descriptions { get; set; }
         [Required] public List<CharacterSpellResponse> Spells { get; set; }
     }
-
-    #region Calculated responses
-
-    public class CharacterLevelResponse
-    {
-        [Required] public int Number { get; set; }
-        [Required] public int Experience { get; set; }
-        [Required] public int CurrentLevelExperienceRequirement { get; set; }
-        [Required] public int NextLevelExperienceRequirement { get; set; }
-    }
-
-    #endregion
-    
-    #region Responses that mirror database structure
-    
-    public class CharacterAttributeResponse
-    {
-        [Required] public string Id { get; set; }
-        [Required] public string Name { get; set; }
-        [Required] public int CurrentValue { get; set; }
-        [Required] public int DefaultValue { get; set; }
-    }
-    
-    public class CharacterDescriptionResponse
-    {
-        [Required] public string Id { get; set; }
-        [Required] public string Name { get; set; }
-        [Required] public string Value { get; set; }
-    }
-    
-    public class CharacterAbilityScoreResponse
-    {
-        [Required] public string Id { get; set; }
-        [Required] public string Name { get; set; }
-        [Required] public int Value { get; set; }
-        [Required] public bool Proficient { get; set; }
-        [Required] public bool Expertise { get; set; }
-        [Required] public List<CharacterAbilityScoreProficiencyResponse> Proficiencies { get; set; }
-    }
-
-    public class CharacterAbilityScoreProficiencyResponse
-    {
-        [Required] public string Id { get; set; }
-        [Required] public string Name { get; set; }
-        [Required] public bool Proficient { get; set; }
-        [Required] public bool Expertise { get; set; }
-    }
-
-    public class CharacterSpellResponse
-    {
-        [Required] public string Id { get; set; }
-        [Required] public string Name { get; set; }
-        [Required] public string Description { get; set; }
-        [Required] public int Level { get; set; }
-        [Required] public string CastingTime { get; set; }
-        [Required] public string RangeOrArea { get; set; }
-        [Required] public string Components { get; set; }
-        [Required] public string Duration { get; set; }
-        [Required] public string School { get; set; }
-    }
-
-    #endregion
 }

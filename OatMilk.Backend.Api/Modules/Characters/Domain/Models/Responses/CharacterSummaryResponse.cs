@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
 {
+    /// <summary>
+    /// A summarised character DTO used for the display of a character list.
+    /// </summary>
     public class CharacterSummaryResponse
     {
         [Required] public string Id { get; set; }

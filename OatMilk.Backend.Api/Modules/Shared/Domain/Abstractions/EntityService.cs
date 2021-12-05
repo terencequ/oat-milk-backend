@@ -8,6 +8,12 @@ using OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction;
 
 namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
 {
+    /// <summary>
+    /// Base service class for manipulating entities.
+    /// </summary>
+    /// <typeparam name="TRequest"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TResponse"></typeparam>
     public class EntityService<TRequest, TEntity, TResponse> : IEntityService<TRequest, TResponse>
         where TEntity : IEntity
     {

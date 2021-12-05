@@ -59,7 +59,7 @@ export interface CharacterAbilityScoreProficiencyRequest {
     expertise?: boolean;
 }
 /**
- * 
+ * Character ability score proficiency response DTO.
  * @export
  * @interface CharacterAbilityScoreProficiencyResponse
  */
@@ -127,7 +127,7 @@ export interface CharacterAbilityScoreRequest {
     expertise?: boolean;
 }
 /**
- * 
+ * Character ability score response DTO.
  * @export
  * @interface CharacterAbilityScoreResponse
  */
@@ -201,7 +201,7 @@ export interface CharacterAttributeRequest {
     defaultValue?: number;
 }
 /**
- * 
+ * Character attribute response DTO.
  * @export
  * @interface CharacterAttributeResponse
  */
@@ -257,7 +257,7 @@ export interface CharacterDescriptionRequest {
     value?: string | null;
 }
 /**
- * 
+ * Character description response model.
  * @export
  * @interface CharacterDescriptionResponse
  */
@@ -282,7 +282,7 @@ export interface CharacterDescriptionResponse {
     value: string;
 }
 /**
- * 
+ * This is a summary of a character\'s experience, along with some values calculated from that.
  * @export
  * @interface CharacterLevelResponse
  */
@@ -356,7 +356,7 @@ export interface CharacterRequest {
     spells?: Array<CharacterSpellRequest> | null;
 }
 /**
- * 
+ * Character response DTO.
  * @export
  * @interface CharacterResponse
  */
@@ -474,15 +474,157 @@ export interface CharacterResponsePageResponse {
 /**
  * 
  * @export
+ * @interface CharacterSpellComponentsRequest
+ */
+export interface CharacterSpellComponentsRequest {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterSpellComponentsRequest
+     */
+    verbal?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellComponentsRequest
+     */
+    verbalDescription?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterSpellComponentsRequest
+     */
+    somatic?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellComponentsRequest
+     */
+    somaticDescription?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterSpellComponentsRequest
+     */
+    material?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellComponentsRequest
+     */
+    materialDescription?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterSpellComponentsResponse
+ */
+export interface CharacterSpellComponentsResponse {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterSpellComponentsResponse
+     */
+    verbal: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellComponentsResponse
+     */
+    verbalDescription: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterSpellComponentsResponse
+     */
+    somatic: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellComponentsResponse
+     */
+    somaticDescription: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CharacterSpellComponentsResponse
+     */
+    material: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellComponentsResponse
+     */
+    materialDescription: string;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterSpellDurationRequest
+ */
+export interface CharacterSpellDurationRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSpellDurationRequest
+     */
+    value?: number;
+    /**
+     * 
+     * @type {SpellDurationType}
+     * @memberof CharacterSpellDurationRequest
+     */
+    type?: SpellDurationType;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellDurationRequest
+     */
+    description?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface CharacterSpellDurationResponse
+ */
+export interface CharacterSpellDurationResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CharacterSpellDurationResponse
+     */
+    value?: number;
+    /**
+     * 
+     * @type {SpellDurationType}
+     * @memberof CharacterSpellDurationResponse
+     */
+    type?: SpellDurationType;
+    /**
+     * 
+     * @type {string}
+     * @memberof CharacterSpellDurationResponse
+     */
+    description?: string | null;
+}
+/**
+ * Request model for spell creation.
+ * @export
  * @interface CharacterSpellRequest
  */
 export interface CharacterSpellRequest {
     /**
-     * 
+     * Id of existing spell, or nominal id of new spell.
      * @type {string}
      * @memberof CharacterSpellRequest
      */
     id: string;
+    /**
+     * Ticked if a new id should be auto-generated for this spell.
+     * @type {boolean}
+     * @memberof CharacterSpellRequest
+     */
+    shouldCreateNewId?: boolean;
     /**
      * 
      * @type {string}
@@ -515,25 +657,25 @@ export interface CharacterSpellRequest {
     rangeOrArea?: string | null;
     /**
      * 
-     * @type {string}
+     * @type {CharacterSpellComponentsRequest}
      * @memberof CharacterSpellRequest
      */
-    components?: string | null;
+    components?: CharacterSpellComponentsRequest;
     /**
      * 
-     * @type {string}
+     * @type {CharacterSpellDurationRequest}
      * @memberof CharacterSpellRequest
      */
-    duration?: string | null;
+    duration?: CharacterSpellDurationRequest;
     /**
      * 
-     * @type {string}
+     * @type {SpellSchool}
      * @memberof CharacterSpellRequest
      */
-    school?: string | null;
+    school?: SpellSchool;
 }
 /**
- * 
+ * Character spell response DTO.
  * @export
  * @interface CharacterSpellResponse
  */
@@ -576,25 +718,25 @@ export interface CharacterSpellResponse {
     rangeOrArea: string;
     /**
      * 
-     * @type {string}
+     * @type {CharacterSpellComponentsResponse}
      * @memberof CharacterSpellResponse
      */
-    components: string;
+    components: CharacterSpellComponentsResponse;
     /**
      * 
-     * @type {string}
+     * @type {CharacterSpellDurationResponse}
      * @memberof CharacterSpellResponse
      */
-    duration: string;
+    duration: CharacterSpellDurationResponse;
     /**
      * 
-     * @type {string}
+     * @type {SpellSchool}
      * @memberof CharacterSpellResponse
      */
-    school: string;
+    school: SpellSchool;
 }
 /**
- * 
+ * A summarised character DTO used for the display of a character list.
  * @export
  * @interface CharacterSummaryResponse
  */
@@ -788,6 +930,44 @@ export interface ErrorResponse {
      */
     stackTrace?: string | null;
 }
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+export enum SpellDurationType {
+    Unspecified = 'Unspecified',
+    Seconds = 'Seconds',
+    Minutes = 'Minutes',
+    Hours = 'Hours',
+    Days = 'Days',
+    Weeks = 'Weeks',
+    Months = 'Months',
+    Years = 'Years',
+    Action = 'Action',
+    Round = 'Round',
+    Instantaneous = 'Instantaneous',
+    UntilDispelled = 'UntilDispelled',
+    UntilDispelledOrTriggered = 'UntilDispelledOrTriggered',
+    Special = 'Special'
+}
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+export enum SpellSchool {
+    Abjuration = 'Abjuration',
+    Alteration = 'Alteration',
+    Conjuration = 'Conjuration',
+    Divination = 'Divination',
+    Enchantment = 'Enchantment',
+    Illusion = 'Illusion',
+    Invocation = 'Invocation',
+    Necromancy = 'Necromancy'
+}
+
 /**
  * JWT Token DTO.  Passed as a response when they login or register.   Will contain the JWT token that is used to authenticate with the backend.
  * @export

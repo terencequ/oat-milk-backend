@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests.Spells;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells;
 using OatMilk.Backend.Api.Modules.Shared.Pagination;
+using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
 using OatMilk.Backend.Api.Tests.TestingHelpers;
 
 namespace OatMilk.Backend.Api.Tests.Modules.Characters
@@ -140,10 +144,55 @@ namespace OatMilk.Backend.Api.Tests.Modules.Characters
             var expectedUserId = ObjectId.GenerateNewId(); 
             
             var sut = new Fixture(expectedUserId).GetSut();
-            var character = await sut.CreateAsync(new CharacterRequest(){ Name = "Test", Spells = new List<CharacterSpellRequest>() { new () {Id = "Spell 1"} } });
+            var character = await sut.CreateAsync(new CharacterRequest(){ Name = "Test", Spells = new List<CharacterSpellRequest>()
+            {
+                new ()
+                {
+                    Id = "spell1",
+                    Description = "This is a spell",
+                    Name = "Spell 1",
+                    ShouldCreateNewId = false,
+                    Duration = new CharacterSpellDurationRequest()
+                    {
+                        Value = 1,
+                        Type = SpellDurationType.Action,
+                        Description = null,
+                    },
+                    School = SpellSchool.Divination,
+                    Components = new CharacterSpellComponentsRequest()
+                    {
+                        Verbal = true,
+                        Somatic = true,
+                        Material = true,
+                    }
+                }
+            } });
             
-            Console.WriteLine(JsonConvert.SerializeObject(character, Formatting.Indented));
+            Console.WriteLine(JsonConvert.SerializeObject(character.Spells, Formatting.Indented));
             Assert.AreEqual(1, character.Spells.Count());
+            Assert.IsNotNull(character.Spells[0].Components);
+            Assert.IsNotNull(character.Spells[0].Duration);
+        }
+        
+        [Test]
+        public async Task CreateAsync_RequestWithSpellWithGenerateId_ReturnsCharacterWithSpellWithNewId()
+        {
+            var expectedUserId = ObjectId.GenerateNewId(); 
+            
+            var sut = new Fixture(expectedUserId).GetSut();
+            var character = await sut.CreateAsync(new CharacterRequest(){ Name = "Test", Spells = new List<CharacterSpellRequest>()
+            {
+                new ()
+                {
+                    Id = "spell1",
+                    Name = "Spell 1",
+                    Description = "This is a spell",
+                    ShouldCreateNewId = true,
+                }
+            } });
+            
+            Console.WriteLine(JsonConvert.SerializeObject(character.Spells, Formatting.Indented));
+            Assert.IsTrue(!character.Spells[0].Id.IsNullOrEmpty());
         }
 
         #endregion

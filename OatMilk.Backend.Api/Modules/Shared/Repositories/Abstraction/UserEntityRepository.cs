@@ -54,19 +54,7 @@ namespace OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction
             entity.CreatedDateTimeUtc = DateTime.UtcNow;
             entity.UpdatedDateTimeUtc = DateTime.UtcNow;
             entity.Id = entity.Id == ObjectId.Empty ? ObjectId.GenerateNewId() : entity.Id;
-            
-            // Insert ID and check dupe
-            var success = false;
-            for (var i = 0; i < IdGenerationAttempts; i++)
-            { 
-                entity.Identifier = RandomIdGenerator.GetBase36(IdLength);
-                if (!EntityCollection.AsQueryable().Any(e => e.Identifier == entity.Identifier))
-                {
-                    success = true; // no dupes, break
-                    break;
-                }
-            }
-            if (!success) { throw new Exception("Id could not be successfully inserted! Somehow we are running out of Id's!"); }
+            entity.Identifier = RandomIdGenerator.GetBase36(EntityCollection.AsQueryable(), e => e.Identifier);
 
             return base.AddAsync(entity);
         }

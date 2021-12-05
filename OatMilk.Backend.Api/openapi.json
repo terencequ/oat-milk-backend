@@ -744,7 +744,8 @@
             "type": "boolean"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Character ability score proficiency response DTO."
       },
       "CharacterAbilityScoreRequest": {
         "required": [
@@ -809,7 +810,8 @@
             }
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Character ability score response DTO."
       },
       "CharacterAttributeRequest": {
         "required": [
@@ -862,7 +864,8 @@
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Character attribute response DTO."
       },
       "CharacterDescriptionRequest": {
         "required": [
@@ -905,7 +908,8 @@
             "type": "string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Character description response model."
       },
       "CharacterLevelResponse": {
         "required": [
@@ -933,7 +937,8 @@
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "This is a summary of a character's experience, along with some values calculated from that."
       },
       "CharacterRequest": {
         "required": [
@@ -1049,7 +1054,8 @@
             }
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Character response DTO."
       },
       "CharacterResponsePageResponse": {
         "type": "object",
@@ -1086,6 +1092,99 @@
         },
         "additionalProperties": false
       },
+      "CharacterSpellComponentsRequest": {
+        "type": "object",
+        "properties": {
+          "verbal": {
+            "type": "boolean"
+          },
+          "verbalDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "somatic": {
+            "type": "boolean"
+          },
+          "somaticDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "material": {
+            "type": "boolean"
+          },
+          "materialDescription": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CharacterSpellComponentsResponse": {
+        "required": [
+          "material",
+          "materialDescription",
+          "somatic",
+          "somaticDescription",
+          "verbal",
+          "verbalDescription"
+        ],
+        "type": "object",
+        "properties": {
+          "verbal": {
+            "type": "boolean"
+          },
+          "verbalDescription": {
+            "type": "string"
+          },
+          "somatic": {
+            "type": "boolean"
+          },
+          "somaticDescription": {
+            "type": "string"
+          },
+          "material": {
+            "type": "boolean"
+          },
+          "materialDescription": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CharacterSpellDurationRequest": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SpellDurationType"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CharacterSpellDurationResponse": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SpellDurationType"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CharacterSpellRequest": {
         "required": [
           "id"
@@ -1095,7 +1194,12 @@
           "id": {
             "maxLength": 64,
             "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "description": "Id of existing spell, or nominal id of new spell."
+          },
+          "shouldCreateNewId": {
+            "type": "boolean",
+            "description": "Ticked if a new id should be auto-generated for this spell."
           },
           "name": {
             "maxLength": 64,
@@ -1119,19 +1223,17 @@
             "nullable": true
           },
           "components": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/CharacterSpellComponentsRequest"
           },
           "duration": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/CharacterSpellDurationRequest"
           },
           "school": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/SpellSchool"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Request model for spell creation."
       },
       "CharacterSpellResponse": {
         "required": [
@@ -1167,16 +1269,17 @@
             "type": "string"
           },
           "components": {
-            "type": "string"
+            "$ref": "#/components/schemas/CharacterSpellComponentsResponse"
           },
           "duration": {
-            "type": "string"
+            "$ref": "#/components/schemas/CharacterSpellDurationResponse"
           },
           "school": {
-            "type": "string"
+            "$ref": "#/components/schemas/SpellSchool"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Character spell response DTO."
       },
       "CharacterSummaryResponse": {
         "required": [
@@ -1268,7 +1371,8 @@
             "type": "string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "A summarised character DTO used for the display of a character list."
       },
       "CharacterSummaryResponsePageResponse": {
         "type": "object",
@@ -1322,6 +1426,38 @@
           }
         },
         "additionalProperties": false
+      },
+      "SpellDurationType": {
+        "enum": [
+          "Unspecified",
+          "Seconds",
+          "Minutes",
+          "Hours",
+          "Days",
+          "Weeks",
+          "Months",
+          "Years",
+          "Action",
+          "Round",
+          "Instantaneous",
+          "UntilDispelled",
+          "UntilDispelledOrTriggered",
+          "Special"
+        ],
+        "type": "string"
+      },
+      "SpellSchool": {
+        "enum": [
+          "Abjuration",
+          "Alteration",
+          "Conjuration",
+          "Divination",
+          "Enchantment",
+          "Illusion",
+          "Invocation",
+          "Necromancy"
+        ],
+        "type": "string"
       },
       "UserAuthTokenResponse": {
         "type": "object",

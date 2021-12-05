@@ -8,8 +8,10 @@ using Humanizer;
 using MongoDB.Bson;
 using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests.Spells;
 using OatMilk.Backend.Api.Modules.Shared.Domain.Helpers;
 using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
+using OatMilk.Backend.Api.Modules.Shared.Identifier;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
 {
@@ -67,14 +69,8 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
             WithAbilityScore(Intelligence);
             WithAbilityScore(Wisdom);
             WithAbilityScore(Charisma);
-            
-            _character.AbilityScores.UpdateWithRequests(requests,
-                (e, r) =>
-                {
-                    e ??= new CharacterAbilityScore();
-                    _mapper.Map(r, e);
-                    return e;
-                });
+
+            _character.AbilityScores = _mapper.Map<List<CharacterAbilityScore>>(requests);
         }
 
         public void WithAbilityScoreProficiencies(IEnumerable<CharacterAbilityScoreProficiencyRequest> abilityScoreProficiencyRequests)
@@ -131,13 +127,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
                 var relevantRequests = requests
                     .Where(r => r.AbilityScoreId == abilityScore.Id)
                     .ToList();
-                abilityScore.Proficiencies.UpdateWithRequests(relevantRequests,
-                    (e, r) =>
-                    {
-                        e ??= new CharacterAbilityScoreProficiency();
-                        _mapper.Map(r, e);
-                        return e;
-                    });
+                abilityScore.Proficiencies = _mapper.Map<List<CharacterAbilityScoreProficiency>>(relevantRequests);
             }
         }
 
@@ -165,13 +155,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
             WithAttribute("deathSaveFailures", 3, 0);
             WithAttribute("experience", 0, 0);
             
-            _character.Attributes.UpdateWithRequests(requests,
-                (e, r) =>
-                {
-                    e ??= new CharacterAttribute();
-                    _mapper.Map(r, e);
-                    return e;
-                });
+            _character.Attributes = _mapper.Map<List<CharacterAttribute>>(requests);
         }
         
         public void WithDescriptions(IEnumerable<CharacterDescriptionRequest> descriptionRequests)
@@ -197,27 +181,22 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
             WithDescription("flaws");
             WithDescription("alliesAndOrganisations");
             WithDescription("appearance");
-            
-            _character.Descriptions.UpdateWithRequests(requests,
-                (e, r) =>
-                {
-                    e ??= new CharacterDescription();
-                    _mapper.Map(r, e);
-                    return e;
-                });
+
+            _character.Descriptions = _mapper.Map<List<CharacterDescription>>(requests);
         }
 
         public void WithSpells(IEnumerable<CharacterSpellRequest> spellRequests)
         {
             var requests = new List<CharacterSpellRequest>(spellRequests ?? Array.Empty<CharacterSpellRequest>());
             // All custom attributes
-            _character.Spells.UpdateWithRequests(requests,
-                (e, r) =>
+            _character.Spells = requests.Select(request => {
+                var entity = _mapper.Map<CharacterSpell>(request);
+                if (request.ShouldCreateNewId)
                 {
-                    e ??= new CharacterSpell();
-                    _mapper.Map(r, e);
-                    return e;
-                });
+                    entity.Id = RandomIdGenerator.GetBase36(requests, req => req.Id);
+                }
+                return entity;
+            }).ToList();
         }
         
         public Character Build()

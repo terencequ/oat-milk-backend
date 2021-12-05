@@ -9,6 +9,12 @@ using OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction;
 
 namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
 {
+    /// <summary>
+    /// Base service class for entities that are owned by a user.
+    /// </summary>
+    /// <typeparam name="TRequest"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TResponse"></typeparam>
     public class UserEntityService<TRequest, TEntity, TResponse> : EntityService<TRequest, TEntity, TResponse>, IUserEntityService<TRequest, TResponse>
         where TRequest : INamedRequest
         where TEntity : IUserEntity

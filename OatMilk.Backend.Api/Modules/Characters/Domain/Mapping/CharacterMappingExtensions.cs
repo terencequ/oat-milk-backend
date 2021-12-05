@@ -2,7 +2,9 @@
 using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Helpers;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
+using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses.Spells;
 using OatMilk.Backend.Api.Modules.Shared.Domain.Helpers;
+using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
 {
@@ -66,8 +68,21 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                         Level = spell.Level,
                         CastingTime = spell.CastingTime,
                         RangeOrArea = spell.RangeOrArea,
-                        Components = spell.Components,
-                        Duration = spell.Duration,
+                        Components = new CharacterSpellComponentsResponse()
+                        {
+                            Verbal = spell.Components?.Verbal ?? false,
+                            VerbalDescription = spell.Components?.VerbalDescription,
+                            Somatic = spell.Components?.Somatic ?? false,
+                            SomaticDescription = spell.Components?.SomaticDescription,
+                            Material = spell.Components?.Material ?? false,
+                            MaterialDescription = spell.Components?.MaterialDescription,
+                        },
+                        Duration = new CharacterSpellDurationResponse()
+                        {
+                            Value = spell.Duration?.Value ?? 0,
+                            Type = spell.Duration?.Type ?? SpellDurationType.Unspecified,
+                            Description = spell.Duration?.Description,
+                        },
                         School = spell.School
                     }).ToList()
             };
