@@ -42,7 +42,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
             await _service.Update(ObjectId.Parse(id), spellId, spell);
         }
         
-        [HttpPut("{id}/spell/{spellId}")]
+        [HttpDelete("{id}/spell/{spellId}")]
         [ProducesResponseType(typeof(CharacterSpell), StatusCodes.Status200OK)]
         public async Task Delete(string id, string spellId)
         {
