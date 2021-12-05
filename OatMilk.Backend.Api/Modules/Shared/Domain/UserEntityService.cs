@@ -3,11 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
+using OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions;
 using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
 using OatMilk.Backend.Api.Modules.Shared.Pagination;
 using OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction;
 
-namespace OatMilk.Backend.Api.Modules.Shared.Domain.Abstractions
+namespace OatMilk.Backend.Api.Modules.Shared.Domain
 {
     /// <summary>
     /// Base service class for entities that are owned by a user.

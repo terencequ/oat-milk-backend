@@ -12,14 +12,6 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
     {
         public CharacterProfile()
         {
-            CreateMap<CharacterAbilityScoreRequest, CharacterAbilityScore>();
-            CreateMap<CharacterAbilityScoreProficiencyRequest, CharacterAbilityScoreProficiency>();
-            CreateMap<CharacterAttributeRequest, CharacterAttribute>();
-            CreateMap<CharacterDescriptionRequest, CharacterDescription>();
-            CreateMap<CharacterSpellRequest, CharacterSpell>();
-            CreateMap<SpellComponentsRequest, SpellComponents>();
-            CreateMap<SpellDurationRequest, SpellDuration>();
-            
             CreateMap<Character, CharacterSummaryResponse>()
                 .ConvertUsing(c => c.AsSummaryResponse());
             CreateMap<Character, CharacterResponse>()

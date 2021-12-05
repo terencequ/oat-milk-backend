@@ -17,9 +17,9 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses
         [Required] public DateTime UpdatedDateTimeUtc { get; set; }
         [Required] public string Name { get; set; }
         [Required] public CharacterLevelResponse Level { get; set; }
-        [Required] public List<CharacterAttributeResponse> Attributes { get; set; }
-        [Required] public List<CharacterAbilityScoreResponse> AbilityScores { get; set; }
-        [Required] public List<CharacterDescriptionResponse> Descriptions { get; set; }
-        [Required] public List<CharacterSpellResponse> Spells { get; set; }
+        [Required] public List<CharacterAttribute> Attributes { get; set; }
+        [Required] public List<CharacterAbilityScore> AbilityScores { get; set; }
+        [Required] public List<CharacterDescription> Descriptions { get; set; }
+        [Required] public List<CharacterSpell> Spells { get; set; }
     }
 }

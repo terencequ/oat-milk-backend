@@ -13,7 +13,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
 {
     [Authorize]
     [ApiController]
-    [Route("Character/full")]
+    [Route("character/full")]
     public class CharacterController : ControllerBase
     {
         private readonly ICharacterService _service;
@@ -43,7 +43,6 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
         /// <param name="identifier">Human readable unique identifier.</param>
         [HttpGet("{identifier}")]
         [ProducesResponseType(typeof(CharacterResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<CharacterResponse> GetByIdentifier(string identifier)
         {
             return await _service.GetByIdentifierAsync(identifier);

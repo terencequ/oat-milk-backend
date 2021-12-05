@@ -23,6 +23,10 @@ namespace OatMilk.Backend.Api.Modules.Characters
         {
             RegisterAutoMapperProfiles(typeof(CharacterProfile));
             RegisterService<ICharacterService, CharacterService>();
+            RegisterService<ICharacterAbilityScoreService, CharacterAbilityScoreService>();
+            RegisterService<ICharacterAttributeService, CharacterAttributeService>();
+            RegisterService<ICharacterDescriptionService, CharacterDescriptionService>();
+            RegisterService<ICharacterSpellService, CharacterSpellService>();
             CreateIndex<Character>(def => def.Descending(u => u.Name));
             CreateIndex<Character>(def => def.Descending(u => u.CreatedDateTimeUtc));
             CreateIndex<Character>(def => def.Descending(u => u.UpdatedDateTimeUtc));
