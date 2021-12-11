@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,14 @@ namespace OatMilk.Backend.Api.Modules.Characters.Api
         public CharacterSpellController(ICharacterSpellService service)
         {
             _service = service;
+        }
+
+        [HttpGet("{id}/spell")]
+        [ProducesResponseType(typeof(CharacterSpell), StatusCodes.Status200OK)]
+        public async Task<ICollection<CharacterSpell>> GetAll(string id)
+        {
+            var result = await _service.GetAll(ObjectId.Parse(id));
+            return result;
         }
         
         [HttpGet("{id}/spell/{spellId}")]
