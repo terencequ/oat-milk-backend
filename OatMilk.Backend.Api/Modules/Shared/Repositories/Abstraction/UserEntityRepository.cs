@@ -54,7 +54,7 @@ namespace OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction
             entity.CreatedDateTimeUtc = DateTime.UtcNow;
             entity.UpdatedDateTimeUtc = DateTime.UtcNow;
             entity.Id = entity.Id == ObjectId.Empty ? ObjectId.GenerateNewId() : entity.Id;
-            entity.Identifier = RandomIdGenerator.GetBase36(EntityCollection.AsQueryable(), e => e.Identifier);
+            entity.Identifier = RandomIdGenerator.GetBase36(EntityCollection);
 
             return base.AddAsync(entity);
         }

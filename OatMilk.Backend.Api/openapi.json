@@ -1092,99 +1092,6 @@
         },
         "additionalProperties": false
       },
-      "CharacterSpellComponentsRequest": {
-        "type": "object",
-        "properties": {
-          "verbal": {
-            "type": "boolean"
-          },
-          "verbalDescription": {
-            "type": "string",
-            "nullable": true
-          },
-          "somatic": {
-            "type": "boolean"
-          },
-          "somaticDescription": {
-            "type": "string",
-            "nullable": true
-          },
-          "material": {
-            "type": "boolean"
-          },
-          "materialDescription": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CharacterSpellComponentsResponse": {
-        "required": [
-          "material",
-          "materialDescription",
-          "somatic",
-          "somaticDescription",
-          "verbal",
-          "verbalDescription"
-        ],
-        "type": "object",
-        "properties": {
-          "verbal": {
-            "type": "boolean"
-          },
-          "verbalDescription": {
-            "type": "string"
-          },
-          "somatic": {
-            "type": "boolean"
-          },
-          "somaticDescription": {
-            "type": "string"
-          },
-          "material": {
-            "type": "boolean"
-          },
-          "materialDescription": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CharacterSpellDurationRequest": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "type": {
-            "$ref": "#/components/schemas/SpellDurationType"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CharacterSpellDurationResponse": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "type": {
-            "$ref": "#/components/schemas/SpellDurationType"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "CharacterSpellRequest": {
         "required": [
           "id"
@@ -1215,18 +1122,17 @@
             "format": "int32"
           },
           "castingTime": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/SpellCastingTimeRequest"
           },
-          "rangeOrArea": {
+          "range": {
             "type": "string",
             "nullable": true
           },
           "components": {
-            "$ref": "#/components/schemas/CharacterSpellComponentsRequest"
+            "$ref": "#/components/schemas/SpellComponentsRequest"
           },
           "duration": {
-            "$ref": "#/components/schemas/CharacterSpellDurationRequest"
+            "$ref": "#/components/schemas/SpellDurationRequest"
           },
           "school": {
             "$ref": "#/components/schemas/SpellSchool"
@@ -1244,7 +1150,7 @@
           "id",
           "level",
           "name",
-          "rangeOrArea",
+          "range",
           "school"
         ],
         "type": "object",
@@ -1263,16 +1169,16 @@
             "format": "int32"
           },
           "castingTime": {
-            "type": "string"
+            "$ref": "#/components/schemas/SpellCastingTimeResponse"
           },
-          "rangeOrArea": {
-            "type": "string"
+          "range": {
+            "$ref": "#/components/schemas/SpellRangeResponse"
           },
           "components": {
-            "$ref": "#/components/schemas/CharacterSpellComponentsResponse"
+            "$ref": "#/components/schemas/SpellComponentsResponse"
           },
           "duration": {
-            "$ref": "#/components/schemas/CharacterSpellDurationResponse"
+            "$ref": "#/components/schemas/SpellDurationResponse"
           },
           "school": {
             "$ref": "#/components/schemas/SpellSchool"
@@ -1427,6 +1333,166 @@
         },
         "additionalProperties": false
       },
+      "SpellCastingTimeRequest": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SpellCastingTimeType"
+          },
+          "isRitual": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SpellCastingTimeResponse": {
+        "required": [
+          "description",
+          "isRitual",
+          "type",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SpellCastingTimeType"
+          },
+          "isRitual": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SpellCastingTimeType": {
+        "enum": [
+          "Unspecified",
+          "Seconds",
+          "Minutes",
+          "Hours",
+          "Days",
+          "Weeks",
+          "Months",
+          "Years",
+          "Actions",
+          "BonusAction",
+          "Reaction",
+          "Rounds",
+          "Special"
+        ],
+        "type": "string"
+      },
+      "SpellComponentsRequest": {
+        "type": "object",
+        "properties": {
+          "verbal": {
+            "type": "boolean"
+          },
+          "verbalDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "somatic": {
+            "type": "boolean"
+          },
+          "somaticDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "material": {
+            "type": "boolean"
+          },
+          "materialDescription": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SpellComponentsResponse": {
+        "required": [
+          "material",
+          "materialDescription",
+          "somatic",
+          "somaticDescription",
+          "verbal",
+          "verbalDescription"
+        ],
+        "type": "object",
+        "properties": {
+          "verbal": {
+            "type": "boolean"
+          },
+          "verbalDescription": {
+            "type": "string"
+          },
+          "somatic": {
+            "type": "boolean"
+          },
+          "somaticDescription": {
+            "type": "string"
+          },
+          "material": {
+            "type": "boolean"
+          },
+          "materialDescription": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SpellDurationRequest": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SpellDurationType"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SpellDurationResponse": {
+        "required": [
+          "description",
+          "type",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SpellDurationType"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "SpellDurationType": {
         "enum": [
           "Unspecified",
@@ -1443,6 +1509,56 @@
           "UntilDispelled",
           "UntilDispelledOrTriggered",
           "Special"
+        ],
+        "type": "string"
+      },
+      "SpellRangeEffectType": {
+        "enum": [
+          "Target",
+          "Cone",
+          "Cube",
+          "Cylinder",
+          "Line",
+          "Sphere",
+          "Square"
+        ],
+        "type": "string"
+      },
+      "SpellRangeResponse": {
+        "required": [
+          "description",
+          "effectType",
+          "effectValue",
+          "targetType",
+          "targetValue"
+        ],
+        "type": "object",
+        "properties": {
+          "targetValue": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "targetType": {
+            "$ref": "#/components/schemas/SpellRangeTargetType"
+          },
+          "effectValue": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "effectType": {
+            "$ref": "#/components/schemas/SpellRangeEffectType"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SpellRangeTargetType": {
+        "enum": [
+          "Self",
+          "Touch",
+          "Ranged"
         ],
         "type": "string"
       },

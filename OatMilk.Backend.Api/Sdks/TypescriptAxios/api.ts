@@ -472,142 +472,6 @@ export interface CharacterResponsePageResponse {
     items?: Array<CharacterResponse> | null;
 }
 /**
- * 
- * @export
- * @interface CharacterSpellComponentsRequest
- */
-export interface CharacterSpellComponentsRequest {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof CharacterSpellComponentsRequest
-     */
-    verbal?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof CharacterSpellComponentsRequest
-     */
-    verbalDescription?: string | null;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof CharacterSpellComponentsRequest
-     */
-    somatic?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof CharacterSpellComponentsRequest
-     */
-    somaticDescription?: string | null;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof CharacterSpellComponentsRequest
-     */
-    material?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof CharacterSpellComponentsRequest
-     */
-    materialDescription?: string | null;
-}
-/**
- * 
- * @export
- * @interface CharacterSpellComponentsResponse
- */
-export interface CharacterSpellComponentsResponse {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof CharacterSpellComponentsResponse
-     */
-    verbal: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof CharacterSpellComponentsResponse
-     */
-    verbalDescription: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof CharacterSpellComponentsResponse
-     */
-    somatic: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof CharacterSpellComponentsResponse
-     */
-    somaticDescription: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof CharacterSpellComponentsResponse
-     */
-    material: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof CharacterSpellComponentsResponse
-     */
-    materialDescription: string;
-}
-/**
- * 
- * @export
- * @interface CharacterSpellDurationRequest
- */
-export interface CharacterSpellDurationRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof CharacterSpellDurationRequest
-     */
-    value?: number;
-    /**
-     * 
-     * @type {SpellDurationType}
-     * @memberof CharacterSpellDurationRequest
-     */
-    type?: SpellDurationType;
-    /**
-     * 
-     * @type {string}
-     * @memberof CharacterSpellDurationRequest
-     */
-    description?: string | null;
-}
-/**
- * 
- * @export
- * @interface CharacterSpellDurationResponse
- */
-export interface CharacterSpellDurationResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof CharacterSpellDurationResponse
-     */
-    value?: number;
-    /**
-     * 
-     * @type {SpellDurationType}
-     * @memberof CharacterSpellDurationResponse
-     */
-    type?: SpellDurationType;
-    /**
-     * 
-     * @type {string}
-     * @memberof CharacterSpellDurationResponse
-     */
-    description?: string | null;
-}
-/**
  * Request model for spell creation.
  * @export
  * @interface CharacterSpellRequest
@@ -645,28 +509,28 @@ export interface CharacterSpellRequest {
     level?: number;
     /**
      * 
-     * @type {string}
+     * @type {SpellCastingTimeRequest}
      * @memberof CharacterSpellRequest
      */
-    castingTime?: string | null;
+    castingTime?: SpellCastingTimeRequest;
     /**
      * 
      * @type {string}
      * @memberof CharacterSpellRequest
      */
-    rangeOrArea?: string | null;
+    range?: string | null;
     /**
      * 
-     * @type {CharacterSpellComponentsRequest}
+     * @type {SpellComponentsRequest}
      * @memberof CharacterSpellRequest
      */
-    components?: CharacterSpellComponentsRequest;
+    components?: SpellComponentsRequest;
     /**
      * 
-     * @type {CharacterSpellDurationRequest}
+     * @type {SpellDurationRequest}
      * @memberof CharacterSpellRequest
      */
-    duration?: CharacterSpellDurationRequest;
+    duration?: SpellDurationRequest;
     /**
      * 
      * @type {SpellSchool}
@@ -706,28 +570,28 @@ export interface CharacterSpellResponse {
     level: number;
     /**
      * 
-     * @type {string}
+     * @type {SpellCastingTimeResponse}
      * @memberof CharacterSpellResponse
      */
-    castingTime: string;
+    castingTime: SpellCastingTimeResponse;
     /**
      * 
-     * @type {string}
+     * @type {SpellRangeResponse}
      * @memberof CharacterSpellResponse
      */
-    rangeOrArea: string;
+    range: SpellRangeResponse;
     /**
      * 
-     * @type {CharacterSpellComponentsResponse}
+     * @type {SpellComponentsResponse}
      * @memberof CharacterSpellResponse
      */
-    components: CharacterSpellComponentsResponse;
+    components: SpellComponentsResponse;
     /**
      * 
-     * @type {CharacterSpellDurationResponse}
+     * @type {SpellDurationResponse}
      * @memberof CharacterSpellResponse
      */
-    duration: CharacterSpellDurationResponse;
+    duration: SpellDurationResponse;
     /**
      * 
      * @type {SpellSchool}
@@ -933,6 +797,225 @@ export interface ErrorResponse {
 /**
  * 
  * @export
+ * @interface SpellCastingTimeRequest
+ */
+export interface SpellCastingTimeRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof SpellCastingTimeRequest
+     */
+    value?: number;
+    /**
+     * 
+     * @type {SpellCastingTimeType}
+     * @memberof SpellCastingTimeRequest
+     */
+    type?: SpellCastingTimeType;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SpellCastingTimeRequest
+     */
+    isRitual?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellCastingTimeRequest
+     */
+    description?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface SpellCastingTimeResponse
+ */
+export interface SpellCastingTimeResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof SpellCastingTimeResponse
+     */
+    value: number;
+    /**
+     * 
+     * @type {SpellCastingTimeType}
+     * @memberof SpellCastingTimeResponse
+     */
+    type: SpellCastingTimeType;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SpellCastingTimeResponse
+     */
+    isRitual: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellCastingTimeResponse
+     */
+    description: string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+export enum SpellCastingTimeType {
+    Unspecified = 'Unspecified',
+    Seconds = 'Seconds',
+    Minutes = 'Minutes',
+    Hours = 'Hours',
+    Days = 'Days',
+    Weeks = 'Weeks',
+    Months = 'Months',
+    Years = 'Years',
+    Actions = 'Actions',
+    BonusAction = 'BonusAction',
+    Reaction = 'Reaction',
+    Rounds = 'Rounds',
+    Special = 'Special'
+}
+
+/**
+ * 
+ * @export
+ * @interface SpellComponentsRequest
+ */
+export interface SpellComponentsRequest {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SpellComponentsRequest
+     */
+    verbal?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellComponentsRequest
+     */
+    verbalDescription?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SpellComponentsRequest
+     */
+    somatic?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellComponentsRequest
+     */
+    somaticDescription?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SpellComponentsRequest
+     */
+    material?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellComponentsRequest
+     */
+    materialDescription?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface SpellComponentsResponse
+ */
+export interface SpellComponentsResponse {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SpellComponentsResponse
+     */
+    verbal: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellComponentsResponse
+     */
+    verbalDescription: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SpellComponentsResponse
+     */
+    somatic: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellComponentsResponse
+     */
+    somaticDescription: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SpellComponentsResponse
+     */
+    material: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellComponentsResponse
+     */
+    materialDescription: string;
+}
+/**
+ * 
+ * @export
+ * @interface SpellDurationRequest
+ */
+export interface SpellDurationRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof SpellDurationRequest
+     */
+    value?: number;
+    /**
+     * 
+     * @type {SpellDurationType}
+     * @memberof SpellDurationRequest
+     */
+    type?: SpellDurationType;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellDurationRequest
+     */
+    description?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface SpellDurationResponse
+ */
+export interface SpellDurationResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof SpellDurationResponse
+     */
+    value: number;
+    /**
+     * 
+     * @type {SpellDurationType}
+     * @memberof SpellDurationResponse
+     */
+    type: SpellDurationType;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellDurationResponse
+     */
+    description: string;
+}
+/**
+ * 
+ * @export
  * @enum {string}
  */
 export enum SpellDurationType {
@@ -950,6 +1033,69 @@ export enum SpellDurationType {
     UntilDispelled = 'UntilDispelled',
     UntilDispelledOrTriggered = 'UntilDispelledOrTriggered',
     Special = 'Special'
+}
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+export enum SpellRangeEffectType {
+    Target = 'Target',
+    Cone = 'Cone',
+    Cube = 'Cube',
+    Cylinder = 'Cylinder',
+    Line = 'Line',
+    Sphere = 'Sphere',
+    Square = 'Square'
+}
+
+/**
+ * 
+ * @export
+ * @interface SpellRangeResponse
+ */
+export interface SpellRangeResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof SpellRangeResponse
+     */
+    targetValue: number;
+    /**
+     * 
+     * @type {SpellRangeTargetType}
+     * @memberof SpellRangeResponse
+     */
+    targetType: SpellRangeTargetType;
+    /**
+     * 
+     * @type {number}
+     * @memberof SpellRangeResponse
+     */
+    effectValue: number;
+    /**
+     * 
+     * @type {SpellRangeEffectType}
+     * @memberof SpellRangeResponse
+     */
+    effectType: SpellRangeEffectType;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellRangeResponse
+     */
+    description: string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+export enum SpellRangeTargetType {
+    Self = 'Self',
+    Touch = 'Touch',
+    Ranged = 'Ranged'
 }
 
 /**

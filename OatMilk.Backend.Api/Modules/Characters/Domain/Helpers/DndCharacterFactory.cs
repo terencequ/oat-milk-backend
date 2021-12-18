@@ -15,9 +15,11 @@ using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Requests;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
 {
+    /// <summary>
+    /// Factory class which allows the construction of a full Dungeons and Dragons style Character object.
+    /// </summary>
     public class DndCharacterFactory
     {
-
         private const string Strength = "strength";
         private const string Dexterity = "dexterity";
         private const string Constitution = "constitution";
