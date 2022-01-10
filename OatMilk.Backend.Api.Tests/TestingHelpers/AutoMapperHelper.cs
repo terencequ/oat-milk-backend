@@ -2,6 +2,7 @@
 using AutoMapper;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Mapping;
 using OatMilk.Backend.Api.Modules.Shared.Domain.Automapper;
+using OatMilk.Backend.Api.Modules.Spells.Domain.Mapping;
 using OatMilk.Backend.Api.Modules.Users.Domain.Automapper;
 
 namespace OatMilk.Backend.Api.Tests.TestingHelpers
@@ -19,6 +20,7 @@ namespace OatMilk.Backend.Api.Tests.TestingHelpers
                 typeof(PaginationProfile),
                 typeof(UserProfile),
                 typeof(CharacterProfile),
+                typeof(SpellProfile)
             };
         }
 

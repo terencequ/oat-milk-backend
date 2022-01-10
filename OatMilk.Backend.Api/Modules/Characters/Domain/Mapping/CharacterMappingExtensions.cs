@@ -3,9 +3,7 @@ using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Helpers;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
 using OatMilk.Backend.Api.Modules.Shared.Domain.Helpers;
-using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
 using OatMilk.Backend.Api.Modules.Spells.Domain.Mapping;
-using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Responses;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
 {

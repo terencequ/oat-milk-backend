@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
-using MongoDB.Driver;
 using OatMilk.Backend.Api.Configuration;
 using OatMilk.Backend.Api.Modules.Core.Security;
 using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;

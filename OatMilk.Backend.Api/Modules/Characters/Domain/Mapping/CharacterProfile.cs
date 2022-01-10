@@ -2,8 +2,6 @@
 using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
-using OatMilk.Backend.Api.Modules.Spells.Data;
-using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Requests;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
 {

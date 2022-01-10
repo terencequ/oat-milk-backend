@@ -1,5 +1,4 @@
 ﻿using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
-using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Data
 {

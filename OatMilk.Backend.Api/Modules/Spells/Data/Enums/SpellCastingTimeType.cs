@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OatMilk.Backend.Api.Modules.Spells.Data.Enums
+﻿namespace OatMilk.Backend.Api.Modules.Spells.Data.Enums
 {
     public enum SpellCastingTimeType
     {

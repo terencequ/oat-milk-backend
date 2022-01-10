@@ -1,5 +1,4 @@
-﻿using System;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
 
 namespace OatMilk.Backend.Api.Tests.TestingHelpers.Implementations.Services.Models

@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,8 +10,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OatMilk.Backend.Api.AspNet;
 using OatMilk.Backend.Api.Configuration;
-using OatMilk.Backend.Api.Modules;
-using OatMilk.Backend.Api.Modules.Shared.Repositories.Abstraction;
 
 namespace OatMilk.Backend.Api
 {

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Humanizer;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
 using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
-using OatMilk.Backend.Api.Modules.Shared.Domain.Helpers;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Data
 {

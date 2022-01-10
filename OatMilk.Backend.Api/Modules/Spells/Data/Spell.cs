@@ -1,5 +1,4 @@
-﻿using OatMilk.Backend.Api.Modules.Shared.Data.Abstraction;
-using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
+﻿using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
 
 namespace OatMilk.Backend.Api.Modules.Spells.Data
 {

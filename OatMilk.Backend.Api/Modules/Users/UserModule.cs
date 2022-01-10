@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using OatMilk.Backend.Api.AspNet;
 using OatMilk.Backend.Api.Modules.Users.Data;

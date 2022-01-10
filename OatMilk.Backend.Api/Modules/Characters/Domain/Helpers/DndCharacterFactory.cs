@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.Xml;
 using System.Text.Json;
 using AutoMapper;
 using Humanizer;
 using MongoDB.Bson;
 using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
-using OatMilk.Backend.Api.Modules.Shared.Domain.Helpers;
-using OatMilk.Backend.Api.Modules.Shared.Domain.Models.Abstraction;
 using OatMilk.Backend.Api.Modules.Shared.Identifier;
-using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Requests;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Helpers
 {
