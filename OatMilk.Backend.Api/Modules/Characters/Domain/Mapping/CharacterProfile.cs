@@ -2,7 +2,6 @@
 using OatMilk.Backend.Api.Modules.Characters.Data;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
-using OatMilk.Backend.Api.Modules.Shared.Pagination;
 using OatMilk.Backend.Api.Modules.Spells.Data;
 using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Requests;
 
@@ -17,9 +16,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
             CreateMap<CharacterAttributeRequest, CharacterAttribute>();
             CreateMap<CharacterDescriptionRequest, CharacterDescription>();
             CreateMap<CharacterSpellRequest, CharacterSpell>();
-            CreateMap<SpellComponentsRequest, SpellComponents>();
-            CreateMap<SpellDurationRequest, SpellDuration>();
-            
+
             CreateMap<Character, CharacterSummaryResponse>()
                 .ConvertUsing(c => c.AsSummaryResponse());
             CreateMap<Character, CharacterResponse>()

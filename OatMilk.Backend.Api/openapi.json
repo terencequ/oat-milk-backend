@@ -1125,8 +1125,7 @@
             "$ref": "#/components/schemas/SpellCastingTimeRequest"
           },
           "range": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/SpellRangeRequest"
           },
           "components": {
             "$ref": "#/components/schemas/SpellComponentsRequest"
@@ -1523,6 +1522,30 @@
           "Square"
         ],
         "type": "string"
+      },
+      "SpellRangeRequest": {
+        "type": "object",
+        "properties": {
+          "targetValue": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "targetType": {
+            "$ref": "#/components/schemas/SpellRangeTargetType"
+          },
+          "effectValue": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "effectType": {
+            "$ref": "#/components/schemas/SpellRangeEffectType"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "SpellRangeResponse": {
         "required": [

@@ -4,6 +4,7 @@ using OatMilk.Backend.Api.Modules.Characters.Domain.Helpers;
 using OatMilk.Backend.Api.Modules.Characters.Domain.Models.Responses;
 using OatMilk.Backend.Api.Modules.Shared.Domain.Helpers;
 using OatMilk.Backend.Api.Modules.Spells.Data.Enums;
+using OatMilk.Backend.Api.Modules.Spells.Domain.Mapping;
 using OatMilk.Backend.Api.Modules.Spells.Domain.Models.Responses;
 
 namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
@@ -66,35 +67,10 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Mapping
                         Name = spell.Name,
                         Description = spell.Description,
                         Level = spell.Level,
-                        CastingTime = new SpellCastingTimeResponse()
-                        {
-                            Value = spell.CastingTime?.Value ?? 0,
-                            Type = spell.CastingTime?.Type ?? SpellCastingTimeType.Unspecified,
-                            IsRitual = spell.CastingTime?.IsRitual ?? false,
-                            Description = spell.CastingTime?.Description
-                        },
-                        Range = new SpellRangeResponse()
-                        {
-                            TargetValue = spell.Range?.TargetValue ?? 0,
-                            TargetType = spell.Range?.TargetType ?? SpellRangeTargetType.Ranged,
-                            EffectValue = spell.Range?.EffectValue ?? 0,
-                            EffectType = spell.Range?.EffectType ?? SpellRangeEffectType.Target,
-                        },
-                        Components = new SpellComponentsResponse()
-                        {
-                            Verbal = spell.Components?.Verbal ?? false,
-                            VerbalDescription = spell.Components?.VerbalDescription,
-                            Somatic = spell.Components?.Somatic ?? false,
-                            SomaticDescription = spell.Components?.SomaticDescription,
-                            Material = spell.Components?.Material ?? false,
-                            MaterialDescription = spell.Components?.MaterialDescription,
-                        },
-                        Duration = new SpellDurationResponse()
-                        {
-                            Value = spell.Duration?.Value ?? 0,
-                            Type = spell.Duration?.Type ?? SpellDurationType.Unspecified,
-                            Description = spell.Duration?.Description,
-                        },
+                        CastingTime = spell.CastingTime.AsResponse(),
+                        Range = spell.Range.AsResponse(),
+                        Components = spell.Components.AsResponse(),
+                        Duration = spell.Duration.AsResponse(),
                         School = spell.School
                     }).ToList()
             };

@@ -29,7 +29,7 @@ namespace OatMilk.Backend.Api.Modules.Characters.Domain.Models.Requests
         public string Description { get; set; }
         public int Level { get; set; }
         public SpellCastingTimeRequest CastingTime { get; set; }
-        public string Range { get; set; }
+        public SpellRangeRequest Range { get; set; }
         public SpellComponentsRequest Components { get; set; }
         public SpellDurationRequest Duration { get; set; }
         public SpellSchool School { get; set; }

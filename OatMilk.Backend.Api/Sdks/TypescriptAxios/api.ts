@@ -515,10 +515,10 @@ export interface CharacterSpellRequest {
     castingTime?: SpellCastingTimeRequest;
     /**
      * 
-     * @type {string}
+     * @type {SpellRangeRequest}
      * @memberof CharacterSpellRequest
      */
-    range?: string | null;
+    range?: SpellRangeRequest;
     /**
      * 
      * @type {SpellComponentsRequest}
@@ -1050,6 +1050,43 @@ export enum SpellRangeEffectType {
     Square = 'Square'
 }
 
+/**
+ * 
+ * @export
+ * @interface SpellRangeRequest
+ */
+export interface SpellRangeRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof SpellRangeRequest
+     */
+    targetValue?: number;
+    /**
+     * 
+     * @type {SpellRangeTargetType}
+     * @memberof SpellRangeRequest
+     */
+    targetType?: SpellRangeTargetType;
+    /**
+     * 
+     * @type {number}
+     * @memberof SpellRangeRequest
+     */
+    effectValue?: number;
+    /**
+     * 
+     * @type {SpellRangeEffectType}
+     * @memberof SpellRangeRequest
+     */
+    effectType?: SpellRangeEffectType;
+    /**
+     * 
+     * @type {string}
+     * @memberof SpellRangeRequest
+     */
+    description?: string | null;
+}
 /**
  * 
  * @export
