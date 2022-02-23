@@ -14,7 +14,7 @@ namespace OatMilk.Backend.Api.Modules.Users.Domain.Models.Requests
         public string Email { get; set; }
 
         [Required]
-        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$", ErrorMessage = "Minimum eight characters, at least one letter and one number required.")]
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$", ErrorMessage = "Minimum eight characters, at least one letter and one number required. No special characters allowed.")]
         public string Password { get; set; }
     }
 }
